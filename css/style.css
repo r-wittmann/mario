@@ -10,7 +10,11 @@ html, body {
 
 .control-container {
 	height: 100%;
+	padding: 10px;
 	background-color: gray;
+}
+.btn {
+	width: 100%;
 }
 
 /***** map-container and everything inside *****/

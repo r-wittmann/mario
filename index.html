@@ -17,19 +17,20 @@
 	<script src="http://tombatossals.github.io/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css">
 	
-	<script src="angular/app.js"></script>
+	<script src="app.js"></script>
 	
 	<!-- style -->
     <link href="css/style.css" rel="stylesheet">
 
   </head>
-  <body>
+  <body ng-controller="Ctrl">
     <div class="container-fluid">
-    	<div class="control-container col-sm-3" ng-controller="ControlCtrl">
-    		
+    	<div 
+    		class="control-container col-xs-4 col-sm-4 col-md-3 col-lg-2" 
+    		ng-include="'components/controls.html'">
     	</div>
-    	<div class="map-container col-sm-9" ng-controller="MapCtrl">
-  			<leaflet lf-center="center" height="100%"></leaflet>
+    	<div class="map-container col-xs-8 col-sm-8 col-md-9 col-lg-10">
+  			<leaflet lf-center="center" defaults="defaults" height="100%"></leaflet>
     	</div>
     </div>
     
