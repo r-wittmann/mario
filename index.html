@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,29 +11,27 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- leaflet -->
-    <link href="leaflet/leaflet.css" rel="stylesheet">
-	<script src="leaflet/leaflet.js"></script>
-	<script src="leaflet/leafletembed.js"></script>
-
+    <!-- angular/leaflet -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
+	<script src="http://tombatossals.github.io/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css">
+	
+	<script src="angular/app.js"></script>
+	
 	<!-- style -->
     <link href="css/style.css" rel="stylesheet">
 
   </head>
   <body>
     <div class="container-fluid">
-    	<div class="control-container col-sm-3">
+    	<div class="control-container col-sm-3" ng-controller="ControlCtrl">
     		
     	</div>
-    	<div class="map-container col-sm-9">
-    		<div id="map"></div>
+    	<div class="map-container col-sm-9" ng-controller="MapCtrl">
+  			<leaflet lf-center="center" height="100%"></leaflet>
     	</div>
     </div>
-
-    <script src="index.js"></script>
-    <script>
-		initmap()
-	</script>
     
   </body>
 </html>
