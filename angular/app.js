@@ -1,10 +1,10 @@
 var app = angular.module('app', ['leaflet-directive'])
 app.controller('MapCtrl', [ '$scope', function ($scope) {
   angular.extend($scope, {
-    london: {
-      lat: 51.505,
-      lng: -0.09,
-      zoom: 4
+    center: {
+      lat: 48.137,
+      lng: 11.575,
+      zoom: 12
     }
   })
 }])
