@@ -13,6 +13,7 @@ app.controller('Ctrl', [ '$scope', function ($scope) {
       minZoom: 6
     }
   })
+
   $scope.btnClick = function () {
     angular.extend($scope, {
       center: {
