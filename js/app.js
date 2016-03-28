@@ -1,7 +1,10 @@
-/* global angular L */
+/* global
+    angular
+    L
+*/
 let app = angular.module('app', ['leaflet-directive'])
 
-app.controller('Ctrl', [ '$scope', '$http', 'leafletData', function ($scope, $http, leafletData) {
+app.controller('Ctrl', [ '$scope', '$http', 'leafletData', 'leafletMapEvents', function ($scope, $http, leafletData, leafletMapEvents) {
   angular.extend($scope, {
     center: {
       lat: 48.137,
@@ -12,6 +15,10 @@ app.controller('Ctrl', [ '$scope', '$http', 'leafletData', function ($scope, $ht
       maxZoom: 20,
       minZoom: 6
     }
+  })
+
+  $scope.$on('leafletDirectiveMap.click', function (event) {
+    console.log('click')
   })
 
   $scope.getTestData = function () {
