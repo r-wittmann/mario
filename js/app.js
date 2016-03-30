@@ -78,7 +78,7 @@ app.controller('Ctrl', [ '$scope', '$http', 'leafletData', 'leafletMapEvents', f
   }
 
   function getTestData () {
-    $http.get('/mocks/geoJsonMock.geo.json').then(function (response) {
+    $http.get('mocks/geoJsonMock.geo.json').then(function (response) {
       angular.extend($scope, {
         geojson: {
           data: response.data
