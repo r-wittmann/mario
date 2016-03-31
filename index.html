@@ -25,12 +25,15 @@
   </head>
   <body ng-controller="Ctrl">
     <div class="container-fluid">
-    	<div 
-    		class="control-container col-xs-4 col-sm-4 col-md-3 col-lg-2" 
-    		ng-include="'components/controls.html'">
+    	<div
+    		class="control-container col-xs-4 col-sm-4 col-md-3 col-lg-2"
+    		ng-include="'components/controls.html'"
+        >
     	</div>
-    	<div class="map-container col-xs-8 col-sm-8 col-md-9 col-lg-10">
-  			<leaflet lf-center="center" defaults="defaults" markers='markers' geojson='geojson' height="100%"></leaflet>
+    	<div
+        class="map-container col-xs-8 col-sm-8 col-md-9 col-lg-10"
+        ng-include="'components/map.html'"
+        >
     	</div>
     </div>
     
