@@ -4,21 +4,22 @@ html, body {
 .container-fluid {
 	height: 100%;
 	padding: 0;
+	color: #555;
 }
 
-/***** control-container and everything inside *****/
+/***** control-container and everything inside 		*****/
 
 .control-container {
 	height: 100%;
 	padding: 10px;
-	background-color: gray;
+	background-color: #fafafa;
 }
 .btn {
 	width: 100%;
 	margin-bottom: 5px;
 }
 
-/***** map-container and everything inside *****/
+/***** map-container and everything inside 			*****/
 
 .map-container {
 	height: 100%;
@@ -26,6 +27,7 @@ html, body {
 }
 #map {
 }
+
 /***** information-container and everything inside 	*****/
 
 .information-container {
