@@ -33,6 +33,11 @@
         ng-include="'components/map.html'"
         >
     	</div>
+      <div
+        class="information-container"
+        ng-if="geojson.data"
+        ng-include="'components/route_information.html'">
+      </div>
     </div>
 
     <script src="js/app.js"></script>
