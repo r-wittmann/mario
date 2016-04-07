@@ -10,6 +10,25 @@ mario.service('handleServerRequest', ['$http', 'handleServerResponse', function 
       handleServerResponse.mockResponse($scope, response)
     })
   }
+
+  this.calculateMockRoute = function ($scope) {
+    let geojson = {
+      data: {
+        'type': 'FeatureCollection',
+        'features': [{
+          'type': 'Feature',
+          'geometry': {
+            'type': 'LineString',
+            'coordinates': [
+              [$scope.markers[0].lng, $scope.markers[0].lat],
+              [$scope.markers[0].lng, $scope.markers[1].lat],
+              [$scope.markers[1].lng, $scope.markers[1].lat]]
+          }
+        }]
+      }
+    }
+    handleServerResponse.mockRoute($scope, geojson)
+  }
 }])
 
 /**
@@ -19,5 +38,8 @@ mario.service('handleServerRequest', ['$http', 'handleServerResponse', function 
 mario.service('handleServerResponse', [ 'modifyMap', function (modifyMap) {
   this.mockResponse = function ($scope, response) {
     modifyMap.addRoute($scope, response)
+  }
+  this.mockRoute = function ($scope, geojson) {
+    modifyMap.addRoute($scope, geojson)
   }
 }])

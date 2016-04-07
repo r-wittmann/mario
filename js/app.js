@@ -15,6 +15,10 @@ mario.controller('Ctrl',
       handleServerRequest.getMock($scope)
     }
 
+    $scope.calculateRoute = function () {
+      handleServerRequest.calculateMockRoute($scope)
+    }
+
     $scope.centerOnRoute = function () {
       modifyMap.centerOnRoute($scope)
     }
