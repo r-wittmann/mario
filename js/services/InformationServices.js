@@ -2,6 +2,11 @@
 
 mario.service('addToScope', function () {
   this.addAddress = function ($scope, index, data) {
-    console.log(index, data)
+    $scope.route.startEndPoint[index] = {
+      street: data.road,
+      streetNumber: data.house_number,
+      postalCode: data.postcode,
+      city: data.city
+    }
   }
 })
