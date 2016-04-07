@@ -10,7 +10,7 @@ mario.service('modifyMap', ['leafletData', function (leafletData) {
       $scope.markers.push({
         lat: args.leafletEvent.latlng.lat,
         lng: args.leafletEvent.latlng.lng,
-        draggable: true,
+        draggable: false,
         message: $scope.markers.length === 0 ? 'Start' : 'Ziel',
         focus: true
       })
