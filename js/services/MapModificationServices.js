@@ -19,6 +19,7 @@ mario.service('modifyMap', ['leafletData', function (leafletData) {
 
   this.removeMarker = function ($scope) {
     $scope.markers = []
+    $scope.route.startEndPoint = []
   }
 
   this.addRoute = function ($scope, data) {
