@@ -6,7 +6,7 @@ mario.service('addToScope', function () {
       street: data.road,
       streetNumber: data.house_number,
       postalCode: data.postcode,
-      city: data.city
+      city: `${data.city ? data.city : data.town ? data.town : data.state}`
     }
   }
 })
