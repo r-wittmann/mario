@@ -1,10 +1,12 @@
 <div class="information-background">
 	<ul class="information-content">
 		<li class="information-element">
-			Route from <br>
-			[Lat: , Long: ]<br>
-			to <br>
-			[Lat: Long: ]<br>
+			<p>Route from <br>
+			{{ route.startEndPoint[0].street }} {{ route.startEndPoint[0].streetNumber }}<br>
+			{{ route.startEndPoint[0].postalCode }} {{ route.startEndPoint[0].city }}</p>
+			<p>to <br>
+			{{ route.startEndPoint[1].street }} {{ route.startEndPoint[1].streetNumber }}<br>
+			{{ route.startEndPoint[1].postalCode }} {{ route.startEndPoint[1].city }}</p>
 		</li>
 		<li class="information-element">
 			Distance: <br>
