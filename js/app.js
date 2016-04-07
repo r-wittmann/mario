@@ -19,10 +19,6 @@ mario.controller('Ctrl',
       handleServerRequest.calculateMockRoute($scope)
     }
 
-    $scope.centerOnRoute = function () {
-      modifyMap.centerOnRoute($scope)
-    }
-
     $scope.removeElements = function () {
       modifyMap.removeMarker($scope)
       modifyMap.removeRoute($scope)

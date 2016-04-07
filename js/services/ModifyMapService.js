@@ -24,6 +24,7 @@ mario.service('modifyMap', ['leafletData', function (leafletData) {
 
   this.addRoute = function ($scope, geojson) {
     $scope.geojson = geojson
+    this.centerOnRoute($scope)
   }
 
   this.removeRoute = function ($scope) {
