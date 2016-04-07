@@ -1,4 +1,4 @@
-/* global angular mario*/
+/* global mario*/
 
 /**
  * all requests to the server will be handled here
@@ -16,12 +16,8 @@ mario.service('handleServerRequest', ['$http', 'handleServerResponse', function 
  * all responses from the server will be handled here
  **/
 
-mario.service('handleServerResponse', function () {
+mario.service('handleServerResponse', [ 'modifyMap', function (modifyMap) {
   this.mockResponse = function ($scope, response) {
-    angular.extend($scope, {
-      geojson: {
-        data: response.data
-      }
-    })
+    modifyMap.addRoute($scope, response)
   }
-})
+}])

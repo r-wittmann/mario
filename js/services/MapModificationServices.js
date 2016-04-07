@@ -1,4 +1,4 @@
-/* global angular mario L */
+/* global mario L */
 
 /**
  * all map modification will be in this service
@@ -22,12 +22,10 @@ mario.service('modifyMap', ['leafletData', function (leafletData) {
     $scope.route.startEndPoint = []
   }
 
-  this.addRoute = function ($scope, data) {
-    angular.extend($scope, {
-      geojson: {
-        data: data
-      }
-    })
+  this.addRoute = function ($scope, response) {
+    $scope.geojson = {
+      data: response.data
+    }
   }
 
   this.removeRoute = function ($scope) {
