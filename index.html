@@ -35,7 +35,7 @@
     	</div>
       <div
         class="information-container"
-        ng-if="geojson.data"
+        ng-show="geojson.data || markers[0]"
         ng-include="'components/route_information.html'">
       </div>
     </div>
