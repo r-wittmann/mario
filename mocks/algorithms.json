@@ -1,0 +1,13 @@
+{
+	"algorithms": [
+		"dijkstra",
+		"a*",
+		"skyline",
+		"linearSkyline"
+	],
+	"algorithmCosts": [
+		"time",
+		"distance",
+		"energy"
+	]
+}
