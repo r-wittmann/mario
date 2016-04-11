@@ -9,7 +9,12 @@ let mario = angular.module('app', ['leaflet-directive'])
 mario.controller('Ctrl',
   ['$scope', 'leafletMapEvents', 'modifyMap', 'handleServerRequest', 'reverseGeocode', 'config',
   function ($scope, leafletMapEvents, modifyMap, handleServerRequest, reverseGeocode, config) {
-    angular.extend($scope, config.map)
+    let initialize = function () {
+      angular.extend($scope, config.map)
+      handleServerRequest.getInitialInformation($scope)
+    }
+
+    initialize()
 
     $scope.getTestData = function () {
       handleServerRequest.getMock($scope)

@@ -1,4 +1,4 @@
-/* global mario*/
+/* global angular mario*/
 
 /**
  * all requests to the server will be handled here
@@ -29,6 +29,12 @@ mario.service('handleServerRequest', ['$http', 'handleServerResponse', function 
     }
     handleServerResponse.mockRoute($scope, geojson)
   }
+
+  this.getInitialInformation = function ($scope) {
+    $http.get('mocks/algorithms.json').then(function (response) {
+      handleServerResponse.mockAlgorithms($scope, response)
+    })
+  }
 }])
 
 /**
@@ -41,5 +47,8 @@ mario.service('handleServerResponse', [ 'modifyMap', function (modifyMap) {
   }
   this.mockRoute = function ($scope, geojson) {
     modifyMap.addRoute($scope, geojson)
+  }
+  this.mockAlgorithms = function ($scope, response) {
+    angular.extend($scope, response.data)
   }
 }])
