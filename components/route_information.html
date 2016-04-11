@@ -9,8 +9,7 @@
 			{{ route.startEndPoint[1].postalCode }} {{ route.startEndPoint[1].city }}</p>
 		</li>
 		<li class="information-element">
-			Distance: <br>
-			Travel Time:
+			<span ng-repeat="(key, value) in algorithmCosts">{{ value }}: <br></span>
 		</li>
 		<!--
 		<ul class="information-element route-elements-container">
