@@ -50,5 +50,9 @@ mario.service('handleServerResponse', [ 'modifyMap', function (modifyMap) {
   }
   this.mockAlgorithms = function ($scope, response) {
     angular.extend($scope, response.data)
+    $scope.selected = {
+      'algorithm': response.data.algorithms[0],
+      'cost': response.data.algorithmCosts[0]
+    }
   }
 }])

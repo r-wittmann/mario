@@ -46,7 +46,10 @@ html, body {
 	overflow: hidden;
 }
 .button-expand:hover {
-	height: 200px;
+	height: auto;
+}
+.algorithm-form {
+	padding: 10px;
 }
 .button {
 	width: 100%;
