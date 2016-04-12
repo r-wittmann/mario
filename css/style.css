@@ -31,6 +31,12 @@ html, body {
 .button-primary:hover {
 	color: #FAFAFA;
 }
+.button-primary:active {
+	color: #FAFAFA;
+}
+.button-primary:focus {
+	color: #FAFAFA;
+}
 .button-expand {
 	height: 34px;
 	background-color: #e7e7e7;  
