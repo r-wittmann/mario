@@ -4,19 +4,49 @@ html, body {
 .container-fluid {
 	height: 100%;
 	padding: 0;
-	color: #fafafa;
 }
+.background {
+	background-color: #FAFAFA; 
+	border: solid 1px #c8c8c8; 
+	padding: 20px
+}
+.highlight-text {
+	color: #3E82F8;
+	font-size: 80%; 
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+.primary-text {
+	color: #262826;
+}
+.secondary-text {
+	color: #A3A3A3;
+}
+.button-primary {
+	width: 100%;
+	background-color: #3E82F8; 
+	color: #FAFAFA;
+	border-color: #3168c6;
+	margin-bottom: 10px
+}
+.button {
+	width: 100%;
+	background-color: #e7e7e7; 
+	color: #262826;
+	border-color: #c8c8c8;
+	margin-bottom: 10px
+}
+.seperator {
+	height: 1px;
+	background-color: #3E82F8;
+	margin: 10px 0;
+}
+
 
 /***** control-container and everything inside 		*****/
 
 .control-container {
 	height: 100%;
-	padding: 10px;
-	background-color: #262826;
-}
-.btn {
-	width: 100%;
-	margin-bottom: 5px;
 }
 
 /***** map-container and everything inside 			*****/
@@ -24,8 +54,6 @@ html, body {
 .map-container {
 	height: 100%;
 	padding: 0;
-}
-#map {
 }
 
 /***** information-container and everything inside 	*****/
@@ -39,10 +67,8 @@ html, body {
 }
 .information-background {
 	max-height: 100%;
-	padding: 10px;
 	border-top-left-radius: 10px;
 	border-bottom-left-radius: 10px;
-	background-color: #262826;
 	overflow-y: scroll;
 }
 .information-background::-webkit-scrollbar {
@@ -53,7 +79,7 @@ html, body {
 .information-background::-webkit-scrollbar-thumb {
     -webkit-border-radius: 2px;
     border-radius: 2px;
-    background: #ff961e; 
+    background: #3E82F8; 
 }
 .information-content {
 	max-height: 100%;
@@ -63,10 +89,6 @@ html, body {
 }
 .information-element {
 	padding: 10px;
-	border-bottom: solid 1px #ff961e;
-}
-.information-element:last-child {
-	border: none;
 }
 .route-elements-container {
 	list-style-type: none;

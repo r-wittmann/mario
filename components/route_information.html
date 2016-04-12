@@ -1,16 +1,18 @@
-<div class="information-background">
+<div class="background information-background">
 	<ul class="information-content">
 		<li class="information-element">
-			<p>Route from <br>
+			<p class="primary-text">Route from <br>
 			{{ route.startEndPoint[0].street }} {{ route.startEndPoint[0].streetNumber }}<br>
 			{{ route.startEndPoint[0].postalCode }} {{ route.startEndPoint[0].city }}</p>
-			<p>to <br>
+			<p class="primary-text">to <br>
 			{{ route.startEndPoint[1].street }} {{ route.startEndPoint[1].streetNumber }}<br>
 			{{ route.startEndPoint[1].postalCode }} {{ route.startEndPoint[1].city }}</p>
 		</li>
-		<li class="information-element">
+		<div class="seperator"></div>
+		<li class="information-element primary-text">
 			<span ng-repeat="(key, value) in algorithmCosts">{{ value }}: <br></span>
 		</li>
+		<div class="seperator"></div>
 		<!--
 		<ul class="information-element route-elements-container">
 			Route Segments:
@@ -18,8 +20,9 @@
 			<li class="route-element">second</li>
 			<li class="route-element">last</li>
 		</ul>
+		<div class="seperator"></div>
 		-->
-		<li class="information-element">
+		<li class="information-element secondary-text">
 			Algorithm used: <br>
 		</li>
 	</ul>
