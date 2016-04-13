@@ -11,7 +11,7 @@ html, body {
 	padding: 20px;
 }
 .highlight-text {
-	color: #3E82F8;
+	color: #68c631;
 	font-size: 80%; 
 	letter-spacing: 1px;
 	text-transform: uppercase;
@@ -24,18 +24,12 @@ html, body {
 }
 .button-primary {
 	width: 100%;
-	background-color: #3E82F8; 
-	color: #FAFAFA;
-	border-color: #3168c6;
-}
-.button-primary:hover {
-	color: #FAFAFA;
+	background: linear-gradient(#77cb45, #68c631, #5db22c); 
+	color: #262826;
+	border-color: #68c631;
 }
 .button-primary:active {
-	color: #FAFAFA;
-}
-.button-primary:focus {
-	color: #FAFAFA;
+	background: linear-gradient(#77cb45, #68c631, #5db22c);
 }
 .button-expand {
 	height: 34px;
@@ -53,14 +47,14 @@ html, body {
 }
 .button {
 	width: 100%;
-	background-color: #e7e7e7; 
+	background: linear-gradient(#eeeeee, #e7e7e7, #dadada); 
 	color: #262826;
-	border-color: #c8c8c8;
+	border-color: #e7e7e7;
 	margin-bottom: 10px
 }
 .seperator {
 	height: 1px;
-	background-color: #3E82F8;
+	background-color: #68c631;
 	margin: 10px 0;
 }
 
