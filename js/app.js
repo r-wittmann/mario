@@ -20,24 +20,25 @@ mario.controller('Ctrl',
       handleServerRequest.getMock($scope)
     }
 
-    $scope.calculateRoute = function () {
-      handleServerRequest.calculateMockRoute($scope)
-    }
-
     $scope.removeElements = function () {
       modifyMap.removeMarker($scope)
       modifyMap.removeRoute($scope)
     }
 
     $scope.$on('leafletDirectiveMap.click', function (event, args) {
-      modifyMap.addMarker($scope, event, args)
+      modifyMap.addMarker($scope, event, args, false)
     })
 
-    $scope.$watch('markers[0]', function (newValue, oldValue) {
-      if (oldValue !== newValue && $scope.markers[0]) reverseGeocode.reverseMarker($scope, 0)
+    $scope.$on('leafletDirectiveMarker.dragend', function (event, args) {
+      modifyMap.addMarker($scope, event, args, true)
     })
-    $scope.$watch('markers[1]', function (newValue, oldValue) {
-      if (oldValue !== newValue && $scope.markers[1]) reverseGeocode.reverseMarker($scope, 1)
+
+    $scope.$watch('markers[0].lat', function (newValue, oldValue) {
+      if (oldValue !== newValue && $scope.markers[1]) handleServerRequest.calculateMockRoute($scope)
+    })
+
+    $scope.$watch('markers[1].lat', function (newValue, oldValue) {
+      if (oldValue !== newValue && $scope.markers[1]) handleServerRequest.calculateMockRoute($scope)
     })
   }]
 )

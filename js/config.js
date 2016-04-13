@@ -16,9 +16,6 @@ mario.service('config', function () {
       minZoom: 5
     },
     geojson: [],
-    markers: [],
-    route: {
-      startEndPoint: []
-    }
+    markers: []
   }
 })
