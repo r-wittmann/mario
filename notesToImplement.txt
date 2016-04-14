@@ -7,16 +7,3 @@ intermodal route
 - date and time picker
 
 simulation of historic date and simulated data
-
-make marker dragable again
-
-bing maps geocoding or other alternative for faster reverse geocoding
-
-StyleGuide (not fully implemented yet):
-background color: 			#262826
-text on backgrond: 			#fafafa
-seperator on background: 	#ff961e
-primary button:				#ff961e
-primary button text: 		#262826
-secondary button: 			#fafafa
-secondary button text: 		#262826

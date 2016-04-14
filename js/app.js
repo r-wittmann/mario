@@ -7,8 +7,8 @@ let mario = angular.module('app', ['leaflet-directive'])
  **/
 
 mario.controller('Ctrl',
-  ['$scope', 'leafletMapEvents', 'modifyMap', 'handleServerRequest', 'reverseGeocode', 'config',
-  function ($scope, leafletMapEvents, modifyMap, handleServerRequest, reverseGeocode, config) {
+  ['$scope', 'modifyMap', 'handleServerRequest', 'config',
+  function ($scope, modifyMap, handleServerRequest, config) {
     let initialize = function () {
       angular.extend($scope, config.map)
       handleServerRequest.getInitialInformation($scope)
@@ -16,8 +16,8 @@ mario.controller('Ctrl',
 
     initialize()
 
-    $scope.getTestData = function () {
-      handleServerRequest.getMock($scope)
+    $scope.calculate = function () {
+      handleServerRequest.calculateRoute($scope)
     }
 
     $scope.removeElements = function () {
@@ -34,11 +34,11 @@ mario.controller('Ctrl',
     })
 
     $scope.$watch('markers[0].lat', function (newValue, oldValue) {
-      if (oldValue !== newValue && $scope.markers[1]) handleServerRequest.calculateMockRoute($scope)
+      if (oldValue !== newValue && $scope.markers[1]) handleServerRequest.calculateRoute($scope)
     })
 
     $scope.$watch('markers[1].lat', function (newValue, oldValue) {
-      if (oldValue !== newValue && $scope.markers[1]) handleServerRequest.calculateMockRoute($scope)
+      if (oldValue !== newValue && $scope.markers[1]) handleServerRequest.calculateRoute($scope)
     })
   }]
 )

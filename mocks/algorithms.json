@@ -1,7 +1,7 @@
 {
 	"algorithms": [
 		"dijkstra",
-		"a*",
+		"A_STAR",
 		"skyline",
 		"linearSkyline"
 	],

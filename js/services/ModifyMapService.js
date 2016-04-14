@@ -38,14 +38,6 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
   this.centerOnRoute = function ($scope) {
     leafletData.getMap().then(function (map) {
       let latlngs = []
-      if ($scope.geojson.data) {
-        for (let i in $scope.geojson.data.features) {
-          for (let j in $scope.geojson.data.features[i].geometry.coordinates) {
-            let coord = $scope.geojson.data.features[i].geometry.coordinates[j]
-            latlngs.push(L.GeoJSON.coordsToLatLng(coord))
-          }
-        }
-      }
       if ($scope.markers[0]) {
         for (let i in $scope.markers) {
           let coord = [$scope.markers[i].lng, $scope.markers[i].lat]
