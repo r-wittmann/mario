@@ -1,5 +1,5 @@
 <div class="button-expand">
-	<button class="btn button-primary" ng-click="calculate()">Recalculate</button>
+	<button class="btn button-primary" ng-click="calculate()" ng-disabled="markers.length <= 1">Recalculate</button>
 	<form class="algorithm-form">
 		<div ng-repeat="(key, algorithm) in algorithms">
 			<input type="radio" name="algorithms" ng-model="selected.algorithm" ng-value=algorithm> {{ algorithm }}
