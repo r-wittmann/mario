@@ -10,6 +10,28 @@ mario.service('handleServerRequest', ['$http', 'handleServerResponse', function 
       handleServerResponse.mockAlgorithms($scope, response)
     })
   }
+
+  this.calculateRoute = function ($scope) {
+    console.log('called calculateRoute($scope), not implemented yet')
+    console.log('start:', $scope.markers[0], '\ntarget:', $scope.markers[1])
+    console.log('selected algorithm:', $scope.selected.algorithm, '\nselected cost:', $scope.selected.cost)
+    /*
+    let startTarget = {
+      'start': {
+        'lat': $scope.markers[0].lat,
+        'lon': $scope.markers[0].lng
+      },
+      'target': {
+        'lat': $scope.markers[1].lat,
+        'lon': $scope.markers[1].lng
+      },
+      'algo': $scope.selected.algorithm
+      'cost': $scope.selected.cost
+    }
+    angular.toJson(startTarget)
+    $http.get('http://129.187.228.18:8080/restservices_path/webresources/easyev?', startTarget)
+    */
+  }
 }])
 
 /**
