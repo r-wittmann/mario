@@ -10,7 +10,7 @@
 		</li>
 		<div class="seperator"></div>
 		<li class="information-element primary-text">
-			<span ng-repeat="(key, value) in algorithmCosts">{{ value }}: <br></span>
+			<span ng-repeat="(key, value) in geojson.data.features[0].properties.costs">{{ key }}: {{ value }}<br></span>
 		</li>
 		<div class="seperator"></div>
 		<!--
