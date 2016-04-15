@@ -1,0 +1,27 @@
+{
+  "name": "mario",
+  "homepage": "http://r-wittmann.github.io/mario",
+  "authors": [
+    "Rainer Wittmann <r-wittmann@gmx.net"
+  ],
+  "description": "front end for the mario project of DBS",
+  "main": "index.html",
+  "keywords": [
+    "mario",
+    "frontend",
+    "DBS",
+    "angular",
+    "leaflet",
+    "bootstrap"
+  ],
+  "license": "N/A",
+  "ignore": [
+    "**/.*",
+    "bower_components"
+  ],
+  "dependencies": {
+    "angular": "1.5.2",
+    "angular-leaflet-directive": "^0.10.0",
+    "bootstrap": "3.3.6"
+  }
+}
