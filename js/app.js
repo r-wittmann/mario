@@ -1,6 +1,6 @@
 /* global angular */
 
-let mario = angular.module('app', ['leaflet-directive'])
+let mario = angular.module('app', ['leaflet-directive', 'ADM-dateTimePicker'])
 
 /**
  * main controller of mario app

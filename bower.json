@@ -20,8 +20,9 @@
     "bower_components"
   ],
   "dependencies": {
-    "angular": "1.5.2",
+    "angular": "^1.5.2",
     "angular-leaflet-directive": "^0.10.0",
-    "bootstrap": "3.3.6"
+    "bootstrap": "^3.3.6",
+    "adm-dtp": "*"
   }
 }
