@@ -23,6 +23,6 @@
     "angular": "^1.5.2",
     "angular-leaflet-directive": "^0.10.0",
     "bootstrap": "^3.3.6",
-    "adm-dtp": "*"
+    "font-awesome": "^4.6.1"
   }
 }
