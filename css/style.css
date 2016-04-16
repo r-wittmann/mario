@@ -1,3 +1,5 @@
+/****** standard styles                             *****/
+
 html, body {
 	height: 100%;
 }
@@ -31,20 +33,6 @@ html, body {
 .button-primary:active {
 	background: linear-gradient(#77cb45, #68c631, #5db22c);
 }
-.button-expand {
-	height: 34px;
-	background-color: #e7e7e7;  
-	padding: 0;
-	border-radius: 4px;
-	margin-bottom: 10px;
-	overflow: hidden;
-}
-.button-expand:hover {
-	height: auto;
-}
-.algorithm-form {
-	padding: 10px;
-}
 .button {
 	width: 100%;
 	background: linear-gradient(#eeeeee, #e7e7e7, #dadada); 
@@ -63,6 +51,40 @@ html, body {
 
 .control-container {
 	height: 100%;
+}
+.button-expand {
+	height: 34px;
+	background-color: #e7e7e7;  
+	padding: 0;
+	border-radius: 4px;
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+.button-expand:hover {
+	height: auto;
+}
+.algorithm-form {
+	padding: 10px;
+}
+
+/***** date-time-picker                             *****/
+
+.date-time-picker {
+	padding: 10px;
+}
+.time-picker {
+	width: 100%;
+}
+.date-picker {
+	width: 100%;
+}
+.date-time-input {
+	width: 45px;
+	padding: 5px;
+	text-align: center;
+}
+.year-input {
+	width: 60px;
 }
 
 /***** map-container and everything inside 			*****/

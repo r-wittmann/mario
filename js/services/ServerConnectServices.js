@@ -17,12 +17,12 @@ mario.service('handleServerRequest', ['$http', 'handleServerResponse', function 
   this.calculateRoute = function (scope) {
     let startTarget = {
       'start': {
-        'lat': scope.markers[0].lat,
-        'lon': scope.markers[0].lng
+        'lat': scope.map.markers[0].lat,
+        'lon': scope.map.markers[0].lng
       },
       'target': {
-        'lat': scope.markers[1].lat,
-        'lon': scope.markers[1].lng
+        'lat': scope.map.markers[1].lat,
+        'lon': scope.map.markers[1].lng
       },
       'algo': scope.selected.algorithm
       /* 'cost': scope.selected.cost */
@@ -35,7 +35,7 @@ mario.service('handleServerRequest', ['$http', 'handleServerResponse', function 
 
   this.calculateIntermodal = function (scope) {
     console.log('called calculateIntermodal(scope), not implemented yet')
-    console.log('start:', scope.markers[0], '\ntarget:', scope.markers[1])
+    console.log('start:', scope.map.markers[0], '\ntarget:', scope.map.markers[1])
   }
 }])
 

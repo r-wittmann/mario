@@ -1,5 +1,5 @@
 <div class="button-expand">
-	<button class="btn button-primary" ng-click="calculate()" ng-disabled="markers.length <= 1">Recalculate</button>
+	<button class="btn button-primary" ng-click="calculate()" ng-disabled="map.markers.length <= 1">Recalculate</button>
 	<form class="algorithm-form">
 		<div ng-repeat="(key, algorithm) in algorithms">
 			<input type="radio" name="algorithms" ng-model="selected.algorithm" ng-value=algorithm> {{ algorithm }}
@@ -9,5 +9,9 @@
 			<input type="radio" name="costs" ng-model="selected.cost" ng-value=cost> {{ cost }}
 		</div>
 	<form>
+</div>
+<div class="button-expand">
+	<button class="btn button-primary" ng-click="calculateIntermodal()" ng-disabled="map.markers.length <= 1">Calculate Intermodal</button>
+	<div class="date-time-picker" ng-include="'components/date_time_picker.html'"></div>
 </div>
 <button class="btn button" ng-click="removeElements()">Remove Route and Markers</button>

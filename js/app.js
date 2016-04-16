@@ -10,8 +10,9 @@ mario.controller('Ctrl',
   ['$scope', 'modifyMap', 'handleServerRequest', 'config',
   function ($scope, modifyMap, handleServerRequest, config) {
     let initialize = function () {
-      angular.extend($scope, config.map)
+      angular.extend($scope, config.config)
       handleServerRequest.getInitialInformation($scope)
+      console.log($scope)
     }
 
     initialize()
@@ -20,9 +21,14 @@ mario.controller('Ctrl',
       handleServerRequest.calculateRoute($scope)
     }
 
+    $scope.calculateIntermodal = function () {
+      handleServerRequest.calculateIntermodal($scope)
+    }
+
     $scope.removeElements = function () {
       modifyMap.removeMarker($scope)
       modifyMap.removeRoute($scope)
+      console.log($scope)
     }
 
     $scope.$on('leafletDirectiveMap.click', function (event, args) {
@@ -33,12 +39,12 @@ mario.controller('Ctrl',
       modifyMap.addMarker($scope, event, args, true)
     })
 
-    $scope.$watch('markers[0].lat', function (newValue, oldValue) {
-      if (oldValue !== newValue && $scope.markers[1]) handleServerRequest.calculateRoute($scope)
+    $scope.$watch('map.markers[0].lat', function (newValue, oldValue) {
+      if (oldValue !== newValue && $scope.map.markers[1]) handleServerRequest.calculateRoute($scope)
     })
 
-    $scope.$watch('markers[1].lat', function (newValue, oldValue) {
-      if (oldValue !== newValue && $scope.markers[1]) handleServerRequest.calculateRoute($scope)
+    $scope.$watch('map.markers[1].lat', function (newValue, oldValue) {
+      if (oldValue !== newValue && $scope.map.markers[1]) handleServerRequest.calculateRoute($scope)
     })
   }]
 )
