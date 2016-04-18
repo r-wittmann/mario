@@ -12,23 +12,23 @@ mario.controller('Ctrl',
     let initialize = function () {
       angular.extend($scope, config.config)
       handleServerRequest.getInitialInformation($scope)
-      console.log($scope)
     }
 
     initialize()
 
     $scope.calculate = function () {
-      handleServerRequest.calculateRoute($scope)
+      if ($scope.map.markers.length > 1) handleServerRequest.calculateRoute($scope)
+      else console.log('markers missing')
     }
 
     $scope.calculateIntermodal = function () {
-      handleServerRequest.calculateIntermodal($scope)
+      if ($scope.map.markers.length > 1) handleServerRequest.calculateIntermodal($scope)
+      else console.log('markers missing')
     }
 
     $scope.removeElements = function () {
       modifyMap.removeMarker($scope)
       modifyMap.removeRoute($scope)
-      console.log($scope)
     }
 
     $scope.$on('leafletDirectiveMap.click', function (event, args) {

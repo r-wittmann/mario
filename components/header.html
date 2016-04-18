@@ -1,0 +1,57 @@
+<div class="header-element header-label">
+	<div class="header-content highlight-text">Mario-Frontend</div>
+</div>
+<div 
+	class="header-element button"
+	ng-click="calculate()"
+	ng-mouseenter="algoDrop = true"
+	ng-mouseleave="algoDrop = false"
+	ng-init="algoDrop = false">
+	<div class="header-content">
+		Recalculate Route 
+		<i class="fa fa-chevron-circle-up highlight-text highlight-fa" ng-if="algoDrop"></i>
+		<i class="fa fa-chevron-circle-down highlight-text highlight-fa" ng-if="!algoDrop"></i>
+	</div>
+	<div class="dropdown background" ng-show="algoDrop">
+		Choose Algorithm:
+		<div ng-repeat="(key, algorithm) in algorithms" class="calc-drop-radio">
+			<input type="radio" name="algorithms" ng-model="selected.algorithm" ng-value=algorithm> {{ algorithm }}
+		</div>
+		<div class="seperator"></div>
+		Choose Cost:
+		<div ng-repeat="(key, cost) in algorithmCosts" class="calc-drop-radio">
+			<input type="radio" name="costs" ng-model="selected.cost" ng-value=cost> {{ cost }}
+		</div>
+	</div>
+</div>
+<div 
+	class="header-element button"
+	ng-click="calculateIntermodal()"
+	ng-mouseenter="interDrop = true" 
+	ng-mouseleave="interDrop = false" 
+	ng-init="interDrop = false">
+	<div class="header-content">
+		Calculate Intermodal 
+		<i class="fa fa-chevron-circle-up highlight-text highlight-fa" ng-if="interDrop"></i>
+		<i class="fa fa-chevron-circle-down highlight-text highlight-fa" ng-if="!interDrop"></i>
+	</div>
+	<div class="dropdown background" ng-show="interDrop">
+		<div class="date-time-picker" ng-include="'components/date_time_picker.html'"></div>
+	</div>
+</div>
+<div class="header-element button" ng-click="removeElements()">
+	<div class="header-content">Remove Route and Markers</div>
+</div>
+<div 
+	class="header-element button information-button" 
+	ng-click="$parent.infoDrop = !infoDrop" 
+	ng-init="$parent.infoDrop = false">
+	<div class="header-content">Route Information 
+		<i class="fa fa-chevron-circle-up highlight-text highlight-fa" ng-if="infoDrop"></i>
+		<i class="fa fa-chevron-circle-down highlight-text highlight-fa" ng-if="!infoDrop"></i>
+	</div>
+	<div class="dropdown background" ng-show="$parent.infoDrop">
+		<div ng-include="'components/route_information.html'"></div>
+	</div>
+</div>
+

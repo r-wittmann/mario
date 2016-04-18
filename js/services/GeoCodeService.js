@@ -7,8 +7,10 @@ mario.service('reverseGeocode', [ '$http', function ($http) {
     .then(function (response) {
       let address = response.data.address
 
+      scope.infoDrop = true
+
       angular.extend(scope.map.markers[index], {
-        street: `${address.road ? address.road : address.cycleway ? address.cycleway : address.footway}`,
+        street: `${address.road ? address.road : address.path ? address.path : address.cycleway ? address.cycleway : address.footway}`,
         streetNumber: address.house_number,
         postalCode: address.postcode,
         city: `${address.city ? address.city : address.town ? address.town : address.village ? address.village : address.state}`

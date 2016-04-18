@@ -1,18 +1,16 @@
-<div class="background information-background">
+<div class="background">
 	<ul class="information-content">
-		<li class="information-element">
+		<li class="information-element" ng-if="map.markers[0]">
 			<p class="primary-text">Route from <br>
 			{{ map.markers[0].street }} {{ map.markers[0].streetNumber }}<br>
 			{{ map.markers[0].postalCode }} {{ map.markers[0].city }}</p>
-			<p class="primary-text">to <br>
+			<p class="primary-text" ng-if="map.markers[1]">to <br>
 			{{ map.markers[1].street }} {{ map.markers[1].streetNumber }}<br>
 			{{ map.markers[1].postalCode }} {{ map.markers[1].city }}</p>
 		</li>
-		<div class="seperator"></div>
-		<li class="information-element primary-text">
-			<span ng-repeat="(key, value) in geojson.data.features[0].properties.costs">{{ key }}: {{ value }}<br></span>
+		<li class="information-element primary-text seperator" ng-if="map.geojson.data.features[0].properties.costs">
+			<span ng-repeat="(key, value) in map.geojson.data.features[0].properties.costs">{{ key }}: {{ value }}<br></span>
 		</li>
-		<div class="seperator"></div>
 		<!--
 		<ul class="information-element route-elements-container">
 			Route Segments:
@@ -22,8 +20,8 @@
 		</ul>
 		<div class="seperator"></div>
 		-->
-		<li class="information-element secondary-text">
-			Algorithm used: <br>
+		<li class="information-element secondary-text seperator" ng-if="usedAlgorithm">
+			Algorithm used: {{ usedAlgorithm }}<br>
 		</li>
 	</ul>
 </div>

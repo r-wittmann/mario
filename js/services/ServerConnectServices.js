@@ -54,5 +54,6 @@ mario.service('handleServerResponse', [ 'modifyMap', function (modifyMap) {
 
   this.directRouteResponse = function (scope, response) {
     modifyMap.addRoute(scope, response)
+    scope.usedAlgorithm = scope.selected.algorithm
   }
 }])
