@@ -21,6 +21,17 @@ mario.controller('Ctrl',
       else console.log('markers missing')
     }
 
+    $scope.updateTime = function () {
+      let d = new Date()
+      $scope.date = {
+        day: d.getDate(),
+        month: d.getMonth() + 1,
+        year: d.getFullYear(),
+        hour: d.getHours(),
+        minute: d.getMinutes()
+      }
+    }
+
     $scope.calculateIntermodal = function () {
       if ($scope.map.markers.length > 1) handleServerRequest.calculateIntermodal($scope)
       else console.log('markers missing')

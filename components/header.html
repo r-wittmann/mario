@@ -3,11 +3,10 @@
 </div>
 <div 
 	class="header-element button"
-	ng-click="calculate()"
 	ng-mouseenter="algoDrop = true"
 	ng-mouseleave="algoDrop = false"
 	ng-init="algoDrop = false">
-	<div class="header-content">
+	<div class="header-content" ng-click="calculate()">
 		Recalculate Route 
 		<i class="fa fa-chevron-circle-up highlight-text highlight-fa" ng-if="algoDrop"></i>
 		<i class="fa fa-chevron-circle-down highlight-text highlight-fa" ng-if="!algoDrop"></i>
@@ -26,11 +25,10 @@
 </div>
 <div 
 	class="header-element button"
-	ng-click="calculateIntermodal()"
 	ng-mouseenter="interDrop = true" 
 	ng-mouseleave="interDrop = false" 
 	ng-init="interDrop = false">
-	<div class="header-content">
+	<div class="header-content" ng-click="calculateIntermodal()">
 		Calculate Intermodal 
 		<i class="fa fa-chevron-circle-up highlight-text highlight-fa" ng-if="interDrop"></i>
 		<i class="fa fa-chevron-circle-down highlight-text highlight-fa" ng-if="!interDrop"></i>
