@@ -1,15 +1,35 @@
-<div class="form-inline time-picker">
-	<i class="fa fa-clock-o fa-fw"></i>
-	<input class="date-time-input" type="number" ng-model="date.hour">
-	<span> :</span>
-	<input class="date-time-input" type="number" ng-model="date.minute">
-	<i class="fa fa-refresh fa-fw" ng-click="updateTime()"></i>
+<div class="time-picker">
+		<i class="fa fa-clock-o fa-fw"></i>
+		<div class="number-increaser">
+			<i class="fa fa-chevron-up highlight-text cursor-pointer" ng-click="changeDate(0, 1)"></i>
+			<input class="date-time-input" type="text" ng-model="model.date.hours">
+			<i class="fa fa-chevron-down highlight-text cursor-pointer" ng-click="changeDate(0, -1)"></i>
+		</div>
+		<span> :</span>
+		<div class="number-increaser">
+			<i class="fa fa-chevron-up highlight-text cursor-pointer" ng-click="changeDate(1, 1)"></i>
+			<input class="date-time-input" type="text" ng-model="model.date.minutes">
+			<i class="fa fa-chevron-down highlight-text cursor-pointer" ng-click="changeDate(1, -1)"></i>
+		</div>
+		<i class="fa fa-refresh fa-fw cursor-pointer" ng-click="updateDate()"></i>
 </div>
 <div class="form-inline date-picker">
 	<i class="fa fa-calendar fa-fw"></i>
-	<input class="date-time-input" type="number" ng-model="date.day">
-	<span> .</span>
-	<input class="date-time-input" type="number" ng-model="date.month">
-	<span> .</span>
-	<input class="date-time-input year-input" type="number" ng-model="date.year">
+	<div class="number-increaser">
+		<i class="fa fa-chevron-up highlight-text cursor-pointer" ng-click="changeDate(2, 1)"></i>
+		<input class="date-time-input" type="text" ng-model="model.date.days">
+		<i class="fa fa-chevron-down highlight-text cursor-pointer" ng-click="changeDate(2, -1)"></i>
+	</div>
+	<span>/</span>
+	<div class="number-increaser">
+		<i class="fa fa-chevron-up highlight-text cursor-pointer" ng-click="changeDate(3, 0)"></i>
+		<input class="date-time-input" type="text" ng-model="model.date.months">
+		<i class="fa fa-chevron-down highlight-text cursor-pointer" ng-click="changeDate(3, -2)"></i>
+	</div>
+	<span>/</span>
+	<div class="number-increaser">
+		<i class="fa fa-chevron-up highlight-text cursor-pointer" ng-click="changeDate(4, 1)"></i>
+		<input class="date-time-input year-input" type="text" ng-model="model.date.years">
+		<i class="fa fa-chevron-down highlight-text cursor-pointer" ng-click="changeDate(4, -1)"></i>
+	</div>
 </div>

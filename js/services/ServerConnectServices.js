@@ -7,35 +7,36 @@
 mario.service('handleServerRequest', ['$http', 'handleServerResponse', function ($http, handleServerResponse) {
   let baseUrl = 'http://129.187.228.18:8080/restservices_path/webresources/'
 
-  this.getInitialInformation = function (scope) {
+  this.getInitialInformation = function (model) {
     /* this file should be fetched from the server as well */
     $http.get('mocks/algorithms.json').then(function (response) {
-      handleServerResponse.mockAlgorithms(scope, response)
+      handleServerResponse.mockAlgorithms(model, response)
     })
   }
 
-  this.calculateRoute = function (scope) {
+  this.calculateRoute = function (model) {
     let startTarget = {
       'start': {
-        'lat': scope.map.markers[0].lat,
-        'lon': scope.map.markers[0].lng
+        'lat': model.map.markers[0].lat,
+        'lon': model.map.markers[0].lng
       },
       'target': {
-        'lat': scope.map.markers[1].lat,
-        'lon': scope.map.markers[1].lng
+        'lat': model.map.markers[1].lat,
+        'lon': model.map.markers[1].lng
       },
-      'algo': scope.selected.algorithm
-      /* 'cost': scope.selected.cost */
+      'algo': model.selected.algorithm
+      /* 'cost': scope.selected.cost not implemented on server yet*/
     }
     angular.toJson(startTarget)
     $http.post(baseUrl + 'easyev?', startTarget).then(function (response) {
-      handleServerResponse.directRouteResponse(scope, response)
+      handleServerResponse.directRouteResponse(model, response)
     })
   }
 
-  this.calculateIntermodal = function (scope) {
+  this.calculateIntermodal = function (model) {
     console.log('called calculateIntermodal(scope), not implemented yet')
-    console.log('start:', scope.map.markers[0], '\ntarget:', scope.map.markers[1])
+    console.log('start:', model.map.markers[0], '\ntarget:', model.map.markers[1])
+    console.log('requested time:', model.date.hours + ':' + model.date.minutes + ' ' + model.date.days + '.' + model.date.months + '.' + model.date.years)
   }
 }])
 
@@ -44,16 +45,16 @@ mario.service('handleServerRequest', ['$http', 'handleServerResponse', function 
  **/
 
 mario.service('handleServerResponse', [ 'modifyMap', function (modifyMap) {
-  this.mockAlgorithms = function (scope, response) {
-    angular.extend(scope, response.data)
-    scope.selected = {
+  this.mockAlgorithms = function (model, response) {
+    angular.extend(model, response.data)
+    model.selected = {
       'algorithm': response.data.algorithms[1],
       'cost': response.data.algorithmCosts[0]
     }
   }
 
-  this.directRouteResponse = function (scope, response) {
-    modifyMap.addRoute(scope, response)
-    scope.usedAlgorithm = scope.selected.algorithm
+  this.directRouteResponse = function (model, response) {
+    modifyMap.addRoute(model, response)
+    model.usedAlgorithm = model.selected.algorithm
   }
 }])

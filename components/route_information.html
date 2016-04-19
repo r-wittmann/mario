@@ -1,15 +1,15 @@
 <div class="background">
 	<ul class="information-content">
-		<li class="information-element" ng-if="map.markers[0]">
+		<li class="information-element" ng-if="model.map.markers[0]">
 			<p class="primary-text">Route from <br>
-			{{ map.markers[0].street }} {{ map.markers[0].streetNumber }}<br>
-			{{ map.markers[0].postalCode }} {{ map.markers[0].city }}</p>
-			<p class="primary-text" ng-if="map.markers[1]">to <br>
-			{{ map.markers[1].street }} {{ map.markers[1].streetNumber }}<br>
-			{{ map.markers[1].postalCode }} {{ map.markers[1].city }}</p>
+			{{ model.map.markers[0].street }} {{ model.map.markers[0].streetNumber }}<br>
+			{{ model.map.markers[0].postalCode }} {{ model.map.markers[0].city }}</p>
+			<p class="primary-text" ng-if="model.map.markers[1]">to <br>
+			{{ model.map.markers[1].street }} {{ model.map.markers[1].streetNumber }}<br>
+			{{ model.map.markers[1].postalCode }} {{ model.map.markers[1].city }}</p>
 		</li>
-		<li class="information-element primary-text seperator" ng-if="map.geojson.data.features[0].properties.costs">
-			<span ng-repeat="(key, value) in map.geojson.data.features[0].properties.costs">{{ key }}: {{ value }}<br></span>
+		<li class="information-element primary-text seperator" ng-if="model.map.geojson.data.features[0].properties.costs">
+			<span ng-repeat="(key, value) in model.map.geojson.data.features[0].properties.costs">{{ key }}: {{ value }}<br></span>
 		</li>
 		<!--
 		<ul class="information-element route-elements-container">
@@ -20,7 +20,7 @@
 		</ul>
 		<div class="seperator"></div>
 		-->
-		<li class="information-element secondary-text seperator" ng-if="usedAlgorithm">
+		<li class="information-element secondary-text seperator" ng-if="model.usedAlgorithm">
 			Algorithm used: {{ usedAlgorithm }}<br>
 		</li>
 	</ul>

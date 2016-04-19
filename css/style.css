@@ -19,6 +19,9 @@ html, body {
 .seperator {
 	border-top: solid 1px #68c631;
 }
+.cursor-pointer {
+	cursor: pointer;
+}
 
 /***** header styles *****/
 .header-container {
@@ -40,7 +43,6 @@ html, body {
 }
 .button {
 	flex: 3;
-    cursor: pointer;
 }
 .information-button {
 	flex: 4;
@@ -83,16 +85,33 @@ html, body {
 	margin-left: 10px;
 }
 .time-picker {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 .date-picker {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.number-increaser {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 .date-time-input {
-	width: 45px;
-	padding: 5px;
+	width: 36px;
+	height: 24px;
+	padding: 0;
 	text-align: center;
 }
 .year-input {
-	width: 60px;
+	width: 50px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    display: none;
+    margin: 0;
 }
 .information-content {
 	max-height: 100%;

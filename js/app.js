@@ -6,56 +6,54 @@ let mario = angular.module('app', ['leaflet-directive'])
  * main controller of mario app
  **/
 
-mario.controller('Ctrl',
-  ['$scope', 'modifyMap', 'handleServerRequest', 'config',
-  function ($scope, modifyMap, handleServerRequest, config) {
+mario.controller('Controller',
+  ['$scope', 'modifyMap', 'handleServerRequest', 'dateTime', 'config',
+  function ($scope, modifyMap, handleServerRequest, dateTime, config) {
     let initialize = function () {
       angular.extend($scope, config.config)
-      handleServerRequest.getInitialInformation($scope)
+      handleServerRequest.getInitialInformation($scope.model)
+      dateTime.modelDate($scope.model, new Date())
     }
 
     initialize()
 
     $scope.calculate = function () {
-      if ($scope.map.markers.length > 1) handleServerRequest.calculateRoute($scope)
+      if ($scope.model.map.markers.length > 1) handleServerRequest.calculateRoute($scope.model)
       else console.log('markers missing')
-    }
-
-    $scope.updateTime = function () {
-      let d = new Date()
-      $scope.date = {
-        day: d.getDate(),
-        month: d.getMonth() + 1,
-        year: d.getFullYear(),
-        hour: d.getHours(),
-        minute: d.getMinutes()
-      }
     }
 
     $scope.calculateIntermodal = function () {
-      if ($scope.map.markers.length > 1) handleServerRequest.calculateIntermodal($scope)
+      if ($scope.model.map.markers.length > 1) handleServerRequest.calculateIntermodal($scope.model)
       else console.log('markers missing')
     }
 
+    $scope.updateDate = function () {
+      dateTime.updateDate($scope.model)
+    }
+
+    $scope.changeDate = function (index, direction) {
+      dateTime.changeDate($scope.model, index, direction)
+    }
+
     $scope.removeElements = function () {
-      modifyMap.removeMarker($scope)
-      modifyMap.removeRoute($scope)
+      modifyMap.removeMarker($scope.model)
+      modifyMap.removeRoute($scope.model)
     }
 
     $scope.$on('leafletDirectiveMap.click', function (event, args) {
-      modifyMap.addMarker($scope, event, args, false)
+      modifyMap.addMarker($scope.model, event, args, false)
     })
 
     $scope.$on('leafletDirectiveMarker.dragend', function (event, args) {
-      modifyMap.addMarker($scope, event, args, true)
+      modifyMap.addMarker($scope.model, event, args, true)
     })
 
-    $scope.$watch('map.markers[0].lat', function (newValue, oldValue) {
-      if (oldValue !== newValue && $scope.map.markers[1]) handleServerRequest.calculateRoute($scope)
+    $scope.$watch('model.map.markers[0].lat', function (newValue, oldValue) {
+      if (oldValue !== newValue && $scope.model.map.markers[1]) handleServerRequest.calculateRoute($scope.model)
     })
 
-    $scope.$watch('map.markers[1].lat', function (newValue, oldValue) {
-      if (oldValue !== newValue && $scope.map.markers[1]) handleServerRequest.calculateRoute($scope)
+    $scope.$watch('model.map.markers[1].lat', function (newValue, oldValue) {
+      if (oldValue !== newValue && $scope.model.map.markers[1]) handleServerRequest.calculateRoute($scope.model)
     })
   }]
 )
