@@ -5,7 +5,7 @@
  **/
 
 mario.service('handleServerRequest', ['$http', 'handleServerResponse', function ($http, handleServerResponse) {
-  let baseUrl = 'http://129.187.228.18:8080/restservices_path/webresources/'
+  let baseUrl = 'http://129.187.228.18:8080/restservices_'
 
   this.getInitialInformation = function (model) {
     /* this file should be fetched from the server as well */
@@ -28,15 +28,30 @@ mario.service('handleServerRequest', ['$http', 'handleServerResponse', function 
       /* 'cost': scope.selected.cost not implemented on server yet*/
     }
     angular.toJson(startTarget)
-    $http.post(baseUrl + 'easyev?', startTarget).then(function (response) {
+    $http.post(baseUrl + 'path/webresources/easyev?', startTarget).then(function (response) {
       handleServerResponse.directRouteResponse(model, response)
     })
   }
 
   this.calculateIntermodal = function (model) {
-    console.log('called calculateIntermodal(scope), not implemented yet')
-    console.log('start:', model.map.markers[0], '\ntarget:', model.map.markers[1])
-    console.log('requested time:', model.date.hours + ':' + model.date.minutes + ' ' + model.date.days + '.' + model.date.months + '.' + model.date.years)
+    let startTarget = {
+      'start': {
+        'lat': model.map.markers[0].lat,
+        'lon': model.map.markers[0].lng
+      },
+      'target': {
+        'lat': model.map.markers[1].lat,
+        'lon': model.map.markers[1].lng
+      },
+      'departure': model.date.days + '.' + model.date.months + '.' + model.date.years + ' ' + model.date.hours + ':' + model.date.minutes + ':00',
+      'range': 5.0,
+      'maxTransfers': 2147483647,
+      'maxChanges': 2147483647
+    }
+    angular.toJson(startTarget)
+    $http.post(baseUrl + 'inter/websources/intermodal?', startTarget).then(function (response) {
+      console.log(response)
+    })
   }
 }])
 
