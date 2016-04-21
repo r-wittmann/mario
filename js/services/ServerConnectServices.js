@@ -50,8 +50,13 @@ mario.service('handleServerRequest', ['$http', 'handleServerResponse', function 
     }
     angular.toJson(startTarget)
     $http.post(baseUrl + 'inter/websources/intermodal?', startTarget).then(function (response) {
-      console.log(response)
+      handleServerResponse.interRouteResponse(model, response)
     })
+    /*
+    $http.get('./mocks/geoJsonMock.geo.json').then(function (response) {
+      handleServerResponse.interRouteResponse(model, response)
+    })
+    */
   }
 }])
 
@@ -69,7 +74,11 @@ mario.service('handleServerResponse', [ 'modifyMap', function (modifyMap) {
   }
 
   this.directRouteResponse = function (model, response) {
-    modifyMap.addRoute(model, response)
+    modifyMap.addRoute(model, response, false)
     model.usedAlgorithm = model.selected.algorithm
+  }
+  this.interRouteResponse = function (model, response) {
+    modifyMap.addRoute(model, response, true)
+    model.usedAlgorithm = 'Intermodal'
   }
 }])

@@ -26,9 +26,29 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
     model.map.markers = []
   }
 
-  this.addRoute = function (model, geojson) {
-    model.map.geojson = geojson
+  this.addRoute = function (model, geojson, interFlag) {
+    interFlag
+    ? this.addInterRouteProperties(model, geojson)
+    : model.map.geojson = geojson
     this.centerOnRoute(model)
+  }
+
+  this.addInterRouteProperties = function (model, geojson) {
+    leafletData.getMap().then(function (map) {
+      L.geoJson(geojson.data, {
+        style: function (feature) {
+          switch (feature.properties.mode) {
+            case 'STREET': return {color: '#0000ff'}
+            case 'PUBLIC': return {color: '#ff0000'}
+            case 'ONTOPUBLIC': return {color: '#0000ff'}
+            case 'OFFPUBLIC': return {color: '#0000ff'}
+          }
+        },
+        onEachFeature: (feature, layer) => {
+          layer.bindPopup(feature.properties.instructions)
+        }
+      }).addTo(map)
+    })
   }
 
   this.removeRoute = function (model) {
