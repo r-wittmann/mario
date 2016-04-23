@@ -5,7 +5,8 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "develop": "http-server . -o -c-1 -p 4000"
+    "develop": "http-server . -o -c-1 -p 4000",
+    "build:css": "postcss --use autoprefixer -b 'last 2 versions' css/style.css --replace"
   },
   "repository": {
     "type": "git",
@@ -28,9 +29,11 @@
   "dependencies": {
     "angular": "^1.5.5",
     "angular-leaflet-directive": "^0.10.0",
+    "autoprefixer": "^6.3.6",
     "bootstrap": "^3.3.6",
     "font-awesome": "^4.6.1",
     "http-server": "^0.9.0",
-    "leaflet": "^0.7.7"
+    "leaflet": "^0.7.7",
+    "postcss-cli": "^2.5.1"
   }
 }
