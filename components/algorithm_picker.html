@@ -1,0 +1,9 @@
+Choose Algorithm:
+<div ng-repeat="(key, algorithm) in model.algorithms" class="calc-drop-radio">
+	<input type="radio" name="algorithms" ng-model="model.selected.algorithm" ng-value=algorithm> {{ algorithm }}
+</div>
+<div class="seperator"></div>
+Choose Cost:
+<div ng-repeat="(key, cost) in model.algorithmCosts" class="calc-drop-radio">
+	<input type="radio" name="costs" ng-model="model.selected.cost" ng-value=cost> {{ cost }}
+</div>
