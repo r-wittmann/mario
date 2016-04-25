@@ -64,13 +64,9 @@ mario.service('handleServerRequest', ['$http', 'handleServerResponse', function 
  * all responses from the server will be handled here
  **/
 
-mario.service('handleServerResponse', [ 'modifyMap', function (modifyMap) {
+mario.service('handleServerResponse', [ 'modifyMap', 'algorithmCost', function (modifyMap, algorithmCost) {
   this.mockAlgorithms = function (model, response) {
-    angular.extend(model, response.data)
-    model.selected = {
-      'algorithm': response.data.algorithms[1],
-      'cost': response.data.algorithmCosts[0]
-    }
+    algorithmCost.initialSave(model, response)
   }
 
   this.directRouteResponse = function (model, response) {

@@ -7,8 +7,8 @@ let mario = angular.module('app', ['leaflet-directive'])
  **/
 
 mario.controller('Controller',
-  ['$scope', 'modifyMap', 'handleServerRequest', 'dateTime', 'config',
-  function ($scope, modifyMap, handleServerRequest, dateTime, config) {
+  ['$scope', 'modifyMap', 'handleServerRequest', 'dateTime', 'algorithmCost', 'config',
+  function ($scope, modifyMap, handleServerRequest, dateTime, algorithmCost, config) {
     let initialize = function () {
       angular.extend($scope, config.config)
       handleServerRequest.getInitialInformation($scope.model)
@@ -25,6 +25,14 @@ mario.controller('Controller',
     $scope.calculateIntermodal = function () {
       if ($scope.model.map.markers.length > 1) handleServerRequest.calculateIntermodal($scope.model)
       else console.log('markers missing')
+    }
+
+    $scope.selectAlgo = function (algorithm) {
+      algorithmCost.selectAlgo($scope.model, algorithm)
+    }
+
+    $scope.selectCost = function (cost) {
+      algorithmCost.selectCost($scope.model, cost)
     }
 
     $scope.updateDate = function () {

@@ -3,7 +3,7 @@
 		"dijkstra",
 		"A_STAR",
 		"skyline",
-		"linearSkyline"
+		"linear skyline"
 	],
 	"algorithmCosts": [
 		"time",
