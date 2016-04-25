@@ -29,11 +29,13 @@
   "dependencies": {
     "angular": "^1.5.5",
     "angular-leaflet-directive": "^0.10.0",
-    "autoprefixer": "^6.3.6",
     "bootstrap": "^3.3.6",
     "font-awesome": "^4.6.1",
+    "leaflet": "^0.7.7"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.3.6",
     "http-server": "^0.9.0",
-    "leaflet": "^0.7.7",
-    "postcss-cli": "^2.5.1"
+    "postcss-cli": "^2.5.2"
   }
 }
