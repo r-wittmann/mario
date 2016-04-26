@@ -2,11 +2,9 @@
 	<ul class="information-content">
 		<li class="information-element" ng-if="model.map.markers[0]">
 			<p class="primary-text">Route from <br>
-			{{ model.map.markers[0].street }} {{ model.map.markers[0].streetNumber }}<br>
-			{{ model.map.markers[0].postalCode }} {{ model.map.markers[0].city }}</p>
+				<span ng-repeat="line in model.map.markers[0].formattedAddress">{{ line }}<br /></span></p>
 			<p class="primary-text" ng-if="model.map.markers[1]">to <br>
-			{{ model.map.markers[1].street }} {{ model.map.markers[1].streetNumber }}<br>
-			{{ model.map.markers[1].postalCode }} {{ model.map.markers[1].city }}</p>
+				<span ng-repeat="line in model.map.markers[1].formattedAddress">{{ line }}<br /></span></p>
 		</li>
 		<li class="information-element primary-text seperator" ng-if="model.map.geojson.data.features[0].properties.costs">
 			<span ng-repeat="(key, value) in model.map.geojson.data.features[0].properties.costs">{{ key }}: {{ value }}<br></span>

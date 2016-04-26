@@ -1,23 +1,16 @@
-/* global angular mario */
+/* global mario */
 
 mario.service('reverseGeocode', [ '$http', function ($http) {
   this.reverseMarker = function (model, index) {
-    $http.get('http://nominatim.openstreetmap.org/reverse?format=json&lat=' +
-      model.map.markers[index].lat + '&lon=' + model.map.markers[index].lng + '&zoom=18&addressdetails=1')
+    $http.get('https://api.opencagedata.com/geocode/v1/json?q=' +
+      model.map.markers[index].lat + ',' +
+      model.map.markers[index].lng + '&key=8491dc280f0d8bfe17780388b16fe177')
     .then(function (response) {
-      let address = response.data.address
-
+      model.map.markers[index].formattedAddress = response.data.results[0].formatted.split(', ')
+      model.map.markers[index].formattedAddress.pop()
       model.infoDrop = true
-
-      angular.extend(model.map.markers[index], {
-        street: `${address.road ? address.road : address.path ? address.path : address.cycleway ? address.cycleway : address.footway}`,
-        streetNumber: address.house_number,
-        postalCode: address.postcode,
-        city: `${address.city ? address.city : address.town ? address.town : address.village ? address.village : address.state}`
-      })
     })
   }
-
   this.reverseBatch = function (model) {
     /* not implemented yet */
   }
