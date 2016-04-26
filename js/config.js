@@ -19,7 +19,17 @@ mario.service('config', function () {
         },
         geojson: [],
         markers: []
-      }
+      },
+      selected: {
+        algorithm: '',
+        cost: '',
+        poi: {
+          poi: true,
+          parking: false
+        }
+      },
+      App_Id: 'WmIkt7vA4CQCMLSXEmOf',
+      App_Code: 'LBj3S0_CED-_JWWO4VvUcg'
     }
   }
 })

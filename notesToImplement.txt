@@ -1,9 +1,6 @@
-shortest path als drop down
-- dijkstra, a*, route skyline, linear route skyline
-- time, distance, energy consumption
-* get algorithms and attributes from server
+- get algorithms and attributes from server
+- sehenswürdigkeiten und parkplätze anzeigen (mit checkbox in calculate route)
+- parklätze vom server, sehenswürdigkeiten von einer public api
+- useability auf handys sicherstellen
 
-intermodal route
-- date and time picker
-
-simulation of historic date and simulated data
+- simulation of historic date and simulated data

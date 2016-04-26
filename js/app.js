@@ -19,12 +19,10 @@ mario.controller('Controller',
 
     $scope.calculate = function () {
       if ($scope.model.map.markers.length > 1) handleServerRequest.calculateRoute($scope.model)
-      else console.log('markers missing')
     }
 
     $scope.calculateIntermodal = function () {
       if ($scope.model.map.markers.length > 1) handleServerRequest.calculateIntermodal($scope.model)
-      else console.log('markers missing')
     }
 
     $scope.selectAlgo = function (algorithm) {

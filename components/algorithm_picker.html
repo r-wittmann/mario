@@ -7,3 +7,11 @@ Choose Cost:
 <div ng-repeat="(key, cost) in model.algorithmCosts" class="calc-drop-radio">
 	<input type="radio" ng-checked="model.selected.costs.indexOf(cost) !== -1" ng-click="selectCost(cost)"> {{ cost }}
 </div>
+<div class="seperator"></div>
+Display Point of Interests?
+<div>
+	<input type="checkbox" ng-model="model.selected.poi.poi"> Points of Interest
+</div>
+<div>
+	<input type="checkbox" ng-model="model.selected.poi.parking"> Parking Spots
+</div>

@@ -2,12 +2,9 @@
 
 mario.service('algorithmCost', [ function () {
   this.initialSave = function (model, response) {
-    angular.extend(model, response.data, {
-      selected: {
-        algorithm: response.data.algorithms[1],
-        costs: [response.data.algorithmCosts[0]]
-      }
-    })
+    angular.extend(model, response.data)
+    model.selected.algorithm = response.data.algorithms[1]
+    model.selected.costs = [response.data.algorithmCosts[0]]
   }
   this.selectAlgo = function (model, algorithm) {
     model.selected.costs = [model.selected.costs[0]]

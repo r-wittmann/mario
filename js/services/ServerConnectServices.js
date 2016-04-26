@@ -6,6 +6,8 @@
 
 mario.service('handleServerRequest', ['$http', 'handleServerResponse', function ($http, handleServerResponse) {
   let baseUrl = 'http://129.187.228.18:8080/restservices_'
+  let App_Id = 'WmIkt7vA4CQCMLSXEmOf'
+  let App_Code = 'LBj3S0_CED-_JWWO4VvUcg'
 
   this.getInitialInformation = function (model) {
     /* this file should be fetched from the server as well */
@@ -31,6 +33,20 @@ mario.service('handleServerRequest', ['$http', 'handleServerResponse', function 
     $http.post(baseUrl + 'path/webresources/easyev?', startTarget).then(function (response) {
       handleServerResponse.directRouteResponse(model, response)
     })
+    if (model.selected.poi.poi) {
+      this.fetchPoi(model)
+    }
+  }
+
+  this.fetchPoi = function (model) {
+    $http.get('https://places.cit.api.here.com/places/v1/discover/explore?at=' +
+      model.map.markers[0].lat + ',' + model.map.markers[0].lng +
+      '&app_id=' + App_Id + '&app_code' + App_Code +
+      '&tf=plain&pretty=true')
+      .then(function (response) {
+        console.log(response)
+        /* not implemented yet, error in request*/
+      })
   }
 
   this.calculateIntermodal = function (model) {
