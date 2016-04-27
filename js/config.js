@@ -27,9 +27,7 @@ mario.service('config', function () {
           poi: true,
           parking: false
         }
-      },
-      App_Id: 'WmIkt7vA4CQCMLSXEmOf',
-      App_Code: 'LBj3S0_CED-_JWWO4VvUcg'
+      }
     }
   }
 })

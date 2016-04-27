@@ -5,9 +5,10 @@
  **/
 
 mario.service('handleServerRequest', ['$http', 'handleServerResponse', function ($http, handleServerResponse) {
-  let baseUrl = 'http://129.187.228.18:8080/restservices_'
-  let App_Id = 'WmIkt7vA4CQCMLSXEmOf'
-  let App_Code = 'LBj3S0_CED-_JWWO4VvUcg'
+  const baseUrl = 'http://129.187.228.18:8080/restservices_'
+  const hereUrl = 'https://places.api.here.com/places/v1/discover/explore?'
+  const App_Id = 'WmIkt7vA4CQCMLSXEmOf'
+  const App_Code = 'LBj3S0_CED-_JWWO4VvUcg'
 
   this.getInitialInformation = function (model) {
     /* this file should be fetched from the server as well */
@@ -30,22 +31,23 @@ mario.service('handleServerRequest', ['$http', 'handleServerResponse', function 
       /* 'cost': scope.selected.cost not implemented on server yet*/
     }
     angular.toJson(startTarget)
-    $http.post(baseUrl + 'path/webresources/easyev?', startTarget).then(function (response) {
+
+    $http.post(baseUrl + 'path/webresources/easyev?', startTarget)
+    .then(function (response) {
       handleServerResponse.directRouteResponse(model, response)
     })
+
     if (model.selected.poi.poi) {
       this.fetchPoi(model)
     }
   }
 
   this.fetchPoi = function (model) {
-    $http.get('https://places.cit.api.here.com/places/v1/discover/explore?at=' +
-      model.map.markers[0].lat + ',' + model.map.markers[0].lng +
-      '&app_id=' + App_Id + '&app_code' + App_Code +
-      '&tf=plain&pretty=true')
+    let attributes = 'in=' + model.map.markers[1].lat + ',' + model.map.markers[1].lng + ';r=1000&cat=sights-museums,leisure-outdoor,natural-geographical&tf=plain' + '&app_id=' + App_Id + '&app_code=' + App_Code
+
+    $http.get(hereUrl + attributes)
       .then(function (response) {
-        console.log(response)
-        /* not implemented yet, error in request*/
+        handleServerResponse.addPoi(model, response)
       })
   }
 
@@ -92,5 +94,8 @@ mario.service('handleServerResponse', [ 'modifyMap', 'algorithmCost', function (
   this.interRouteResponse = function (model, response) {
     modifyMap.addRoute(model, response, true)
     model.usedAlgorithm = 'Intermodal'
+  }
+  this.addPoi = function (model, response) {
+    modifyMap.addPoi(model, response)
   }
 }])

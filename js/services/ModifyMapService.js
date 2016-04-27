@@ -55,6 +55,17 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
     model.map.geojson = []
   }
 
+  this.addPoi = function (model, response) {
+    leafletData.getMap().then(function (map) {
+      let layerGroup = L.layerGroup()
+      response.data.results.items.map(function (currentValue, index) {
+        let circleMarker = L.circleMarker([currentValue.position[0], currentValue.position[1]]).setRadius(4).setStyle({color: '#262826', opacity: 1, weight: 2, fillColor: '#FAFAFA', fillOpacity: 1})
+        circleMarker.bindPopup('<b>' + currentValue.title + '</b><br/>' + currentValue.category.title).addTo(layerGroup)
+      })
+      layerGroup.addTo(map)
+    })
+  }
+
   this.centerOnRoute = function (model) {
     leafletData.getMap().then(function (map) {
       let latlngs = []
