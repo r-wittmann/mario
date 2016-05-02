@@ -1,7 +1,10 @@
-<div class="header-element-h">
+<div class="header-element-h" ng-click="model.poiDrop = !model.poiDrop" ng-mouseenter="model.poiDrop = true" ng-mouseleave="model.poiDrop = false" ng-init="model.poiDrop = false">
 	<div class="header-element-h-content">
 		Point of Interest
-		<i class="fa fa-chevron-circle-up highlight-fa" ng-if="model.algoDrop"></i>
-		<i class="fa fa-chevron-circle-down highlight-fa" ng-if="!model.algoDrop"></i>
+		<i class="fa fa-chevron-circle-up highlight-fa" ng-if="model.poiDrop"></i>
+		<i class="fa fa-chevron-circle-down highlight-fa" ng-if="!model.poiDrop"></i>
 	</div>
+</div>
+<div class="dropdown background" ng-show="model.poiDrop" ng-mouseenter="model.poiDrop = true" ng-mouseleave="model.poiDrop = false">
+	<span ng-click="getPoi()" class="go-button cursor-pointer">Go!</span>
 </div>

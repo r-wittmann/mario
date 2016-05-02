@@ -17,6 +17,10 @@ mario.controller('Controller',
 
     initialize()
 
+    $scope.getPoi = function () {
+      if ($scope.model.map.markers.length > 0) handleServerRequest.fetchPoi($scope.model)
+    }
+
     $scope.calculate = function () {
       if ($scope.model.map.markers.length > 1) handleServerRequest.calculateRoute($scope.model)
     }
@@ -44,6 +48,9 @@ mario.controller('Controller',
     $scope.removeElements = function () {
       modifyMap.removeMarker($scope.model)
       modifyMap.removeRoute($scope.model)
+      // modifyMap.removePoi($scope.model)
+      $scope.model.usedAlgorithm = undefined
+      $scope.model.infoDrop = false
     }
 
     $scope.$on('leafletDirectiveMap.click', function (event, args) {
@@ -52,14 +59,6 @@ mario.controller('Controller',
 
     $scope.$on('leafletDirectiveMarker.dragend', function (event, args) {
       modifyMap.addMarker($scope.model, event, args, true)
-    })
-
-    $scope.$watch('model.map.markers[0].lat', function (newValue, oldValue) {
-      if (oldValue !== newValue && $scope.model.map.markers[1]) handleServerRequest.calculateRoute($scope.model)
-    })
-
-    $scope.$watch('model.map.markers[1].lat', function (newValue, oldValue) {
-      if (oldValue !== newValue && $scope.model.map.markers[1]) handleServerRequest.calculateRoute($scope.model)
     })
   }]
 )

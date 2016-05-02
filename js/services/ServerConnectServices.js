@@ -36,14 +36,10 @@ mario.service('handleServerRequest', ['$http', 'handleServerResponse', function 
     .then(function (response) {
       handleServerResponse.directRouteResponse(model, response)
     })
-
-    if (model.selected.poi.poi) {
-      this.fetchPoi(model)
-    }
   }
 
   this.fetchPoi = function (model) {
-    let attributes = 'in=' + model.map.markers[1].lat + ',' + model.map.markers[1].lng + ';r=1000&cat=sights-museums,leisure-outdoor,natural-geographical&tf=plain' + '&app_id=' + App_Id + '&app_code=' + App_Code
+    let attributes = 'in=' + model.map.markers[0].lat + ',' + model.map.markers[0].lng + ';r=1000&cat=sights-museums,leisure-outdoor,natural-geographical&tf=plain' + '&app_id=' + App_Id + '&app_code=' + App_Code
 
     $http.get(hereUrl + attributes)
       .then(function (response) {
@@ -61,13 +57,13 @@ mario.service('handleServerRequest', ['$http', 'handleServerResponse', function 
         'lat': model.map.markers[1].lat,
         'lon': model.map.markers[1].lng
       },
-      'departure': model.date.days + '.' + model.date.months + '.' + model.date.years + ' ' + model.date.hours + ':' + model.date.minutes + ':00',
+      'departure': ('0' + model.date.days).slice(-2) + '.' + ('0' + model.date.months).slice(-2) + '.' + model.date.years + ' ' + ('0' + model.date.hours).slice(-2) + ':' + ('0' + model.date.minutes).slice(-2) + ':00',
       'range': 5.0,
       'maxTransfers': 2147483647,
       'maxChanges': 2147483647
     }
     angular.toJson(startTarget)
-    $http.post(baseUrl + 'inter/websources/intermodal?', startTarget).then(function (response) {
+    $http.post(baseUrl + 'inter/webresources/intermodal?', startTarget).then(function (response) {
       handleServerResponse.interRouteResponse(model, response)
     })
     /*

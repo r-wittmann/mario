@@ -1,40 +1,35 @@
-<div class="header-element-h">
+<div class="header-element-h cursor-pointer" ng-click="model.infoDrop = !model.infoDrop" ng-init="model.infoDrop = false">
 	<div class="header-element-h-content">
 		Route Information
-		<i class="fa fa-chevron-circle-up highlight-fa" ng-if="model.algoDrop"></i>
-		<i class="fa fa-chevron-circle-down highlight-fa" ng-if="!model.algoDrop"></i>
+		<i class="fa fa-chevron-circle-up highlight-fa" ng-if="model.infoDrop"></i>
+		<i class="fa fa-chevron-circle-down highlight-fa" ng-if="!model.infoDrop"></i>
 	</div>
 </div>
-
-<!-- <div ng-click="model.infoDrop = !model.infoDrop" ng-init="model.infoDrop = false">
-	<div>Route Information 
-		<i class="fa fa-chevron-circle-up" ng-if="model.infoDrop"></i>
-		<i class="fa fa-chevron-circle-down" ng-if="!model.infoDrop"></i>
-	</div>
-	<div ng-show="model.infoDrop">
-		<div>
-			<ul>
-				<li ng-if="model.map.markers[0]">
-					<p>Route from <br>
-						<span ng-repeat="line in model.map.markers[0].formattedAddress">{{ line }}<br /></span></p>
-					<p ng-if="model.map.markers[1]">to <br>
-						<span ng-repeat="line in model.map.markers[1].formattedAddress">{{ line }}<br /></span></p>
-				</li>
-				<li ng-if="model.map.geojson.data.features[0].properties.costs">
-					<span ng-repeat="(key, value) in model.map.geojson.data.features[0].properties.costs">{{ key }}: {{ value }}<br></span>
-				</li>
-				<ul class="information-element route-elements-container">
-					Route Segments:
-					<li class="route-element">first</li>
-					<li class="route-element">second</li>
-					<li class="route-element">last</li>
-				</ul>
-				<div class="seperator"></div>
-				
-				<li ng-if="model.usedAlgorithm">
-					Algorithm used: {{ model.usedAlgorithm }}<br>
-				</li>
+<div class="dropdown background" ng-show="model.infoDrop">
+	<div>
+		<ul class="list">
+			<li ng-if="model.map.markers[0]">
+				<p>Route from <br>
+					<span ng-repeat="line in model.map.markers[0].formattedAddress">{{ line }}<br /></span></p>
+				<p ng-if="model.map.markers[1]">to <br>
+					<span ng-repeat="line in model.map.markers[1].formattedAddress">{{ line }}<br /></span></p>
+			</li>
+			<li ng-if="model.map.geojson.data.features[0].properties.costs">
+			<div class="seperator"></div>
+				<span ng-repeat="(key, value) in model.map.geojson.data.features[0].properties.costs">{{ key }}: {{ value }}<br></span>
+			</li>
+			<!--<ul class="information-element route-elements-container">
+				Route Segments:
+				<li class="route-element">first</li>
+				<li class="route-element">second</li>
+				<li class="route-element">last</li>
 			</ul>
-		</div>
+			<div class="seperator"></div>-->
+			
+			<li ng-if="model.usedAlgorithm">
+			<div class="seperator"></div>
+				Algorithm used: {{ model.usedAlgorithm }}<br>
+			</li>
+		</ul>
 	</div>
-</div>-->
+</div>

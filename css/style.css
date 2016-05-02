@@ -1,6 +1,6 @@
 html, body {
 /** not ready **/
-	font-size: 2vmin;
+	font-size: 1.8vmin;
 }
 .container-fluid {
 	padding: 0;
@@ -22,16 +22,18 @@ html, body {
 	color: #262826;
 }
 .seperator {
-	border-top: solid 1px #68c631;
+	height: 1px;
+	margin: 10px 0;
+	background-color: #68c631;
 }
 .cursor-pointer {
 	cursor: pointer;
 }
 .header-container {
 	display: flex;
-	height: 12vh;
-	max-height: 40px;
-	min-height: 25px;
+	height: 8vh;
+	max-height: 35px;
+	min-height: 15px;
 	padding: 0;
 }
 .header-element {
@@ -50,10 +52,67 @@ html, body {
     transform: translateY(-50%);
     text-align: center;
 }
-
+.dropdown {
+	max-height: calc(100vh - 60px);
+	position: relative;
+	top: -1px;
+	margin-left: 1px;
+	z-index: 100;
+	padding: 15px;
+	overflow-y: auto;
+	cursor: default;
+	border-bottom: solid 2px #68c631;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+.go-button {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	padding: 5px 15px;
+	border-radius: 4px;
+	color: #FAFAFA;
+	background-color: #68c631;
+}
+.calc-drop-radio {
+	margin-left: 10px;
+}
+.time-picker {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.date-picker {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.number-increaser {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.date-time-input {
+	width: 36px;
+	height: 24px;
+	padding: 0;
+	text-align: center;
+}
+.year-input {
+	width: 50px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    display: none;
+    margin: 0;
+}
+.list {
+	list-style-type: none;
+	padding: 0;
+}
 
 .map-container {
-	min-height: calc(100vh - 40px);
-	height: 88vh;
-	max-height: calc(100vh - 25px);
+	min-height: calc(100vh - 35px);
+	height: 92vh;
+	max-height: calc(100vh - 15px);
 }

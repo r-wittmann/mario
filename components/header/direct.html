@@ -1,34 +1,21 @@
-<div class="header-element-h">
+<div class="header-element-h" ng-click="model.algoDrop = !model.algoDrop" ng-mouseenter="model.algoDrop = true" ng-mouseleave="model.algoDrop = false" ng-init="model.algoDrop = false">
 	<div class="header-element-h-content">
 		Direct Route
 		<i class="fa fa-chevron-circle-up highlight-fa" ng-if="model.algoDrop"></i>
 		<i class="fa fa-chevron-circle-down highlight-fa" ng-if="!model.algoDrop"></i>
 	</div>
 </div>
-
-<!-- <div ng-mouseenter="model.algoDrop = true" ng-mouseleave="model.algoDrop = false" ng-init="model.algoDrop = false">
-	<div ng-click="calculate()">
-		Recalculate Route 
-		<i class="fa fa-chevron-circle-up" ng-if="model.algoDrop"></i>
-		<i class="fa fa-chevron-circle-down" ng-if="!model.algoDrop"></i>
+<div class="dropdown background" ng-show="model.algoDrop" ng-mouseenter="model.algoDrop = true" ng-mouseleave="model.algoDrop = false">
+	Choose Algorithm:
+	<div ng-repeat="(key, algorithm) in model.algorithms">
+		<input type="radio" name="algorithms" ng-model="model.selected.algorithm" ng-value=algorithm ng-click="selectAlgo(algorithm)">
+		<span class="calc-drop-radio">{{ algorithm }}</span>
 	</div>
-	<div ng-show="model.algoDrop">
-		Choose Algorithm:
-		<div ng-repeat="(key, algorithm) in model.algorithms">
-			<input type="radio" name="algorithms" ng-model="model.selected.algorithm" ng-value=algorithm ng-click="selectAlgo(algorithm)"> {{ algorithm }}
-		</div>
-		<div></div>
-		Choose Cost:
-		<div ng-repeat="(key, cost) in model.algorithmCosts">
-			<input type="radio" ng-checked="model.selected.costs.indexOf(cost) !== -1" ng-click="selectCost(cost)"> {{ cost }}
-		</div>
-		<div></div>
-		Display Point of Interests?
-		<div>
-			<input type="checkbox" ng-model="model.selected.poi.poi"> Points of Interest
-		</div>
-		<div>
-			<input type="checkbox" ng-model="model.selected.poi.parking" disabled> Parking Spots
-		</div>
+	<div class="seperator"></div>
+	Choose Cost:
+	<div ng-repeat="(key, cost) in model.algorithmCosts">
+		<input type="radio" ng-checked="model.selected.costs.indexOf(cost) !== -1" ng-click="selectCost(cost)">
+		<span class="calc-drop-radio">{{ cost }}</span>
 	</div>
-</div>-->
+	<span ng-click="calculate()" class="go-button cursor-pointer">Go!</span>
+</div>
