@@ -18,7 +18,8 @@ mario.service('config', function () {
           minZoom: 5
         },
         geojson: [],
-        markers: []
+        markers: [],
+        paths: {}
       },
       selected: {
         algorithm: '',

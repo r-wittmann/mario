@@ -48,7 +48,7 @@ mario.controller('Controller',
     $scope.removeElements = function () {
       modifyMap.removeMarker($scope.model)
       modifyMap.removeRoute($scope.model)
-      // modifyMap.removePoi($scope.model)
+      modifyMap.removePoi($scope.model)
       $scope.model.usedAlgorithm = undefined
       $scope.model.infoDrop = false
     }

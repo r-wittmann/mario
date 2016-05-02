@@ -56,14 +56,26 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
   }
 
   this.addPoi = function (model, items) {
-    leafletData.getMap().then(function (map) {
-      let layerGroup = L.layerGroup()
-      items.map(function (currentValue, index) {
-        let circleMarker = L.circleMarker([currentValue.position[0], currentValue.position[1]]).setRadius(4).setStyle({color: '#262826', opacity: 1, weight: 2, fillColor: '#FAFAFA', fillOpacity: 1})
-        circleMarker.bindPopup('<b>' + currentValue.title + '</b><br/>' + currentValue.category.title).addTo(layerGroup)
-      })
-      layerGroup.addTo(map)
+    items.map((item) => {
+      model.map.paths[item.id.replace('-', '')] = {
+        type: 'circleMarker',
+        radius: 4,
+        color: '#262826',
+        opacity: 1,
+        weight: 2,
+        fillColor: '#FAFAFA',
+        fillOpacity: 1,
+        message: ('<b>' + item.title + '</b><br/>' + item.category.title + '<br/>' + item.vicinity),
+        latlngs: {
+          lat: item.position[0],
+          lng: item.position[1]
+        }
+      }
     })
+  }
+
+  this.removePoi = function (model) {
+    model.map.paths = {}
   }
 
   this.centerOnRoute = function (model) {
