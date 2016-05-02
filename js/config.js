@@ -14,7 +14,7 @@ mario.service('config', function () {
           zoom: 12
         },
         defaults: {
-          maxZoom: 15,
+          maxZoom: 18,
           minZoom: 5
         },
         geojson: [],

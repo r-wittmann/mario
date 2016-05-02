@@ -39,12 +39,24 @@ mario.service('handleServerRequest', ['$http', 'handleServerResponse', function 
   }
 
   this.fetchPoi = function (model) {
-    let attributes = 'in=' + model.map.markers[0].lat + ',' + model.map.markers[0].lng + ';r=1000&cat=sights-museums,leisure-outdoor,natural-geographical&tf=plain' + '&app_id=' + App_Id + '&app_code=' + App_Code
-
-    $http.get(hereUrl + attributes)
-      .then(function (response) {
-        handleServerResponse.addPoi(model, response)
+    fetchPoi(model)
+  }
+  let fetchPoi = function (model, url) {
+    if (!url) {
+      let attributes = 'in=' + model.map.markers[0].lat + ',' + model.map.markers[0].lng + ';r=750&cat=going-out&tf=plain' + '&app_id=' + App_Id + '&app_code=' + App_Code
+      $http.get(hereUrl + attributes)
+        .then(function (response) {
+          if (response.data.results.next) fetchPoi(model, response.data.results.next)
+          handleServerResponse.addPoi(model, response.data.results.items)
+          console.log(response)
+        })
+    } else {
+      $http.get(url).then(function (response) {
+        console.log(response)
+        if (response.data.next) fetchPoi(model, response.data.next)
+        handleServerResponse.addPoi(model, response.data.items)
       })
+    }
   }
 
   this.calculateIntermodal = function (model) {
