@@ -7,6 +7,9 @@ mario.service('poiService', [ '$http', 'modifyMap', function ($http, modifyMap) 
   const App_Code = 'LBj3S0_CED-_JWWO4VvUcg'
 
   this.fetchPoi = function (model, url) {
+    if (model.map.markers.length === 2) model.map.markers.shift()
+    modifyMap.removeRoute(model)
+
     if (!url) {
       let attributes = 'in=' + model.map.markers[0].lat + ',' + model.map.markers[0].lng + ';r=750&tf=plain' + '&app_id=' + App_Id + '&app_code=' + App_Code
       $http.get(hereUrl + attributes)
