@@ -7,34 +7,6 @@
 mario.service('handleServerRequest', ['$http', 'handleServerResponse', function ($http, handleServerResponse) {
   const baseUrl = 'http://129.187.228.18:8080/restservices_'
 
-  this.getInitialInformation = function (model) {
-    /* this file should be fetched from the server as well */
-    $http.get('mocks/algorithms.json').then(function (response) {
-      handleServerResponse.mockAlgorithms(model, response)
-    })
-  }
-
-  this.calculateRoute = function (model) {
-    let startTarget = {
-      'start': {
-        'lat': model.map.markers[0].lat,
-        'lon': model.map.markers[0].lng
-      },
-      'target': {
-        'lat': model.map.markers[1].lat,
-        'lon': model.map.markers[1].lng
-      },
-      'algo': model.selected.algorithm
-      /* 'cost': scope.selected.cost not implemented on server yet*/
-    }
-    angular.toJson(startTarget)
-
-    $http.post(baseUrl + 'path/webresources/easyev?', startTarget)
-    .then(function (response) {
-      handleServerResponse.directRouteResponse(model, response)
-    })
-  }
-
   this.calculateIntermodal = function (model) {
     let startTarget = {
       'start': {
@@ -67,14 +39,6 @@ mario.service('handleServerRequest', ['$http', 'handleServerResponse', function 
  **/
 
 mario.service('handleServerResponse', [ 'modifyMap', 'algorithmCost', function (modifyMap, algorithmCost) {
-  this.mockAlgorithms = function (model, response) {
-    algorithmCost.initialSave(model, response)
-  }
-
-  this.directRouteResponse = function (model, response) {
-    modifyMap.addRoute(model, response, false)
-    model.usedAlgorithm = model.selected.algorithm
-  }
   this.interRouteResponse = function (model, response) {
     modifyMap.addRoute(model, response, true)
     model.usedAlgorithm = 'Intermodal'
