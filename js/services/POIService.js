@@ -12,12 +12,12 @@ mario.service('poiService', [ '$http', 'modifyMap', function ($http, modifyMap) 
       $http.get(hereUrl + attributes)
         .then(function (response) {
           if (response.data.results.next) that.fetchPoi(model, response.data.results.next)
-          modifyMap.addPoi(model, response.data.results.items)
+          modifyMap.addPoi(model, response.data.results.items, response.data.results.next)
         })
     } else {
       $http.get(url).then(function (response) {
         if (response.data.next) that.fetchPoi(model, response.data.next)
-        modifyMap.addPoi(model, response.data.items)
+        modifyMap.addPoi(model, response.data.items, response.data.next)
       })
     }
   }

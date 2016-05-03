@@ -5,6 +5,8 @@
  **/
 
 mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletData, reverseGeocode) {
+  let that = this
+
   this.addMarker = function (model, event, args, update) {
     if (update) {
       model.map.markers[args.modelName].lat = args.model.lat
@@ -26,7 +28,7 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
     model.map.markers = []
   }
 
-  this.addPoi = function (model, items) {
+  this.addPoi = function (model, items, next) {
     items.map((item) => {
       model.map.paths[item.id.replace('-', '')] = {
         type: 'circleMarker',
@@ -43,13 +45,14 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
         }
       }
     })
+    if (!next) that.centerOnRoute(model)
   }
 
   this.addRoute = function (model, geojson, interFlag) {
     interFlag
     ? this.addInterRouteProperties(model, geojson)
     : model.map.geojson = geojson
-    this.centerOnRoute(model)
+    that.centerOnRoute(model)
   }
 
   this.addInterRouteProperties = function (model, geojson) {
@@ -57,10 +60,8 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
       L.geoJson(geojson.data, {
         style: function (feature) {
           switch (feature.properties.mode) {
-            case 'STREET': return {color: '#0000ff'}
             case 'PUBLIC': return {color: '#ff0000'}
-            case 'ONTOPUBLIC': return {color: '#0000ff'}
-            case 'OFFPUBLIC': return {color: '#0000ff'}
+            default: return {color: '#0000ff'}
           }
         },
         onEachFeature: (feature, layer) => {
@@ -77,14 +78,28 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
   this.centerOnRoute = function (model) {
     leafletData.getMap().then(function (map) {
       let latlngs = []
-      if (model.map.markers[0]) {
-        for (let i in model.map.markers) {
-          let coord = [model.map.markers[i].lng, model.map.markers[i].lat]
-          latlngs.push(L.GeoJSON.coordsToLatLng(coord))
+
+      for (let i in model.map.markers) {
+        let coord = [model.map.markers[i].lng, model.map.markers[i].lat]
+        latlngs.push(L.GeoJSON.coordsToLatLng(coord))
+      }
+
+      for (let j in model.map.paths) {
+        let coord = [model.map.paths[j].latlngs.lng, model.map.paths[j].latlngs.lat]
+        latlngs.push(L.GeoJSON.coordsToLatLng(coord))
+      }
+
+      if (model.map.geojson.data) {
+        for (let k in model.map.geojson.data.features) {
+          for (let l in model.map.geojson.data.features[k].geometry.coordinates) {
+            let coord = [model.map.geojson.data.features[k].geometry.coordinates[l][0], model.map.geojson.data.features[k].geometry.coordinates[l][1]]
+            latlngs.push(L.GeoJSON.coordsToLatLng(coord))
+          }
         }
       }
+
       if (latlngs[0]) {
-        map.fitBounds(latlngs)
+        map.fitBounds(latlngs, {paddingTopLeft: [20, 20], paddingBottomRight: [100, 20]})
       }
     })
   }
