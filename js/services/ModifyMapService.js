@@ -74,6 +74,7 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
 
   this.removeRoute = function (model) {
     model.map.geojson = []
+    model.usedAlgorithm = undefined
   }
 
   this.centerOnRoute = function (model) {
