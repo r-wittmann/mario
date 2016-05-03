@@ -18,7 +18,6 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
         lat: args.leafletEvent.latlng.lat,
         lng: args.leafletEvent.latlng.lng,
         draggable: true,
-        message: model.map.markers.length === 0 ? 'Start' : 'Ziel',
         focus: true
       })
       reverseGeocode.reverseMarker(model, model.map.markers.length - 1)

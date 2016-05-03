@@ -6,6 +6,8 @@
 	</div>
 </div>
 <div class="dropdown background" ng-show="model.interDrop" ng-mouseenter="model.interDrop = true" ng-mouseleave="model.interDrop = false">
+	Set two markers on the map, choose time and date of your travel and press Go! for an intermodal route.
+	<div class="seperator"></div>
 	<div class="time-picker">
 		<i class="fa fa-clock-o fa-fw"></i>
 		<div class="number-increaser">
@@ -41,5 +43,6 @@
 			<i class="fa fa-chevron-down cursor-pointer" ng-click="changeDate(4, -1)"></i>
 		</div>
 	</div>
+	<div class="seperator"></div>
 	<span ng-click="calculateIntermodal()" class="go-button cursor-pointer">Go!</span>
 </div>
