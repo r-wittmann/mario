@@ -12,6 +12,7 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
       model.map.markers[args.modelName].lat = args.model.lat
       model.map.markers[args.modelName].lng = args.model.lng
       reverseGeocode.reverseMarker(model, args.modelName)
+      that.removeRoute(model)
     } else if (model.map.markers.length < 2) {
       model.map.markers.push({
         lat: args.leafletEvent.latlng.lat,
