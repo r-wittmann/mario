@@ -7,12 +7,12 @@ let mario = angular.module('app', ['leaflet-directive'])
  **/
 
 mario.controller('Controller',
-  ['$scope', 'modifyMap', 'handleServerRequest', 'dateTime', 'poiService', 'directRouteService', 'config',
-  function ($scope, modifyMap, handleServerRequest, dateTime, poiService, directRouteService, config) {
+  ['$scope', 'modifyMap', 'poiService', 'directRouteService', 'interRouteService', 'config',
+  function ($scope, modifyMap, poiService, directRouteService, interRouteService, config) {
     let initialize = function () {
       angular.extend($scope, config.config)
       directRouteService.getInitialInformation($scope.model)
-      dateTime.modelDate($scope.model, new Date())
+      interRouteService.modelDate($scope.model, new Date())
     }
 
     initialize()
@@ -26,7 +26,7 @@ mario.controller('Controller',
     }
 
     $scope.calculateIntermodal = function () {
-      if ($scope.model.map.markers.length > 1) handleServerRequest.calculateIntermodal($scope.model)
+      if ($scope.model.map.markers.length > 1) interRouteService.calculateIntermodal($scope.model)
     }
 
     $scope.selectAlgo = function (algorithm) {
@@ -38,11 +38,11 @@ mario.controller('Controller',
     }
 
     $scope.updateDate = function () {
-      dateTime.updateDate($scope.model)
+      interRouteService.updateDate($scope.model)
     }
 
     $scope.changeDate = function (index, direction) {
-      dateTime.changeDate($scope.model, index, direction)
+      interRouteService.changeDate($scope.model, index, direction)
     }
 
     $scope.removeElements = function () {
