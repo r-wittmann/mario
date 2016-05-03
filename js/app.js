@@ -7,8 +7,8 @@ let mario = angular.module('app', ['leaflet-directive'])
  **/
 
 mario.controller('Controller',
-  ['$scope', 'modifyMap', 'handleServerRequest', 'dateTime', 'algorithmCost', 'config',
-  function ($scope, modifyMap, handleServerRequest, dateTime, algorithmCost, config) {
+  ['$scope', 'modifyMap', 'handleServerRequest', 'dateTime', 'algorithmCost', 'poiService', 'config',
+  function ($scope, modifyMap, handleServerRequest, dateTime, algorithmCost, poiService, config) {
     let initialize = function () {
       angular.extend($scope, config.config)
       handleServerRequest.getInitialInformation($scope.model)
@@ -18,7 +18,7 @@ mario.controller('Controller',
     initialize()
 
     $scope.getPoi = function () {
-      if ($scope.model.map.markers.length > 0) handleServerRequest.fetchPoi($scope.model)
+      if ($scope.model.map.markers.length > 0) poiService.fetchPoi($scope.model)
     }
 
     $scope.calculate = function () {
@@ -48,7 +48,7 @@ mario.controller('Controller',
     $scope.removeElements = function () {
       modifyMap.removeMarker($scope.model)
       modifyMap.removeRoute($scope.model)
-      modifyMap.removePoi($scope.model)
+      poiService.removePoi($scope.model)
       $scope.model.usedAlgorithm = undefined
       $scope.model.infoDrop = false
     }

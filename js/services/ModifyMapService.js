@@ -26,6 +26,25 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
     model.map.markers = []
   }
 
+  this.addPoi = function (model, items) {
+    items.map((item) => {
+      model.map.paths[item.id.replace('-', '')] = {
+        type: 'circleMarker',
+        radius: 4,
+        color: '#262826',
+        opacity: 1,
+        weight: 2,
+        fillColor: '#68c631',
+        fillOpacity: 1,
+        message: ('<b>' + item.title + '</b><br/>' + item.category.title + '<br/>' + item.vicinity),
+        latlngs: {
+          lat: item.position[0],
+          lng: item.position[1]
+        }
+      }
+    })
+  }
+
   this.addRoute = function (model, geojson, interFlag) {
     interFlag
     ? this.addInterRouteProperties(model, geojson)
@@ -53,29 +72,6 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
 
   this.removeRoute = function (model) {
     model.map.geojson = []
-  }
-
-  this.addPoi = function (model, items) {
-    items.map((item) => {
-      model.map.paths[item.id.replace('-', '')] = {
-        type: 'circleMarker',
-        radius: 4,
-        color: '#262826',
-        opacity: 1,
-        weight: 2,
-        fillColor: '#FAFAFA',
-        fillOpacity: 1,
-        message: ('<b>' + item.title + '</b><br/>' + item.category.title + '<br/>' + item.vicinity),
-        latlngs: {
-          lat: item.position[0],
-          lng: item.position[1]
-        }
-      }
-    })
-  }
-
-  this.removePoi = function (model) {
-    model.map.paths = {}
   }
 
   this.centerOnRoute = function (model) {

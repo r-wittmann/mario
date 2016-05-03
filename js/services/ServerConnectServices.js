@@ -6,9 +6,6 @@
 
 mario.service('handleServerRequest', ['$http', 'handleServerResponse', function ($http, handleServerResponse) {
   const baseUrl = 'http://129.187.228.18:8080/restservices_'
-  const hereUrl = 'https://places.api.here.com/places/v1/discover/explore?'
-  const App_Id = 'WmIkt7vA4CQCMLSXEmOf'
-  const App_Code = 'LBj3S0_CED-_JWWO4VvUcg'
 
   this.getInitialInformation = function (model) {
     /* this file should be fetched from the server as well */
@@ -36,25 +33,6 @@ mario.service('handleServerRequest', ['$http', 'handleServerResponse', function 
     .then(function (response) {
       handleServerResponse.directRouteResponse(model, response)
     })
-  }
-
-  this.fetchPoi = function (model) {
-    fetchPoi(model)
-  }
-  let fetchPoi = function (model, url) {
-    if (!url) {
-      let attributes = 'in=' + model.map.markers[0].lat + ',' + model.map.markers[0].lng + ';r=750&tf=plain' + '&app_id=' + App_Id + '&app_code=' + App_Code
-      $http.get(hereUrl + attributes)
-        .then(function (response) {
-          if (response.data.results.next) fetchPoi(model, response.data.results.next)
-          handleServerResponse.addPoi(model, response.data.results.items)
-        })
-    } else {
-      $http.get(url).then(function (response) {
-        if (response.data.next) fetchPoi(model, response.data.next)
-        handleServerResponse.addPoi(model, response.data.items)
-      })
-    }
   }
 
   this.calculateIntermodal = function (model) {
@@ -100,8 +78,5 @@ mario.service('handleServerResponse', [ 'modifyMap', 'algorithmCost', function (
   this.interRouteResponse = function (model, response) {
     modifyMap.addRoute(model, response, true)
     model.usedAlgorithm = 'Intermodal'
-  }
-  this.addPoi = function (model, response) {
-    modifyMap.addPoi(model, response)
   }
 }])
