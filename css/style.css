@@ -1,6 +1,6 @@
 html, body {
 /** not ready **/
-	font-size: 1.8vmin;
+	font-size: calc(5px + 0.5vw);
 }
 .container-fluid {
 	padding: 0;
@@ -31,9 +31,8 @@ html, body {
 }
 .header-container {
 	display: flex;
-	height: 8vh;
+	height: calc(20px + 2vh);
 	max-height: 35px;
-	min-height: 15px;
 	padding: 0;
 }
 .header-element {
@@ -113,6 +112,5 @@ input::-webkit-inner-spin-button {
 
 .map-container {
 	min-height: calc(100vh - 35px);
-	height: 92vh;
-	max-height: calc(100vh - 15px);
+	height: calc(98vh - 20px);
 }
