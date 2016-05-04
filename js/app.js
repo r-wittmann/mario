@@ -10,7 +10,7 @@ mario.controller('Controller',
   ['$scope', 'modifyMap', 'poiService', 'directRouteService', 'interRouteService', 'config',
   function ($scope, modifyMap, poiService, directRouteService, interRouteService, config) {
     let initialize = function () {
-      angular.extend($scope, config.config)
+      angular.extend($scope, config)
       directRouteService.getInitialInformation($scope.model)
       interRouteService.modelDate($scope.model, new Date())
     }

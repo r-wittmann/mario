@@ -4,8 +4,8 @@
  * all constants are declared in config-service
  **/
 
-mario.service('config', function () {
-  this.config = {
+mario.factory('config', function () {
+  return {
     model: {
       map: {
         center: {
