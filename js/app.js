@@ -7,8 +7,8 @@ let mario = angular.module('app', ['leaflet-directive'])
  **/
 
 mario.controller('Controller',
-  ['$scope', 'modifyMap', 'poiService', 'directRouteService', 'interRouteService', 'config',
-  function ($scope, modifyMap, poiService, directRouteService, interRouteService, config) {
+  ['$scope', 'modifyMap', 'poiService', 'parkingService', 'directRouteService', 'interRouteService', 'config',
+  function ($scope, modifyMap, poiService, parkingService, directRouteService, interRouteService, config) {
     let initialize = function () {
       angular.extend($scope, config)
       directRouteService.getInitialInformation($scope.model)
@@ -19,6 +19,12 @@ mario.controller('Controller',
 
     $scope.getPoi = function () {
       if ($scope.model.map.markers.length > 0) poiService.fetchPoi($scope.model)
+    }
+
+    $scope.selectPoi = function (category) {
+      category === 'parking'
+      ? parkingService.selectParking($scope.model)
+      : poiService.selectPoi($scope.model, category)
     }
 
     $scope.calculate = function () {

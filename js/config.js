@@ -21,13 +21,20 @@ mario.factory('config', function () {
         markers: [],
         paths: {}
       },
+      poi: {
+        'parking': 'Parking',
+        'eat-drink': 'Eat & Drink',
+        'going-out': 'Going Out',
+        'sights-museums': 'Sights & Museums',
+        'transport': 'Transportation',
+        'shopping': 'Shopping',
+        'leisure-outdoor': 'Leisure & Outdoor',
+        'accommodation,administrative-areas-buildings,natural-geographical,petrol-station,atm-bank-exchange,toilet-rest-area,hospital-health-care-facility': 'Other'
+      },
       selected: {
         algorithm: '',
         cost: '',
-        poi: {
-          poi: true,
-          parking: false
-        }
+        poi: []
       }
     }
   }
