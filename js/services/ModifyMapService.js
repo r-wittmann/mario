@@ -7,6 +7,11 @@
 mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletData, reverseGeocode) {
   let that = this
 
+  this.changeBaselayer = function (model, layer) {
+    model.map.layers.baselayers = {}
+    model.map.layers.baselayers[layer] = model.map.baselayers[layer]
+  }
+
   this.addMarker = function (model, event, args, update) {
     if (update) {
       model.map.markers[args.modelName].lat = args.model.lat

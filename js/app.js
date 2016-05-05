@@ -11,11 +11,16 @@ mario.controller('Controller',
   function ($scope, modifyMap, poiService, parkingService, directRouteService, interRouteService, config) {
     let initialize = function () {
       angular.extend($scope, config)
+      $scope.model.map.layers.baselayers = $scope.model.map.baselayers
       directRouteService.getInitialInformation($scope.model)
       interRouteService.modelDate($scope.model, new Date())
     }
 
     initialize()
+
+    $scope.changeBaselayer = function (layer) {
+      modifyMap.changeBaselayer($scope.model, layer)
+    }
 
     $scope.getPoi = function () {
       if ($scope.model.map.markers.length > 0) poiService.fetchPoi($scope.model)
