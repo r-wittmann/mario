@@ -9,7 +9,8 @@
 	<div>
 		<ul class="list">
 			<li ng-if="model.map.markers[0]">
-				<p>Route from <br>
+				<p><span ng-if="model.map.markers[1]">Route from</span>
+					<span ng-if="!model.map.markers[1]">Marker set on</span><br>
 					<span ng-repeat="line in model.map.markers[0].formattedAddress">{{ line }}<br /></span></p>
 				<p ng-if="model.map.markers[1]">to <br>
 					<span ng-repeat="line in model.map.markers[1].formattedAddress">{{ line }}<br /></span></p>
