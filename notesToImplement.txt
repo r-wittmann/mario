@@ -1,6 +1,13 @@
 - get algorithms and attributes from server
-- sehenswürdigkeiten und parkplätze anzeigen (mit checkbox in calculate route)
-- parklätze vom server, sehenswürdigkeiten von einer public api
+- parkplätze anzeigen
+- parklätze vom server
 - useability auf handys sicherstellen
 
 - simulation of historic date and simulated data
+
+
+questions:
+- where to get parking
+- where to get algorithms and costs
+- is intermodal route in final configuration?
+- 
