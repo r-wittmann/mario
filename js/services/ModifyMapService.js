@@ -50,7 +50,8 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
         }
       }
     })
-    if (!next) that.centerOnRoute(model)
+    if (!items[0]) return
+    else if (!next) that.centerOnRoute(model)
   }
 
   this.addRoute = function (model, geojson, interFlag) {
