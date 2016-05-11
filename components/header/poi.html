@@ -9,7 +9,7 @@
 	Set one marker on the map, (choose categories) and press Go! for points of interest.
 	<div class="seperator"></div>
 	<div ng-repeat="(key, category) in model.poi">
-		<input type="radio" ng-checked="model.selected.poi.indexOf(key) !== -1" ng-click="selectPoi(key)" ng-disabled="key == 'parking'">
+		<input type="radio" ng-checked="model.selected.poi.indexOf(key) !== -1" ng-click="selectPoi(key)">
 		<span class="calc-drop-radio">{{ category }}</span>
 	</div>
 	<div class="seperator"></div>

@@ -4,7 +4,7 @@ mario.service('interRouteService', [ '$http', 'modifyMap', function ($http, modi
   let that = this
   const baseUrl = 'http://129.187.228.18:8080/restservices_'
 
-  this.calculateIntermodal = function (model) {
+  this.calculateIntermodal = function (model, range) {
     let startTarget = {
       'start': {
         'lat': model.map.markers[0].lat,
@@ -15,7 +15,7 @@ mario.service('interRouteService', [ '$http', 'modifyMap', function ($http, modi
         'lon': model.map.markers[1].lng
       },
       'departure': ('0' + model.date.days).slice(-2) + '.' + ('0' + model.date.months).slice(-2) + '.' + model.date.years + ' ' + ('0' + model.date.hours).slice(-2) + ':' + ('0' + model.date.minutes).slice(-2) + ':00',
-      'range': 5.0,
+      'range': range,
       'maxTransfers': 2147483647,
       'maxChanges': 2147483647
     }
@@ -31,7 +31,7 @@ mario.service('interRouteService', [ '$http', 'modifyMap', function ($http, modi
   }
 
   this.interRouteResponse = function (model, response) {
-    modifyMap.addRoute(model, response, true)
+    modifyMap.addRoute(model, response.data, true)
     model.usedAlgorithm = 'Intermodal'
   }
 

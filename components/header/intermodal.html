@@ -1,48 +1,42 @@
-<div class="header-element-h" ng-click="model.interDrop = !model.interDrop" ng-mouseenter="model.interDrop = true" ng-mouseleave="model.interDrop = false" ng-init="model.interDrop = false">
-	<div class="header-element-h-content">
-		Intermodal Route
-		<i class="fa fa-chevron-circle-up highlight-fa" ng-if="model.interDrop"></i>
-		<i class="fa fa-chevron-circle-down highlight-fa" ng-if="!model.interDrop"></i>
+Calculate route with public transportation (only possible in Berlin at the moment)
+<div class="seperator"></div>
+<div class="time-picker">
+	<i class="fa fa-clock-o fa-fw"></i>
+	<div class="number-increaser">
+		<i class="fa fa-chevron-up cursor-pointer" ng-click="changeDate(0, 1)"></i>
+		<input class="date-time-input" type="text" ng-model="model.date.hours" disabled>
+		<i class="fa fa-chevron-down cursor-pointer" ng-click="changeDate(0, -1)"></i>
+	</div>
+	<span> :</span>
+	<div class="number-increaser">
+		<i class="fa fa-chevron-up cursor-pointer" ng-click="changeDate(1, 1)"></i>
+		<input class="date-time-input" type="text" ng-model="model.date.minutes" disabled>
+		<i class="fa fa-chevron-down cursor-pointer" ng-click="changeDate(1, -1)"></i>
+	</div>
+	<i class="fa fa-refresh fa-fw" ng-click="updateDate()"></i>
+</div>
+<div class="date-picker">
+	<i class="fa fa-calendar fa-fw"></i>
+	<div class="number-increaser">
+		<i class="fa fa-chevron-up cursor-pointer" ng-click="changeDate(2, 1)"></i>
+		<input class="date-time-input" type="text" ng-model="model.date.days" disabled>
+		<i class="fa fa-chevron-down cursor-pointer" ng-click="changeDate(2, -1)"></i>
+	</div>
+	<span>/</span>
+	<div class="number-increaser">
+		<i class="fa fa-chevron-up cursor-pointer" ng-click="changeDate(3, 0)"></i>
+		<input class="date-time-input" type="text" ng-model="model.date.months" disabled>
+		<i class="fa fa-chevron-down cursor-pointer" ng-click="changeDate(3, -2)"></i>
+	</div>
+	<span>/</span>
+	<div class="number-increaser">
+		<i class="fa fa-chevron-up cursor-pointer" ng-click="changeDate(4, 1)"></i>
+		<input class="date-time-input year-input" type="text" ng-model="model.date.years" disabled>
+		<i class="fa fa-chevron-down cursor-pointer" ng-click="changeDate(4, -1)"></i>
 	</div>
 </div>
-<div class="dropdown background" ng-show="model.interDrop" ng-mouseenter="model.interDrop = true" ng-mouseleave="model.interDrop = false">
-	Set two markers on the map, choose time and date of your travel and press Go! for an intermodal route.
-	<div class="seperator"></div>
-	<div class="time-picker">
-		<i class="fa fa-clock-o fa-fw"></i>
-		<div class="number-increaser">
-			<i class="fa fa-chevron-up cursor-pointer" ng-click="changeDate(0, 1)"></i>
-			<input class="date-time-input" type="text" ng-model="model.date.hours" disabled>
-			<i class="fa fa-chevron-down cursor-pointer" ng-click="changeDate(0, -1)"></i>
-		</div>
-		<span> :</span>
-		<div class="number-increaser">
-			<i class="fa fa-chevron-up cursor-pointer" ng-click="changeDate(1, 1)"></i>
-			<input class="date-time-input" type="text" ng-model="model.date.minutes" disabled>
-			<i class="fa fa-chevron-down cursor-pointer" ng-click="changeDate(1, -1)"></i>
-		</div>
-		<i class="fa fa-refresh fa-fw" ng-click="updateDate()"></i>
-	</div>
-	<div class="date-picker">
-		<i class="fa fa-calendar fa-fw"></i>
-		<div class="number-increaser">
-			<i class="fa fa-chevron-up cursor-pointer" ng-click="changeDate(2, 1)"></i>
-			<input class="date-time-input" type="text" ng-model="model.date.days" disabled>
-			<i class="fa fa-chevron-down cursor-pointer" ng-click="changeDate(2, -1)"></i>
-		</div>
-		<span>/</span>
-		<div class="number-increaser">
-			<i class="fa fa-chevron-up cursor-pointer" ng-click="changeDate(3, 0)"></i>
-			<input class="date-time-input" type="text" ng-model="model.date.months" disabled>
-			<i class="fa fa-chevron-down cursor-pointer" ng-click="changeDate(3, -2)"></i>
-		</div>
-		<span>/</span>
-		<div class="number-increaser">
-			<i class="fa fa-chevron-up cursor-pointer" ng-click="changeDate(4, 1)"></i>
-			<input class="date-time-input year-input" type="text" ng-model="model.date.years" disabled>
-			<i class="fa fa-chevron-down cursor-pointer" ng-click="changeDate(4, -1)"></i>
-		</div>
-	</div>
-	<div class="seperator"></div>
-	<span ng-click="calculateIntermodal()" class="go-button cursor-pointer">Go!</span>
+<div>
+	Max. range on the street:<br/><input class="date-time-input" ng-init="range = 5" ng-model="range" type="number" min="1" max="20"></input> km
 </div>
+<div class="seperator"></div>
+<span ng-click="calculateIntermodal(range)" class="go-button cursor-pointer">Go!</span>

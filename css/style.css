@@ -16,7 +16,7 @@ html, body {
 }
 .highlight-fa {
 	color: #68c631;
-	margin-left: 5px; 
+	margin: 0 5px; 
 }
 .primary-text {
 	color: #262826;
@@ -99,11 +99,6 @@ html, body {
 }
 .year-input {
 	width: 50px;
-}
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    display: none;
-    margin: 0;
 }
 .list {
 	list-style-type: none;

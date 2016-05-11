@@ -2,6 +2,10 @@
 - parkplätze anzeigen
 - parklätze vom server
 - useability auf handys sicherstellen
+v alternative route (intermodal, parking) no parking in poi
+v range for intermodal
+- notifications
+
 
 - simulation of historic date and simulated data
 
@@ -9,5 +13,5 @@
 questions:
 - where to get parking
 - where to get algorithms and costs
-- is intermodal route in final configuration?
+v is intermodal route in final configuration?
 - 

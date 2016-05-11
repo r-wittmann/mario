@@ -67,7 +67,6 @@ mario.factory('config', function () {
         paths: {}
       },
       poi: {
-        'parking': 'Parking',
         'eat-drink': 'Eat & Drink',
         'going-out': 'Going Out',
         'sights-museums': 'Sights & Museums',

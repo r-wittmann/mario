@@ -62,19 +62,21 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
   }
 
   this.addInterRouteProperties = function (model, geojson) {
-    leafletData.getMap().then(function (map) {
-      L.geoJson(geojson.data, {
-        style: function (feature) {
-          switch (feature.properties.mode) {
-            case 'PUBLIC': return {color: '#ff0000'}
-            default: return {color: '#0000ff'}
-          }
-        },
-        onEachFeature: (feature, layer) => {
-          layer.bindPopup(feature.properties.instructions)
-        }
-      }).addTo(map)
-    })
+    console.log(model, geojson)
+    model.map.geojson.data = geojson
+    // leafletData.getMap().then(function (map) {
+    //   L.geoJson(geojson.data, {
+    //     style: function (feature) {
+    //       switch (feature.properties.mode) {
+    //         case 'PUBLIC': return {color: '#ff0000'}
+    //         default: return {color: '#0000ff'}
+    //       }
+    //     },
+    //     onEachFeature: (feature, layer) => {
+    //       layer.bindPopup(feature.properties.instructions)
+    //     }
+    //   }).addTo(map)
+    // })
   }
 
   this.removeRoute = function (model) {
@@ -106,7 +108,7 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
       }
 
       if (latlngs[0]) {
-        map.fitBounds(latlngs, {paddingTopLeft: [20, 20], paddingBottomRight: [100, 20]})
+        map.fitBounds(latlngs, {paddingTopLeft: [20, 20], paddingBottomRight: [250, 20]})
       }
     })
   }

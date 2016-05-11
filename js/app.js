@@ -36,8 +36,8 @@ mario.controller('Controller',
       if ($scope.model.map.markers.length > 1) directRouteService.calculateRoute($scope.model)
     }
 
-    $scope.calculateIntermodal = function () {
-      if ($scope.model.map.markers.length > 1) interRouteService.calculateIntermodal($scope.model)
+    $scope.calculateIntermodal = function (range) {
+      if ($scope.model.map.markers.length > 1) interRouteService.calculateIntermodal($scope.model, range)
     }
 
     $scope.selectAlgo = function (algorithm) {
