@@ -26,7 +26,7 @@ mario.service('directRouteService', [ '$http', 'modifyMap', function ($http, mod
   }
 
   this.directRouteResponse = function (model, response) {
-    modifyMap.addRoute(model, response, false)
+    modifyMap.addDirectRoute(model, response)
     model.usedAlgorithm = model.selected.algorithm
   }
 

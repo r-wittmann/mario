@@ -23,15 +23,13 @@ mario.service('interRouteService', [ '$http', 'modifyMap', function ($http, modi
     $http.post(baseUrl + 'inter/webresources/intermodal?', startTarget).then(function (response) {
       that.interRouteResponse(model, response)
     })
-    /*
-    $http.get('./mocks/geoJsonMock.geo.json').then(function (response) {
-      that.interRouteResponse(model, response)
-    })
-    */
+    // $http.get('./mocks/intermod.geo.json').then(function (response) {
+    //   that.interRouteResponse(model, response)
+    // })
   }
 
   this.interRouteResponse = function (model, response) {
-    modifyMap.addRoute(model, response.data, true)
+    modifyMap.addInterRoute(model, response)
     model.usedAlgorithm = 'Intermodal'
   }
 

@@ -62,6 +62,7 @@ mario.controller('Controller',
       poiService.removePoi($scope.model)
       $scope.model.usedAlgorithm = undefined
       $scope.model.infoDrop = false
+      $scope.model.map.routeInfo = undefined
     }
 
     $scope.$on('leafletDirectiveMap.click', function (event, args) {
@@ -70,6 +71,18 @@ mario.controller('Controller',
 
     $scope.$on('leafletDirectiveMarker.dragend', function (event, args) {
       modifyMap.addMarker($scope.model, event, args, true)
+    })
+
+    $scope.$on('leafletDirectiveGeoJson.mouseover', function (event, args) {
+      if (args.leafletObject.feature.properties.instructions) {
+        modifyMap.handleMousOverGeoJson($scope.model, event, args)
+      }
+    })
+
+    $scope.$on('leafletDirectiveGeoJson.mouseout', function (event, args) {
+      if (args.target && args.target.feature.properties.instructions) {
+        modifyMap.handleMousOutGeoJson($scope.model, event, args)
+      }
     })
 
     $scope.$watch('model.map.markers[1]', function (newValue, oldValue) {

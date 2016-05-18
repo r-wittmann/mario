@@ -15,9 +15,9 @@
 				<p ng-if="model.map.markers[1]">to <br>
 					<span ng-repeat="line in model.map.markers[1].formattedAddress">{{ line }}<br /></span></p>
 			</li>
-			<li ng-if="model.map.geojson.data.features[0].properties.costs">
+			<li ng-if="model.map.routeInfo">
 			<div class="seperator"></div>
-				<span ng-repeat="(key, value) in model.map.geojson.data.features[0].properties.costs">{{ key }}: {{ value }}<br></span>
+				<span ng-repeat="(key, value) in model.map.routeInfo">{{ key }}: {{ value }}<br></span>
 			</li>
 			<!--<ul class="information-element route-elements-container">
 				Route Segments:

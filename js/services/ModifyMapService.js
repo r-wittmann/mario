@@ -54,34 +54,37 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
     else if (!next) that.centerOnRoute(model)
   }
 
-  this.addRoute = function (model, geojson, interFlag) {
-    interFlag
-    ? this.addInterRouteProperties(model, geojson)
-    : model.map.geojson = geojson
+  this.addDirectRoute = function (model, geojson) {
+    model.map.geojson = geojson
+    model.map.geojson['style'] = {
+      opacity: 1
+    }
+    model.map['routeInfo'] = geojson.data.features[0].properties['costs']
     that.centerOnRoute(model)
   }
 
-  this.addInterRouteProperties = function (model, geojson) {
-    console.log(model, geojson)
-    model.map.geojson.data = geojson
-    // leafletData.getMap().then(function (map) {
-    //   L.geoJson(geojson.data, {
-    //     style: function (feature) {
-    //       switch (feature.properties.mode) {
-    //         case 'PUBLIC': return {color: '#ff0000'}
-    //         default: return {color: '#0000ff'}
-    //       }
-    //     },
-    //     onEachFeature: (feature, layer) => {
-    //       layer.bindPopup(feature.properties.instructions)
-    //     }
-    //   }).addTo(map)
-    // })
+  this.addInterRoute = function (model, geojson) {
+    model.map.geojson = geojson
+    model.map.geojson['style'] = {
+      opacity: 1
+    }
+    model.map['routeInfo'] = geojson.data.features.pop().properties['routeInfo']
+    that.centerOnRoute(model)
+    // reverseGeocode.reverseInstructions(model)
   }
 
   this.removeRoute = function (model) {
     model.map.geojson = []
     model.usedAlgorithm = undefined
+  }
+
+  this.handleMousOverGeoJson = function (model, event, args) {
+    // let popupContent = 'From ' + args.model.properties.instructions[0] + ' to ' + args.model.properties.instructions[1]
+    args.leafletEvent.target.setStyle({color: '#68c631'}).bringToFront()// .bindPopup(popupContent)
+  }
+
+  this.handleMousOutGeoJson = function (model, event, args) {
+    args.target.setStyle({color: '#0033ff'})
   }
 
   this.centerOnRoute = function (model) {
