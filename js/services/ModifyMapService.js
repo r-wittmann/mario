@@ -70,7 +70,7 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
     }
     model.map['routeInfo'] = geojson.data.features.pop().properties['routeInfo']
     that.centerOnRoute(model)
-    // reverseGeocode.reverseInstructions(model)
+    reverseGeocode.reverseInstructions(model)
   }
 
   this.removeRoute = function (model) {
