@@ -74,13 +74,11 @@ mario.controller('Controller',
     })
 
     $scope.$on('leafletDirectiveGeoJson.mouseover', function (event, args) {
-      if (args.leafletObject.feature.properties.instructions) {
-        modifyMap.handleMousOverGeoJson($scope.model, event, args)
-      }
+      modifyMap.handleMousOverGeoJson($scope.model, event, args)
     })
 
     $scope.$on('leafletDirectiveGeoJson.mouseout', function (event, args) {
-      if (args.target && args.target.feature.properties.instructions) {
+      if (args.target) {
         modifyMap.handleMousOutGeoJson($scope.model, event, args)
       }
     })

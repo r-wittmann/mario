@@ -79,8 +79,7 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
   }
 
   this.handleMousOverGeoJson = function (model, event, args) {
-    // let popupContent = 'From ' + args.model.properties.instructions[0] + ' to ' + args.model.properties.instructions[1]
-    args.leafletEvent.target.setStyle({color: '#68c631'}).bringToFront()// .bindPopup(popupContent)
+    args.leafletEvent.target.setStyle({color: '#68c631'}).bringToFront()
   }
 
   this.handleMousOutGeoJson = function (model, event, args) {

@@ -19,14 +19,13 @@
 			<div class="seperator"></div>
 				<span ng-repeat="(key, value) in model.map.routeInfo">{{ key }}: {{ value }}<br></span>
 			</li>
-			<!--<ul class="information-element route-elements-container">
+			<li class="information-element route-elements-container" ng-if="model.map.geojson.data.features[0].properties.instructions">
 				Route Segments:
-				<li class="route-element">first</li>
-				<li class="route-element">second</li>
-				<li class="route-element">last</li>
-			</ul>
-			<div class="seperator"></div>-->
-			
+				<div ng-repeat="feature in model.map.geojson.data.features">				
+					<div class="seperator"></div>
+					{{ feature.properties.instructions[0] }} to <br/>{{ feature.properties.instructions[1] }}
+				</div>
+			</li>
 			<li ng-if="model.usedAlgorithm">
 			<div class="seperator"></div>
 				Algorithm used: {{ model.usedAlgorithm }}<br>

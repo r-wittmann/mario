@@ -36,7 +36,7 @@ html, body {
 	padding: 0;
 }
 .header-element {
-	flex: 1;
+	flex: 3;
 	height: 100%;
 }
 .header-element-h {
