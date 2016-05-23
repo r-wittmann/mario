@@ -2,26 +2,27 @@
 
 mario.service('reverseGeocode', [ '$http', function ($http) {
   let that = this
-  const hereUrl = 'https://places.api.here.com/places/v1/discover/explore?'
+  const hereUrl = 'https://reverse.geocoder.api.here.com/6.2/reversegeocode.json?'
   const App_Id = 'WmIkt7vA4CQCMLSXEmOf'
   const App_Code = 'LBj3S0_CED-_JWWO4VvUcg'
 
   this.reverseMarker = function (model, index) {
-    $http.get('https://api.opencagedata.com/geocode/v1/json?q=' +
+    // $http.get('https://api.opencagedata.com/geocode/v1/json?q=' +
+    //   model.map.markers[index].lat + ',' +
+    //   model.map.markers[index].lng + '&key=8491dc280f0d8bfe17780388b16fe177')
+    // .then(function (response) {
+    //   model.map.markers[index].formattedAddress = response.data.results[0].formatted.split(', ')
+    //   model.map.markers[index].formattedAddress.pop()
+    //   model.infoDrop = true
+    // })
+    $http.get(hereUrl + 'prox=' +
       model.map.markers[index].lat + ',' +
-      model.map.markers[index].lng + '&key=8491dc280f0d8bfe17780388b16fe177')
+      model.map.markers[index].lng + ',200&app_id=' + App_Id + '&app_code=' + App_Code +
+      '&mode=retrieveAddresses&gen=9&language=en&maxresults=1')
     .then(function (response) {
-      model.map.markers[index].formattedAddress = response.data.results[0].formatted.split(', ')
+      model.map.markers[index].formattedAddress = response.data.Response.View[0].Result[0].Location.Address.Label.split(', ')
       model.map.markers[index].formattedAddress.pop()
       model.infoDrop = true
-    })
-    $http.get('https://reverse.geocoder.api.here.com/6.2/reversegeocode.json?prox=' +
-      model.map.markers[index].lat + ',' + model.map.markers[index].lng +
-      ',100&mode=retrieveAddresses&app_id=' + App_Id + '&app_code=' + App_Code + '&gen=9' +
-      '&language=en' +
-      '&maxresults=1')
-    .then(function (response) {
-      console.log(response)
     })
   }
 
