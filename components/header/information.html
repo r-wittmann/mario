@@ -19,10 +19,9 @@
 			<div class="seperator"></div>
 				<span ng-repeat="(key, value) in model.map.routeInfo">{{ key }}: {{ value }}<br></span>
 			</li>
-			<li class="information-element route-elements-container" ng-if="model.map.geojson.data.features[0].properties.instructions">
-				Route Segments:
-				<div ng-repeat="feature in model.map.geojson.data.features">				
-					<div class="seperator"></div>
+			<li class="information-element route-elements-container" ng-if="model.map.geojson.data">
+				<div class="seperator"></div>
+				<div id="{{$index}}" ng-repeat="feature in model.map.geojson.data.features" class="route-segment">				
 					{{ feature.properties.instructions[0] }} to <br/>{{ feature.properties.instructions[1] }}
 				</div>
 			</li>

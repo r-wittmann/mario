@@ -104,6 +104,20 @@ html, body {
 	list-style-type: none;
 	padding: 0;
 }
+.route-segment {
+	width: 95%;
+	margin: 0 auto 5px auto;
+	padding: 0 10px 5px 10px;
+	border-bottom: solid 1px #919291;
+}
+.route-segment:last-child {
+	margin-bottom: 0;
+	padding-bottom: 0;
+	border: none;
+}
+.route-segment:hover {
+	box-shadow: -5px 0 0 #68c631;
+}
 
 .map-container {
 	min-height: calc(100vh - 35px);

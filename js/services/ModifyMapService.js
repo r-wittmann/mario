@@ -55,6 +55,8 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
   }
 
   this.addDirectRoute = function (model, geojson) {
+    geojson.data.features[0].properties['instructions'] = [model.map.markers[0].formattedAddress[0], model.map.markers[1].formattedAddress[0]]
+    geojson.data.features[0].properties['index'] = 0
     model.map.geojson = geojson
     model.map.geojson['style'] = {
       opacity: 1
@@ -64,10 +66,16 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
   }
 
   this.addInterRoute = function (model, geojson) {
+    for (let i = 0; i < geojson.data.features.length; i++) {
+      geojson.data.features[i].properties['index'] = i
+    }
+    geojson.data.features[0].properties.instructions[0] = model.map.markers[0].formattedAddress[0]
+    geojson.data.features[geojson.data.features.length - 2].properties.instructions[1] = model.map.markers[1].formattedAddress[0]
     model.map.geojson = geojson
     model.map.geojson['style'] = {
       opacity: 1
     }
+
     model.map['routeInfo'] = geojson.data.features.pop().properties['routeInfo']
     that.centerOnRoute(model)
     reverseGeocode.reverseInstructions(model)
@@ -79,7 +87,11 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
   }
 
   this.handleMousOverGeoJson = function (model, event, args) {
-    args.leafletEvent.target.setStyle({color: '#68c631'}).bringToFront()
+    // console.log(model.map.geojson.data.features, args.leafletEvent.target.feature)
+    let popupContent =
+      model.map.geojson.data.features[args.leafletEvent.target.feature.properties.index].properties.instructions[0] +
+      ' to<br/>' + model.map.geojson.data.features[args.leafletEvent.target.feature.properties.index].properties.instructions[1]
+    args.leafletEvent.target.setStyle({color: '#68c631'}).bringToFront().bindPopup(popupContent)
   }
 
   this.handleMousOutGeoJson = function (model, event, args) {
