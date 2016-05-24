@@ -88,11 +88,16 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
   }
 
   this.handleMousOverGeoJson = function (model, event, args) {
-    let popupContent =
-      model.map.geojson.data.features[args.leafletEvent.target.feature.properties.index].properties.instructions[0] +
-      ' to<br/>' + model.map.geojson.data.features[args.leafletEvent.target.feature.properties.index].properties.instructions[1]
+    let index = args.leafletEvent.target.feature.properties.index
+    let instructions = model.map.geojson.data.features[index].properties.instructions
+
+    let popupContent = ''
+    if (instructions[2] !== 'NULL' && instructions[2]) {
+      popupContent = 'Take <b>' + instructions[2] + '</b> from<br/><b>' + instructions[0] + '</b> to<br/><b>' + instructions[1] + '</b>'
+    } else popupContent = 'Drive or walk from<br/><b>' + instructions[0] + '</b> to<br/><b>' + instructions[1] + '</b>'
+
     args.leafletEvent.target.setStyle({color: '#68c631'}).bringToFront().bindPopup(popupContent)
-    model.selected.hover = args.leafletEvent.target.feature.properties.index
+    model.selected.hover = index
   }
 
   this.handleMousOutGeoJson = function (model, event, args) {
