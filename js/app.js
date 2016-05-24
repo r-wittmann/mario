@@ -1,6 +1,6 @@
 /* global angular */
 
-let mario = angular.module('app', ['leaflet-directive'])
+let mario = angular.module('app', ['leaflet-directive', 'angular-loading-bar'])
 
 /**
  * main controller of mario app
