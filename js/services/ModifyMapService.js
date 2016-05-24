@@ -61,6 +61,7 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
     model.map.geojson['style'] = {
       opacity: 1
     }
+
     model.map['routeInfo'] = geojson.data.features[0].properties['costs']
     that.centerOnRoute(model)
   }
@@ -87,15 +88,30 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
   }
 
   this.handleMousOverGeoJson = function (model, event, args) {
-    // console.log(model.map.geojson.data.features, args.leafletEvent.target.feature)
     let popupContent =
       model.map.geojson.data.features[args.leafletEvent.target.feature.properties.index].properties.instructions[0] +
       ' to<br/>' + model.map.geojson.data.features[args.leafletEvent.target.feature.properties.index].properties.instructions[1]
     args.leafletEvent.target.setStyle({color: '#68c631'}).bringToFront().bindPopup(popupContent)
+    model.selected.hover = args.leafletEvent.target.feature.properties.index
   }
 
   this.handleMousOutGeoJson = function (model, event, args) {
     args.target.setStyle({color: '#0033ff'})
+    model.selected.hover = -1
+  }
+
+  this.highlightSegment = function (model, index, inFlag) {
+    leafletData.getMap().then(function (map) {
+      let i = 0
+      for (let j in map._layers) {
+        if (i === 4) {
+          for (let k in map._layers[j]._layers) {
+            if (map._layers[j]._layers[k].feature.properties.index === index) map._layers[j]._layers[k].setStyle(inFlag ? {color: '#68c631'} : {color: '#0033ff'}).bringToFront()
+          }
+        }
+        i++
+      }
+    })
   }
 
   this.centerOnRoute = function (model) {

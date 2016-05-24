@@ -21,7 +21,7 @@
 			</li>
 			<li class="information-element route-elements-container" ng-if="model.map.geojson.data">
 				<div class="seperator"></div>
-				<div id="{{$index}}" ng-repeat="feature in model.map.geojson.data.features" class="route-segment">				
+				<div ng-repeat="feature in model.map.geojson.data.features" ng-mouseenter="hoverSegment($index, true)" ng-mouseleave="hoverSegment($index, false)" class="route-segment" ng-class="{'route-segment-active': model.selected.hover === $index}">
 					{{ feature.properties.instructions[0] }} to <br/>{{ feature.properties.instructions[1] }}
 				</div>
 			</li>

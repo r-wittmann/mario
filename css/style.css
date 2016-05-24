@@ -115,7 +115,7 @@ html, body {
 	padding-bottom: 0;
 	border: none;
 }
-.route-segment:hover {
+.route-segment-active {
 	box-shadow: -5px 0 0 #68c631;
 }
 

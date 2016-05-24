@@ -81,7 +81,8 @@ mario.factory('config', function () {
       selected: {
         algorithm: '',
         costs: [],
-        poi: []
+        poi: [],
+        hover: -1
       }
     }
   }

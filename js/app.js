@@ -65,6 +65,11 @@ mario.controller('Controller',
       $scope.model.map.routeInfo = undefined
     }
 
+    $scope.hoverSegment = function (index, flag) {
+      $scope.model.selected.hover = flag ? index : -1
+      modifyMap.highlightSegment($scope.model, index, flag)
+    }
+
     $scope.$on('leafletDirectiveMap.click', function (event, args) {
       modifyMap.addMarker($scope.model, event, args, false)
     })
