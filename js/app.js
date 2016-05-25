@@ -2,10 +2,6 @@
 
 let mario = angular.module('app', ['leaflet-directive', 'angular-loading-bar'])
 
-/**
- * main controller of mario app
- **/
-
 mario.controller('Controller',
   ['$scope', 'modifyMap', 'poiService', 'parkingService', 'directRouteService', 'interRouteService', 'config',
   function ($scope, modifyMap, poiService, parkingService, directRouteService, interRouteService, config) {
@@ -49,7 +45,7 @@ mario.controller('Controller',
     }
 
     $scope.updateDate = function () {
-      interRouteService.updateDate($scope.model)
+      interRouteService.modelDate($scope.model)
     }
 
     $scope.changeDate = function (index, direction) {

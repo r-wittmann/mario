@@ -1,5 +1,4 @@
 html, body {
-/** not ready **/
 	font-size: calc(5px + 0.5vw);
 }
 .container-fluid {
@@ -159,4 +158,9 @@ html, body {
 .map-container {
 	min-height: calc(100vh - 35px);
 	height: calc(98vh - 20px);
+}
+.leaflet-draw-section {
+	position: absolute;
+	top: 80px;
+	left: 10px;
 }

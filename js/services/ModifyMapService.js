@@ -1,9 +1,5 @@
 /* global mario L */
 
-/**
- * all map modification will be in this service
- **/
-
 mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletData, reverseGeocode) {
   let that = this
 
@@ -14,6 +10,7 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
 
   this.addMarker = function (model, event, args, update) {
     let markers = model.map.markers
+
     if (update) {
       markers[args.modelName].lat = args.model.lat
       markers[args.modelName].lng = args.model.lng
@@ -35,7 +32,7 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
   }
 
   this.addPoi = function (model, items, next) {
-    items.map((item) => {
+    items.map(item => {
       model.map.paths[item.id.replace('-', '')] = {
         type: 'circleMarker',
         radius: 4,
@@ -107,45 +104,47 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
   }
 
   this.highlightSegment = function (model, index, inFlag) {
-    leafletData.getMap().then(function (map) {
-      let i = 0
-      for (let j in map._layers) {
-        if (i === 4) {
-          for (let k in map._layers[j]._layers) {
-            if (map._layers[j]._layers[k].feature.properties.index === index) map._layers[j]._layers[k].setStyle(inFlag ? {color: '#68c631'} : {color: '#0033ff'}).bringToFront()
+    leafletData.getMap()
+      .then(map => {
+        let i = 0
+        for (let j in map._layers) {
+          if (i === 4) {
+            for (let k in map._layers[j]._layers) {
+              if (map._layers[j]._layers[k].feature.properties.index === index) map._layers[j]._layers[k].setStyle(inFlag ? {color: '#68c631'} : {color: '#0033ff'}).bringToFront()
+            }
           }
+          i++
         }
-        i++
-      }
-    })
+      })
   }
 
   this.centerOnRoute = function (model) {
-    leafletData.getMap().then(function (map) {
-      let latlngs = []
+    let latlngs = []
 
-      for (let i in model.map.markers) {
-        let coord = [model.map.markers[i].lng, model.map.markers[i].lat]
-        latlngs.push(L.GeoJSON.coordsToLatLng(coord))
-      }
+    for (let i in model.map.markers) {
+      let coord = [model.map.markers[i].lng, model.map.markers[i].lat]
+      latlngs.push(L.GeoJSON.coordsToLatLng(coord))
+    }
 
-      for (let j in model.map.paths) {
-        let coord = [model.map.paths[j].latlngs.lng, model.map.paths[j].latlngs.lat]
-        latlngs.push(L.GeoJSON.coordsToLatLng(coord))
-      }
+    for (let j in model.map.paths) {
+      let coord = [model.map.paths[j].latlngs.lng, model.map.paths[j].latlngs.lat]
+      latlngs.push(L.GeoJSON.coordsToLatLng(coord))
+    }
 
-      if (model.map.geojson.data) {
-        for (let k in model.map.geojson.data.features) {
-          for (let l in model.map.geojson.data.features[k].geometry.coordinates) {
-            let coord = [model.map.geojson.data.features[k].geometry.coordinates[l][0], model.map.geojson.data.features[k].geometry.coordinates[l][1]]
-            latlngs.push(L.GeoJSON.coordsToLatLng(coord))
-          }
+    if (model.map.geojson.data) {
+      for (let k in model.map.geojson.data.features) {
+        for (let l in model.map.geojson.data.features[k].geometry.coordinates) {
+          let coord = [model.map.geojson.data.features[k].geometry.coordinates[l][0], model.map.geojson.data.features[k].geometry.coordinates[l][1]]
+          latlngs.push(L.GeoJSON.coordsToLatLng(coord))
         }
       }
+    }
 
-      if (latlngs[0]) {
-        map.fitBounds(latlngs, {paddingTopLeft: [20, 20], paddingBottomRight: [250, 20]})
-      }
-    })
+    leafletData.getMap()
+      .then(map => {
+        if (latlngs[0]) {
+          map.fitBounds(latlngs, {paddingTopLeft: [20, 20], paddingBottomRight: [250, 20]})
+        }
+      })
   }
 }])

@@ -6,29 +6,27 @@
 	</div>
 </div>
 <div class="dropdown background" ng-show="model.infoDrop">
-	<div>
-		<ul class="list">
-			<li ng-if="model.map.markers[0]">
-				<p><span ng-if="model.map.markers[1]">Route from</span>
-					<span ng-if="!model.map.markers[1]">Marker set on</span><br>
-					<span ng-repeat="line in model.map.markers[0].formattedAddress">{{ line }}<br /></span></p>
-				<p ng-if="model.map.markers[1]">to <br>
-					<span ng-repeat="line in model.map.markers[1].formattedAddress">{{ line }}<br /></span></p>
-			</li>
-			<li ng-if="model.map.routeInfo">
+	<ul class="list">
+		<li ng-show="model.map.markers[0]">
+			<p><span ng-show="model.map.markers[1]">Route from</span>
+				<span ng-show="!model.map.markers[1]">Marker set on</span><br>
+				<span ng-repeat="line in model.map.markers[0].formattedAddress">{{ line }}<br /></span></p>
+			<p ng-show="model.map.markers[1]">to <br>
+				<span ng-repeat="line in model.map.markers[1].formattedAddress">{{ line }}<br /></span></p>
+		</li>
+		<li ng-show="model.map.routeInfo">
+		<div class="seperator"></div>
+			<span ng-repeat="(key, value) in model.map.routeInfo">{{ key }}: {{ value }}<br></span>
+		</li>
+		<li class="information-element route-elements-container" ng-show="model.map.geojson.data">
 			<div class="seperator"></div>
-				<span ng-repeat="(key, value) in model.map.routeInfo">{{ key }}: {{ value }}<br></span>
-			</li>
-			<li class="information-element route-elements-container" ng-if="model.map.geojson.data">
-				<div class="seperator"></div>
-				<div ng-repeat="feature in model.map.geojson.data.features" ng-mouseenter="hoverSegment($index, true)" ng-mouseleave="hoverSegment($index, false)" class="route-segment" ng-class="{'route-segment-active': model.selected.hover === $index}">
-					{{ feature.properties.instructions[0] }} to <br/>{{ feature.properties.instructions[1] }}
-				</div>
-			</li>
-			<li ng-if="model.usedAlgorithm">
-			<div class="seperator"></div>
-				Algorithm used: {{ model.usedAlgorithm }}<br>
-			</li>
-		</ul>
-	</div>
+			<div ng-repeat="feature in model.map.geojson.data.features" ng-mouseenter="hoverSegment($index, true)" ng-mouseleave="hoverSegment($index, false)" class="route-segment" ng-class="{'route-segment-active': model.selected.hover === $index}">
+				{{ feature.properties.instructions[0] }} to <br/>{{ feature.properties.instructions[1] }}
+			</div>
+		</li>
+		<li ng-show="model.usedAlgorithm">
+		<div class="seperator"></div>
+			Algorithm used: {{ model.usedAlgorithm }}<br>
+		</li>
+	</ul>
 </div>

@@ -2,7 +2,7 @@
 
 mario.service('interRouteService', [ '$http', 'modifyMap', function ($http, modifyMap) {
   let that = this
-  const baseUrl = 'http://129.187.228.18:8080/restservices_'
+  const baseUrl = 'http://129.187.228.18:8080/restservices_inter/webresources/intermodal?'
 
   this.calculateIntermodal = function (model, range) {
     let startTarget = {
@@ -20,20 +20,15 @@ mario.service('interRouteService', [ '$http', 'modifyMap', function ($http, modi
       'maxChanges': 2147483647
     }
     angular.toJson(startTarget)
-    $http.post(baseUrl + 'inter/webresources/intermodal?', startTarget).then(function (response) {
-      that.interRouteResponse(model, response)
-    })
-    // $http.get('./mocks/intermod.geo.json').then(function (response) {
-    //   that.interRouteResponse(model, response)
-    // })
-  }
-
-  this.interRouteResponse = function (model, response) {
-    modifyMap.addInterRoute(model, response)
-    model.usedAlgorithm = 'Intermodal'
+    $http.post(baseUrl, startTarget)
+      .then(response => {
+        modifyMap.addInterRoute(model, response)
+        model.usedAlgorithm = 'Intermodal'
+      })
   }
 
   this.modelDate = function (model, newDate) {
+    if (!newDate) newDate = new Date()
     model.date = {
       hours: newDate.getHours(),
       minutes: newDate.getMinutes(),
@@ -42,10 +37,6 @@ mario.service('interRouteService', [ '$http', 'modifyMap', function ($http, modi
       years: newDate.getFullYear()}
   }
 
-  this.updateDate = function (model) {
-    let newDate = new Date()
-    that.modelDate(model, newDate)
-  }
   this.changeDate = function (model, index, direction) {
     let oldDate = model.date
     let newDate = new Date(

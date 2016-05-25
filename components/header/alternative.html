@@ -1,4 +1,4 @@
-<div class="header-element-h" ng-click="model.altDrop = !model.altDrop" ng-mouseenter="model.altDrop = true" ng-mouseleave="model.altDrop = false" ng-init="model.altDrop = false">
+<div class="header-element-h" ng-mouseenter="model.altDrop = true" ng-mouseleave="model.altDrop = false" ng-init="model.altDrop = false">
 	<div class="header-element-h-content">
 		Alternative Route
 		<i class="fa fa-chevron-circle-up highlight-fa" ng-if="model.altDrop"></i>
@@ -17,4 +17,4 @@
 	</div>
 </div>
 <div class="dropdown background" ng-show="model.interDrop" ng-mouseenter="model.interDrop = true" ng-mouseleave="model.interDrop = false" ng-include="'components/header/intermodal.html'"></div>
-<div ng-include="'components/header/parking.html'" class="dropdown background" ng-show="model.parkingDrop" ng-mouseenter="model.parkingDrop = true" ng-mouseleave="model.parkingDrop = false"></div>
+<div class="dropdown background" ng-show="model.parkingDrop" ng-mouseenter="model.parkingDrop = true" ng-mouseleave="model.parkingDrop = false" ng-include="'components/header/parking.html'"></div>
