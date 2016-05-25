@@ -13,19 +13,20 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
   }
 
   this.addMarker = function (model, event, args, update) {
+    let markers = model.map.markers
     if (update) {
-      model.map.markers[args.modelName].lat = args.model.lat
-      model.map.markers[args.modelName].lng = args.model.lng
+      markers[args.modelName].lat = args.model.lat
+      markers[args.modelName].lng = args.model.lng
       reverseGeocode.reverseMarker(model, args.modelName)
       that.removeRoute(model)
-    } else if (model.map.markers.length < 2) {
-      model.map.markers.push({
+    } else if (markers.length < 2) {
+      markers.push({
         lat: args.leafletEvent.latlng.lat,
         lng: args.leafletEvent.latlng.lng,
         draggable: true,
         focus: true
       })
-      reverseGeocode.reverseMarker(model, model.map.markers.length - 1)
+      reverseGeocode.reverseMarker(model, markers.length - 1)
     }
   }
 
