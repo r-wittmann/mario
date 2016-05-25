@@ -9,15 +9,15 @@
 	Set two markers on the map, choose an algorithm and the cost the route should be optimiced to and press Go! for a direct route.
 	<div class="seperator"></div>
 	Choose Algorithm:
-	<div ng-repeat="(key, algorithm) in model.algorithms">
-		<input type="radio" name="algorithms" ng-model="model.selected.algorithm" ng-value=algorithm ng-click="selectAlgo(algorithm)">
-		<span class="calc-drop-radio">{{ algorithm }}</span>
+	<div ng-repeat="algorithm in model.algorithms" ng-click="selectAlgo(algorithm)">
+		<input type="radio" name="algorithms" ng-checked="model.selected.algorithm === algorithm">
+		<span class="calc-drop-radio">{{ algorithm.algorithm }}</span>
 	</div>
 	<div class="seperator"></div>
 	Choose Cost:
-	<div ng-repeat="(key, cost) in model.algorithmCosts">
-		<input type="radio" ng-checked="model.selected.costs.indexOf(cost) !== -1" ng-click="selectCost(cost)">
-		<span class="calc-drop-radio">{{ cost }}</span>
+	<div ng-repeat="criterium in model.selected.algorithm.criteria" ng-click="selectCost(criterium)">
+		<input type="radio" ng-checked="model.selected.costs.indexOf(criterium) !== -1">
+		<span class="calc-drop-radio">{{ criterium }}</span>
 	</div>
 	<div class="seperator"></div>
 	<span ng-click="calculate()" class="go-button cursor-pointer">Go!</span>

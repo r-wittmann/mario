@@ -1,13 +1,56 @@
 {
-	"algorithms": [
-		"dijkstra",
-		"A_STAR",
-		"skyline",
-		"linear skyline"
-	],
-	"algorithmCosts": [
-		"time",
+	"Cost_Criteria": [
 		"distance",
+		"time",
 		"energy"
-	]
+	],
+	"Routing_Algorithms": [{
+		"algorithm": "Dijkstra",
+		"criteria": [
+			"distance",
+			"time",
+			"energy"
+		],
+		"min_criteria": 1,
+		"max_criteria": 1
+	}, {
+		"algorithm": "A_Star",
+		"criteria": [
+			"distance"
+		],
+		"min_criteria": 1,
+		"max_criteria": 1
+	}, {
+		"algorithm": "A_Star_with_Charging",
+		"criteria": [
+			"distance"
+		],
+		"min_criteria": 1,
+		"max_criteria": 1
+	}, {
+		"algorithm": "Linear_Path_Skyline",
+		"criteria": [
+			"distance",
+			"time",
+			"energy"
+		],
+		"min_criteria": 1,
+		"max_criteria": 3
+	}, {
+		"algorithm": "Path_Skyline",
+		"criteria": [
+			"distance",
+			"time",
+			"energy"
+		],
+		"min_criteria": 1,
+		"max_criteria": 3
+	}],
+	"Alternative_Queries": [{
+		"algorithm": "Parking_Query",
+		"criteria": [
+			"time"
+		],
+		"return_type": "ParkingQueryResponse"
+	}]
 }

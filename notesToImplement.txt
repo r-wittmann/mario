@@ -1,17 +1,23 @@
-- get algorithms and attributes from server
-- parkplätze anzeigen
-- parklätze vom server
-- useability auf handys sicherstellen
-v alternative route (intermodal, parking) no parking in poi
-v range for intermodal
-- notifications
+x get algorithms and attributes from server (vermutlich out of scope)
+(- parkplätze anzeigen) (vermutlich out of scope)
+(- parklätze vom server) (vermutlich out of scope)
+(- useability auf handys sicherstellen)
+(- notifications)
+
+- display algorithms visited nodes (checkbox in Direct Route; handle response; dunkelgraue Karte zum Anzeigen)
+- animation of historic date and simulated data
+- mario.config: Farbe des Ladebalken, console.log statements ausschalten
 
 
-- simulation of historic date and simulated data
+* Schriftliche Arbeit
+	- Introduction: Was ist das Ziel? Was gibts für Möglichkeiten, Motivation
+	- Stand der Technik (Related Work): GeoJSON, Leaflet, AngularJS, HERE-API
+	- Funktionalitäten und Backend Algorithmen: Beschreibung des Backends und der Algorithmen (Infos bekomme ich von Gregor, Papers zusammenfassen)
+	- Design und Entwicklung
+		- Rechtliche Grundlagen
+	- Modularität (Erweiterbarkeit)
+	- Fazit
 
-
-questions:
-- where to get parking
-- where to get algorithms and costs
-v is intermodal route in final configuration?
-- 
+	- kein Code: Source code wird nicht mit abgegeben und bleibt im repository
+	- Wissenschaftliche Arbeit, keine Beschreibung der Entwicklung
+	- Screenshots der Application und 'class diagrams' sind erlaubt

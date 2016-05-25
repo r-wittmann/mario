@@ -14,7 +14,7 @@ mario.service('directRouteService', [ '$http', 'modifyMap', function ($http, mod
         'lat': model.map.markers[1].lat,
         'lon': model.map.markers[1].lng
       },
-      'algo': model.selected.algorithm
+      'algo': model.selected.algorithm.algorithm
       /* 'cost': scope.selected.cost not implemented on server yet*/
     }
     angular.toJson(startTarget)
@@ -27,7 +27,7 @@ mario.service('directRouteService', [ '$http', 'modifyMap', function ($http, mod
 
   this.directRouteResponse = function (model, response) {
     modifyMap.addDirectRoute(model, response)
-    model.usedAlgorithm = model.selected.algorithm
+    model.usedAlgorithm = model.selected.algorithm.algorithm
   }
 
   this.getInitialInformation = function (model) {
@@ -38,27 +38,21 @@ mario.service('directRouteService', [ '$http', 'modifyMap', function ($http, mod
   }
 
   this.initialSave = function (model, response) {
-    angular.extend(model, response.data)
-    model.selected.algorithm = response.data.algorithms[1]
-    model.selected.costs = [response.data.algorithmCosts[0]]
+    model['algorithms'] = response.data.Routing_Algorithms
+    model.selected.algorithm = model.algorithms[1]
+    model.selected.costs = [model.selected.algorithm.criteria[0]]
   }
 
   this.selectAlgo = function (model, algorithm) {
-    model.selected.costs = [model.selected.costs[0]]
+    model.selected.algorithm = algorithm
+    model.selected.costs = [model.selected.algorithm.criteria[0]]
   }
 
   this.selectCost = function (model, cost) {
-    if (model.selected.algorithm.indexOf('skyline') >= 0) {
-      if (model.selected.costs.length <= 1 && model.selected.costs[0] === cost) {
-        return
-      } else if (model.selected.costs.indexOf(cost) === -1) {
-        model.selected.costs.push(cost)
-      } else {
-        model.selected.costs.splice(model.selected.costs.indexOf(cost), 1)
-      }
-    } else {
-      model.selected.costs.pop()
-      model.selected.costs.push(cost)
+    if (model.selected.algorithm.max_criteria === 1) model.selected.costs = [cost]
+    else {
+      if (model.selected.costs.indexOf(cost) === -1) model.selected.costs.push(cost)
+      else model.selected.costs.splice(model.selected.costs.indexOf(cost), 1)
     }
   }
 }])
