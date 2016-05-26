@@ -45,6 +45,26 @@ mario.factory('config', function () {
       showOnSelector: false
     }
   }
+  let grey = {
+    name: 'Map',
+    url: 'http://{s}.{base}.maps.api.here.com/maptile/2.1/{type}/{mapID}/{scheme}/{z}/{x}/{y}/{size}/{format}?app_id={app_id}&app_code={app_code}&lg={language}',
+    type: 'xyz',
+    layerOptions: {
+      attribution: 'Map &copy; 2016 <a href="http://developer.here.com">HERE</a>',
+      subdomains: '1234',
+      base: 'base',
+      type: 'blinetile',
+      scheme: 'reduced.night',
+      app_id: 'WmIkt7vA4CQCMLSXEmOf',
+      app_code: 'LBj3S0_CED-_JWWO4VvUcg',
+      mapID: 'newest',
+      maxZoom: 18,
+      language: 'eng',
+      format: 'png8',
+      size: '256',
+      showOnSelector: false
+    }
+  }
   let poi = {
     'eat-drink': 'Eat & Drink',
     'going-out': 'Going Out',
@@ -71,7 +91,8 @@ mario.factory('config', function () {
         },
         baselayers: {
           map: map,
-          satellite: satellite
+          satellite: satellite,
+          grey: grey
         },
         geojson: [],
         markers: [],
@@ -83,7 +104,8 @@ mario.factory('config', function () {
         costs: [],
         poi: [],
         hover: -1
-      }
+      },
+      visitedNodes: false
     }
   }
 })

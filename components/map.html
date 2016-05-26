@@ -4,6 +4,7 @@
             <div class="leaflet-draw-toolbar leaflet-bar leaflet-draw-toolbar-top">
                 <a href="" ng-click="changeBaselayer('map'); $event.stopPropagation();"><i class="fa fa-map-o"></i></a>
                 <a href="" ng-click="changeBaselayer('satellite'); $event.stopPropagation();"><i class="fa fa-globe"></i></a>
+                <a href="" ng-if="model.visitedNodes" ng-click="changeBaselayer('grey'); $event.stopPropagation();"><i class="fa fa-calculator"></i></a>
             </div>
         </div>
     </div>
