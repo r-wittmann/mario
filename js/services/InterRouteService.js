@@ -1,6 +1,6 @@
 /* global angular mario */
 
-mario.service('interRouteService', [ '$http', 'modifyMap', function ($http, modifyMap) {
+mario.service('interRouteService', [ '$http', 'modifyMap', 'reverseGeocode', function ($http, modifyMap, reverseGeocode) {
   let that = this
   const baseUrl = 'http://129.187.228.18:8080/restservices_inter/webresources/intermodal?'
 
@@ -22,9 +22,25 @@ mario.service('interRouteService', [ '$http', 'modifyMap', function ($http, modi
     angular.toJson(startTarget)
     $http.post(baseUrl, startTarget)
       .then(response => {
-        modifyMap.addInterRoute(model, response)
+        that.addInterRoute(model, response)
         model.usedAlgorithm = 'Intermodal'
       })
+  }
+
+  this.addInterRoute = function (model, geojson) {
+    for (let i = 0; i < geojson.data.features.length; i++) {
+      geojson.data.features[i].properties['index'] = i
+    }
+    geojson.data.features[0].properties.instructions[0] = model.map.markers[0].formattedAddress[0]
+    geojson.data.features[geojson.data.features.length - 2].properties.instructions[1] = model.map.markers[1].formattedAddress[0]
+    model.map.geojson = geojson
+    model.map.geojson['style'] = {
+      opacity: 1
+    }
+
+    model.map['routeInfo'] = geojson.data.features.pop().properties['routeInfo']
+    modifyMap.centerOnRoute(model)
+    reverseGeocode.reverseInstructions(model)
   }
 
   this.modelDate = function (model, newDate) {

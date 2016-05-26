@@ -1,8 +1,6 @@
 /* global mario L */
 
 mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletData, reverseGeocode) {
-  let that = this
-
   this.changeBaselayer = function (model, layer) {
     model.map.layers.baselayers = {}
     model.map.layers.baselayers[layer] = model.map.baselayers[layer]
@@ -15,7 +13,7 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
       markers[args.modelName].lat = args.model.lat
       markers[args.modelName].lng = args.model.lng
       reverseGeocode.reverseMarker(model, args.modelName)
-      that.removeRoute(model)
+      model.map.geojson = []
     } else if (markers.length < 2) {
       markers.push({
         lat: args.leafletEvent.latlng.lat,
@@ -29,60 +27,6 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
 
   this.removeMarker = function (model) {
     model.map.markers = []
-  }
-
-  this.addPoi = function (model, items, next) {
-    items.map(item => {
-      model.map.paths[item.id.replace('-', '')] = {
-        type: 'circleMarker',
-        radius: 4,
-        color: '#262826',
-        opacity: 1,
-        weight: 2,
-        fillColor: '#68c631',
-        fillOpacity: 1,
-        message: ('<b>' + item.title + '</b><br/>' + item.category.title + '<br/>' + item.vicinity),
-        latlngs: {
-          lat: item.position[0],
-          lng: item.position[1]
-        }
-      }
-    })
-    if (!items[0]) return
-    else if (!next) that.centerOnRoute(model)
-  }
-
-  this.addDirectRoute = function (model, geojson) {
-    geojson.data.features[0].properties['instructions'] = [model.map.markers[0].formattedAddress[0], model.map.markers[1].formattedAddress[0]]
-    geojson.data.features[0].properties['index'] = 0
-    model.map.geojson = geojson
-    model.map.geojson['style'] = {
-      opacity: 1
-    }
-
-    model.map['routeInfo'] = geojson.data.features[0].properties['costs']
-    that.centerOnRoute(model)
-  }
-
-  this.addInterRoute = function (model, geojson) {
-    for (let i = 0; i < geojson.data.features.length; i++) {
-      geojson.data.features[i].properties['index'] = i
-    }
-    geojson.data.features[0].properties.instructions[0] = model.map.markers[0].formattedAddress[0]
-    geojson.data.features[geojson.data.features.length - 2].properties.instructions[1] = model.map.markers[1].formattedAddress[0]
-    model.map.geojson = geojson
-    model.map.geojson['style'] = {
-      opacity: 1
-    }
-
-    model.map['routeInfo'] = geojson.data.features.pop().properties['routeInfo']
-    that.centerOnRoute(model)
-    reverseGeocode.reverseInstructions(model)
-  }
-
-  this.removeRoute = function (model) {
-    model.map.geojson = []
-    model.usedAlgorithm = undefined
   }
 
   this.handleMousOverGeoJson = function (model, event, args) {

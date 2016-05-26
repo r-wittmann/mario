@@ -10,7 +10,7 @@ mario.service('poiService', [ '$http', 'modifyMap', function ($http, modifyMap) 
 
   this.fetchPoi = function (model, url) {
     if (model.map.markers.length === 2) model.map.markers.shift()
-    modifyMap.removeRoute(model)
+    model.map.geojson = []
 
     let hereUrl = 'https://places.api.here.com/places/v1/discover/explore?'
     let appId = 'WmIkt7vA4CQCMLSXEmOf'
@@ -23,15 +23,36 @@ mario.service('poiService', [ '$http', 'modifyMap', function ($http, modifyMap) 
       $http.get(hereUrl + pos + attributes + auth)
         .then(response => {
           if (response.data.results.next) that.fetchPoi(model, response.data.results.next)
-          modifyMap.addPoi(model, response.data.results.items, response.data.results.next)
+          that.addPoi(model, response.data.results.items, response.data.results.next)
         })
     } else {
       $http.get(url)
         .then(response => {
           if (response.data.next) that.fetchPoi(model, response.data.next)
-          modifyMap.addPoi(model, response.data.items, response.data.next)
+          that.addPoi(model, response.data.items, response.data.next)
         })
     }
+  }
+
+  this.addPoi = function (model, items, next) {
+    items.map(item => {
+      model.map.paths[item.id.replace('-', '')] = {
+        type: 'circleMarker',
+        radius: 4,
+        color: '#262826',
+        opacity: 1,
+        weight: 2,
+        fillColor: '#68c631',
+        fillOpacity: 1,
+        message: ('<b>' + item.title + '</b><br/>' + item.category.title + '<br/>' + item.vicinity),
+        latlngs: {
+          lat: item.position[0],
+          lng: item.position[1]
+        }
+      }
+    })
+    if (!items[0]) return
+    else if (!next) modifyMap.centerOnRoute(model)
   }
 
   this.removePoi = function (model) {

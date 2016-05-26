@@ -31,7 +31,7 @@ mario.controller('Controller',
     }
 
     $scope.calculate = function () {
-      if ($scope.model.map.markers.length === 2) directRouteService.calculateRoute($scope.model)
+      if ($scope.model.map.markers.length === 2) directRouteService.fetchDirect($scope.model)
     }
 
     $scope.calculateIntermodal = function (range) {
@@ -56,11 +56,9 @@ mario.controller('Controller',
 
     $scope.removeElements = function () {
       modifyMap.removeMarker($scope.model)
-      modifyMap.removeRoute($scope.model)
+      directRouteService.removeRoute($scope.model)
       poiService.removePoi($scope.model)
-      $scope.model.usedAlgorithm = undefined
       $scope.model.infoDrop = false
-      $scope.model.map.routeInfo = undefined
     }
 
     $scope.hoverSegment = function (index, flag) {
