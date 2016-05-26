@@ -69,7 +69,6 @@ mario.factory('config', function () {
           minZoom: 5
         },
         layers: {
-          baselayers: {}
         },
         baselayers: {
           map: map,
@@ -82,8 +81,7 @@ mario.factory('config', function () {
       },
       poi: poi,
       selected: {
-        poi: [],
-        hover: -1
+        poi: []
       }
     }
   }
