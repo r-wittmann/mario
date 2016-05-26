@@ -5,65 +5,47 @@
  **/
 
 mario.factory('config', function () {
+  let common = {
+    attribution: 'Map &copy; 2016 <a href="http://developer.here.com">HERE</a>',
+    subdomains: '1234',
+    app_id: 'WmIkt7vA4CQCMLSXEmOf',
+    app_code: 'LBj3S0_CED-_JWWO4VvUcg',
+    mapID: 'newest',
+    maxZoom: 18,
+    language: 'eng',
+    format: 'png8',
+    size: '256',
+    showOnSelector: false
+  }
   let map = {
     name: 'Map',
     url: 'http://{s}.{base}.maps.api.here.com/maptile/2.1/{type}/{mapID}/{scheme}/{z}/{x}/{y}/{size}/{format}?app_id={app_id}&app_code={app_code}&lg={language}',
     type: 'xyz',
-    layerOptions: {
-      attribution: 'Map &copy; 2016 <a href="http://developer.here.com">HERE</a>',
-      subdomains: '1234',
+    layerOptions: Object.assign({
       base: 'base',
       type: 'maptile',
-      scheme: 'normal.day',
-      app_id: 'WmIkt7vA4CQCMLSXEmOf',
-      app_code: 'LBj3S0_CED-_JWWO4VvUcg',
-      mapID: 'newest',
-      maxZoom: 18,
-      language: 'eng',
-      format: 'png8',
-      size: '256',
-      showOnSelector: false
-    }
+      scheme: 'normal.day'
+    }, common)
   }
   let satellite = {
     name: 'Satellite',
     url: 'http://{s}.{base}.maps.api.here.com/maptile/2.1/{type}/{mapID}/{scheme}/{z}/{x}/{y}/{size}/{format}?app_id={app_id}&app_code={app_code}&lg={language}',
     type: 'xyz',
-    layerOptions: {
-      attribution: 'Map &copy; 2016 <a href="http://developer.here.com">HERE</a>',
-      subdomains: '1234',
+    layerOptions: Object.assign({
       base: 'aerial',
       type: 'maptile',
-      scheme: 'hybrid.day',
-      app_id: 'WmIkt7vA4CQCMLSXEmOf',
-      app_code: 'LBj3S0_CED-_JWWO4VvUcg',
-      mapID: 'newest',
-      maxZoom: 18,
-      language: 'eng',
-      format: 'png8',
-      size: '256',
-      showOnSelector: false
-    }
+      scheme: 'hybrid.day'
+    }, common)
   }
   let grey = {
     name: 'Map',
     url: 'http://{s}.{base}.maps.api.here.com/maptile/2.1/{type}/{mapID}/{scheme}/{z}/{x}/{y}/{size}/{format}?app_id={app_id}&app_code={app_code}&lg={language}',
     type: 'xyz',
-    layerOptions: {
-      attribution: 'Map &copy; 2016 <a href="http://developer.here.com">HERE</a>',
-      subdomains: '1234',
+    layerOptions: Object.assign({
       base: 'base',
       type: 'blinetile',
-      scheme: 'reduced.night',
-      app_id: 'WmIkt7vA4CQCMLSXEmOf',
-      app_code: 'LBj3S0_CED-_JWWO4VvUcg',
-      mapID: 'newest',
-      maxZoom: 18,
-      language: 'eng',
-      format: 'png8',
-      size: '256',
-      showOnSelector: false
-    }
+      scheme: 'reduced.night'
+    }, common)
   }
   let poi = {
     'eat-drink': 'Eat & Drink',
@@ -100,12 +82,9 @@ mario.factory('config', function () {
       },
       poi: poi,
       selected: {
-        algorithm: '',
-        costs: [],
         poi: [],
         hover: -1
-      },
-      visitedNodes: false
+      }
     }
   }
 })

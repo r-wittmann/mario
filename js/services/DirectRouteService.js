@@ -21,7 +21,7 @@ mario.service('directRouteService', [ '$http', 'modifyMap', function ($http, mod
     $http.post(baseUrl, startTarget)
       .then(response => {
         modifyMap.addDirectRoute(model, response)
-        model.usedAlgorithm = model.selected.algorithm.algorithm
+        model['usedAlgorithm'] = model.selected.algorithm.algorithm
       })
   }
 
@@ -29,8 +29,8 @@ mario.service('directRouteService', [ '$http', 'modifyMap', function ($http, mod
     $http.get('mocks/algorithms.json')
       .then(response => {
         model['algorithms'] = response.data.Routing_Algorithms
-        model.selected.algorithm = model.algorithms[1]
-        model.selected.costs = [model.selected.algorithm.criteria[0]]
+        model.selected['algorithm'] = model.algorithms[1]
+        model.selected['costs'] = [model.selected.algorithm.criteria[0]]
       })
   }
 
