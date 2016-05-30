@@ -1,6 +1,8 @@
 /* global mario L */
 
-mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletData, reverseGeocode) {
+mario.service('modifyMap', ['$timeout', 'leafletData', 'reverseGeocode', function ($timeout, leafletData, reverseGeocode) {
+  let that = this
+
   this.changeBaselayer = function (model, layer) {
     model.map.layers.baselayers = {}
     model.map.layers.baselayers[layer] = model.map.baselayers[layer]
@@ -43,7 +45,7 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
   }
 
   this.handleMousOutGeoJson = function (model, event, args) {
-    args.target.setStyle({color: '#0033ff'})
+    that.colorifyRoute()
     model.selected.hover = -1
   }
 
@@ -54,7 +56,26 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
         for (let j in map._layers) {
           if (i === 4) {
             for (let k in map._layers[j]._layers) {
-              if (map._layers[j]._layers[k].feature.properties.index === index) map._layers[j]._layers[k].setStyle(inFlag ? {color: '#68c631'} : {color: '#0033ff'}).bringToFront()
+              if (map._layers[j]._layers[k].feature.properties.index === index) {
+                inFlag
+                ? map._layers[j]._layers[k].setStyle({color: '#68c631'}).bringToFront()
+                : that.colorifyRoute()
+              }
+            }
+          }
+          i++
+        }
+      })
+  }
+
+  this.colorifyRoute = function () {
+    leafletData.getMap()
+      .then(map => {
+        let i = 0
+        for (let j in map._layers) {
+          if (i === 4) {
+            for (let k in map._layers[j]._layers) {
+              map._layers[j]._layers[k].setStyle(map._layers[j]._layers[k].feature.properties.mode === 'PUBLIC' ? {color: '#c63168'} : {color: '#0033ff'})
             }
           }
           i++
@@ -90,5 +111,6 @@ mario.service('modifyMap', ['leafletData', 'reverseGeocode', function (leafletDa
           map.fitBounds(latlngs, {paddingTopLeft: [20, 20], paddingBottomRight: [250, 20]})
         }
       })
+    $timeout(() => { that.colorifyRoute() }, 200)
   }
 }])
