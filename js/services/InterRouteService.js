@@ -5,16 +5,18 @@ mario.service('interRouteService', [ '$http', 'modifyMap', 'reverseGeocode', fun
   const baseUrl = 'http://129.187.228.18:8080/restservices_inter/webresources/intermodal?'
 
   this.calculateIntermodal = function (model, range) {
+    let markers = model.map.markers
+    let d = model.date
     let startTarget = {
       'start': {
-        'lat': model.map.markers[0].lat,
-        'lon': model.map.markers[0].lng
+        'lat': markers[0].lat,
+        'lon': markers[0].lng
       },
       'target': {
-        'lat': model.map.markers[1].lat,
-        'lon': model.map.markers[1].lng
+        'lat': markers[1].lat,
+        'lon': markers[1].lng
       },
-      'departure': ('0' + model.date.days).slice(-2) + '.' + ('0' + model.date.months).slice(-2) + '.' + model.date.years + ' ' + ('0' + model.date.hours).slice(-2) + ':' + ('0' + model.date.minutes).slice(-2) + ':00',
+      'departure': ('0' + d.days).slice(-2) + '.' + ('0' + d.months).slice(-2) + '.' + d.years + ' ' + ('0' + d.hours).slice(-2) + ':' + ('0' + d.minutes).slice(-2) + ':00',
       'range': range,
       'maxTransfers': 2147483647,
       'maxChanges': 2147483647
