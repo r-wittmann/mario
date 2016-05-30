@@ -86,30 +86,25 @@ mario.service('modifyMap', ['$timeout', 'leafletData', 'reverseGeocode', functio
   this.centerOnRoute = function (model) {
     let latlngs = []
 
-    for (let i in model.map.markers) {
-      let coord = [model.map.markers[i].lng, model.map.markers[i].lat]
+    for (let marker of model.map.markers) {
+      let coord = [marker.lng, marker.lat]
       latlngs.push(L.GeoJSON.coordsToLatLng(coord))
     }
-
     for (let j in model.map.paths) {
       let coord = [model.map.paths[j].latlngs.lng, model.map.paths[j].latlngs.lat]
       latlngs.push(L.GeoJSON.coordsToLatLng(coord))
     }
-
     if (model.map.geojson.data) {
-      for (let k in model.map.geojson.data.features) {
-        for (let l in model.map.geojson.data.features[k].geometry.coordinates) {
-          let coord = [model.map.geojson.data.features[k].geometry.coordinates[l][0], model.map.geojson.data.features[k].geometry.coordinates[l][1]]
+      for (let feature of model.map.geojson.data.features) {
+        for (let coordinate of feature.geometry.coordinates) {
+          let coord = [coordinate[0], coordinate[1]]
           latlngs.push(L.GeoJSON.coordsToLatLng(coord))
         }
       }
     }
-
     leafletData.getMap()
       .then(map => {
-        if (latlngs[0]) {
-          map.fitBounds(latlngs, {paddingTopLeft: [20, 20], paddingBottomRight: [250, 20]})
-        }
+        map.fitBounds(latlngs, {paddingTopLeft: [20, 20], paddingBottomRight: [250, 20]})
       })
     $timeout(() => { that.colorifyRoute() }, 200)
   }
