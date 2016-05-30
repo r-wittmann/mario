@@ -11,6 +11,8 @@ mario.service('poiService', [ '$http', 'modifyMap', function ($http, modifyMap) 
   this.fetchPoi = function (model, url) {
     if (model.map.markers.length === 2) model.map.markers.shift()
     model.map.geojson = []
+    model.map.routeInfo = undefined
+    model.usedAlgorithm = undefined
 
     let hereUrl = 'https://places.api.here.com/places/v1/discover/explore?'
     let appId = 'WmIkt7vA4CQCMLSXEmOf'
