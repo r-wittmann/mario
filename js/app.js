@@ -8,8 +8,8 @@ mario.config(['cfpLoadingBarProvider', '$logProvider', 'configProvider', functio
 }])
 
 mario.controller('Controller',
-  ['$scope', 'modifyMap', 'poiService', 'parkingService', 'directRouteService', 'interRouteService', 'config',
-  function ($scope, modifyMap, poiService, parkingService, directRouteService, interRouteService, config) {
+  ['$scope', 'modifyMap', 'poiService', 'parkingService', 'directRouteService', 'interRouteService', 'simulationService', 'config',
+  function ($scope, modifyMap, poiService, parkingService, directRouteService, interRouteService, simulationService, config) {
     let initialize = function () {
       Object.assign($scope, config)
       $scope.model.map.layers['baselayers'] = $scope.model.map.baselayers
@@ -52,6 +52,10 @@ mario.controller('Controller',
 
     $scope.changeDate = function (index, direction) {
       interRouteService.changeDate($scope.model, index, direction)
+    }
+
+    $scope.requestSimulation = function () {
+      simulationService.fetchSimulation($scope.model)
     }
 
     $scope.removeElements = function () {
