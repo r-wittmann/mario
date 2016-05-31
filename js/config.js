@@ -79,6 +79,7 @@ mario.factory('config', function () {
         markers: [],
         paths: {}
       },
+      simulation: {},
       poi: poi,
       selected: {
         poi: []
