@@ -1,5 +1,5 @@
 <leaflet lf-center="model.map.center" defaults="model.map.defaults" layers="model.map.layers" markers='model.map.markers' geojson='model.map.geojson' paths="model.map.paths" height="100%">
-	<div class="leaflet-draw leaflet-control">
+	<div class="leaflet-draw leaflet-control layer-change">
         <div class="leaflet-draw-section">
             <div class="leaflet-draw-toolbar leaflet-bar leaflet-draw-toolbar-top">
                 <a href="" ng-click="changeBaselayer('map'); $event.stopPropagation();"><i class="fa fa-map-o"></i></a>
@@ -8,4 +8,16 @@
             </div>
         </div>
     </div>
+  </div>
+  <div class="leaflet-draw leaflet-control" ng-if="model.simulation.data.cars">
+    <div class="leaflet-draw-section simulation-bar">
+      <div class="leaflet-draw-toolbar leaflet-bar leaflet-draw-toolbar-top leaflet-bar-horizontal">
+        <a href="" ng-click="$event.stopPropagation();"><i class="fa fa-step-backward"></i></a>
+        <a href="" ng-click="$event.stopPropagation();"><i class="fa fa-stop"></i></a>
+        <a href="" ng-click="$event.stopPropagation();"><i class="fa fa-pause"></i></a>
+        <a href="" ng-click="$event.stopPropagation();"><i class="fa fa-play"></i></a>
+        <a href="" ng-click="$event.stopPropagation();"><i class="fa fa-step-forward"></i></a>
+      </div>
+    </div>
+  </div>
 </leaflet>

@@ -159,8 +159,36 @@ html, body {
 	min-height: calc(100vh - 35px);
 	height: calc(98vh - 20px);
 }
-.leaflet-draw-section {
+.layer-change {
 	position: absolute;
 	top: 80px;
 	left: 10px;
+}
+.simulation-bar {
+	position: absolute;
+	top: 10px;
+	left: 50px;
+	font-size: 80%;
+}
+.leaflet-bar-horizontal {
+	display: flex;
+	flex-direction: row;
+}
+.leaflet-bar-horizontal a {
+  float: left;
+  border-right: 1px solid #ccc;
+  border-bottom-width: 0px;
+}
+
+.leaflet-bar-horizontal a:first-child {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-top-right-radius: 0px;
+}
+
+.leaflet-bar-horizontal a:last-child {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 0px;
+  border-right-width: 0px;
 }
