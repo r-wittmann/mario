@@ -58,6 +58,10 @@ mario.controller('Controller',
       simulationService.fetchSimulation($scope.model)
     }
 
+    $scope.simulationControl = function (command) {
+      simulationService.control($scope.model, command)
+    }
+
     $scope.removeElements = function () {
       modifyMap.removeMarker($scope.model)
       directRouteService.removeRoute($scope.model)
@@ -79,7 +83,7 @@ mario.controller('Controller',
     })
 
     $scope.$on('leafletDirectiveGeoJson.mouseover', function (event, args) {
-      modifyMap.handleMousOverGeoJson($scope.model, event, args)
+      if ($scope.model.usedAlgorithm !== undefined) modifyMap.handleMousOverGeoJson($scope.model, event, args)
     })
 
     $scope.$on('leafletDirectiveGeoJson.mouseout', function (event, args) {

@@ -12,11 +12,10 @@
   <div class="leaflet-draw leaflet-control" ng-if="model.simulation.data.cars">
     <div class="leaflet-draw-section simulation-bar">
       <div class="leaflet-draw-toolbar leaflet-bar leaflet-draw-toolbar-top leaflet-bar-horizontal">
-        <a href="" ng-click="$event.stopPropagation();"><i class="fa fa-step-backward"></i></a>
-        <a href="" ng-click="$event.stopPropagation();"><i class="fa fa-stop"></i></a>
-        <a href="" ng-click="$event.stopPropagation();"><i class="fa fa-pause"></i></a>
-        <a href="" ng-click="$event.stopPropagation();"><i class="fa fa-play"></i></a>
-        <a href="" ng-click="$event.stopPropagation();"><i class="fa fa-step-forward"></i></a>
+        <a href="" ng-click="simulationControl('back'); $event.stopPropagation();"><i class="fa fa-step-backward"></i></a>
+        <a href="" ng-click="simulationControl('pause'); $event.stopPropagation();"><i class="fa fa-pause"></i></a>
+        <a href="" ng-click="simulationControl('play'); $event.stopPropagation();"><i class="fa fa-play"></i></a>
+        <a href="" ng-click="simulationControl('next'); $event.stopPropagation();"><i class="fa fa-step-forward"></i></a>
       </div>
     </div>
   </div>
