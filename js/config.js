@@ -77,7 +77,7 @@ mario.factory('config', function () {
         },
         geojson: [],
         markers: [],
-        paths: {}
+        paths: []
       },
       simulation: {},
       poi: poi,

@@ -4,7 +4,7 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
   let that = this
 
   this.fetchSimulation = function (model) {
-    $http.get('./mocks/simulations/sim2.json')
+    $http.get('./mocks/simulations/sim3.json')
       .then(response => that.handleSimulationResponse(model, response))
   }
 
@@ -56,7 +56,6 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
   }
 
   this.paintCars = function (model, index) {
-    model.map.markers = []
     model.simulation.data.cars[index].geometry.coordinates.map(coord => {
       model.map.markers.push({
         lat: coord[1],
@@ -68,15 +67,16 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
           iconAnchor: [13, 10]
         }
       })
+      if (model.map.markers.length > model.simulation.metaData.properties.carCount) model.map.markers.shift()
     })
   }
 
   this.paintStorms = function (model, index) {
-    model.map.paths = {}
-    model.simulation.data.storms[index].geometry.coordinates.map(coord => {
-      model.map.paths[coord[0] + coord[1]] = {
+    for (let i = 0; i < model.simulation.metaData.properties.stormCount; i++) {
+      let coord = model.simulation.data.storms[index].geometry.coordinates[i]
+      model.map.paths.push({
         type: 'circle',
-        radius: 4000,
+        radius: model.simulation.data.storms[index].properties.radii[i] * 1000,
         color: '#68c631',
         opacity: 1,
         weight: 1,
@@ -86,7 +86,8 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
           lat: coord[1],
           lng: coord[0]
         }
-      }
-    })
+      })
+      if (model.map.paths.length > model.simulation.metaData.properties.stormCount) model.map.paths.shift()
+    }
   }
 }])

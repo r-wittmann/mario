@@ -38,7 +38,7 @@ mario.service('poiService', [ '$http', 'modifyMap', function ($http, modifyMap) 
 
   this.addPoi = function (model, items, next) {
     items.map(item => {
-      model.map.paths[item.id.replace('-', '')] = {
+      model.map.paths.push({
         type: 'circleMarker',
         radius: 4,
         color: '#262826',
@@ -51,13 +51,13 @@ mario.service('poiService', [ '$http', 'modifyMap', function ($http, modifyMap) 
           lat: item.position[0],
           lng: item.position[1]
         }
-      }
+      })
     })
     if (!items[0]) return
     else if (!next) modifyMap.centerOnRoute(model)
   }
 
   this.removePoi = function (model) {
-    model.map.paths = {}
+    model.map.paths = []
   }
 }])
