@@ -15,6 +15,7 @@
         <a href="" ng-click="simulationControl('back'); $event.stopPropagation();"><i class="fa fa-step-backward"></i></a>
         <a href="" ng-click="simulationControl('pause'); $event.stopPropagation();"><i class="fa fa-pause"></i></a>
         <a href="" ng-click="simulationControl('play'); $event.stopPropagation();"><i class="fa fa-play"></i></a>
+        <a href="" ng-click="$event.stopPropagation();" style="width: 70px">{{ model.simulation.metaData.properties.index + 1 }} of {{ model.simulation.metaData.properties.frames }}</a>
         <a href="" ng-click="simulationControl('next'); $event.stopPropagation();"><i class="fa fa-step-forward"></i></a>
       </div>
     </div>

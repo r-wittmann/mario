@@ -1,15 +1,17 @@
 /* global mario */
 
-mario.service('simulationService', ['$http', '$timeout', function ($http, $timeout) {
+mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function ($http, $timeout, modifyMap) {
   let that = this
 
   this.fetchSimulation = function (model) {
-    $http.get('./mocks/sim1-mod.geo.json')
+    $http.get('./mocks/simulations/sim2.json')
       .then(response => that.handleSimulationResponse(model, response))
   }
 
   this.handleSimulationResponse = function (model, response) {
     model.simulation['metaData'] = response.data.features.shift()
+    model.simulation.metaData.properties['index'] = 0
+    model.simulation.metaData.properties['frames'] = model.simulation.metaData.properties.totalSimTime / model.simulation.metaData.properties.timePerTick
     model.simulation['data'] = {
       cars: [],
       storms: []
@@ -26,15 +28,35 @@ mario.service('simulationService', ['$http', '$timeout', function ($http, $timeo
       }
     }
     that.paintSzenarios(model, 0)
+    $timeout(() => modifyMap.centerOnRoute(false, model.simulation.metaData.geometry.coordinates), 100)
+  }
+
+  this.control = function (model, command, play) {
+    switch (command) {
+      case 'next':
+        model.simulation.metaData.properties.index = (model.simulation.metaData.properties.index + 1) % model.simulation.metaData.properties.frames
+        that.paintSzenarios(model, model.simulation.metaData.properties.index)
+        break
+      case 'back':
+        model.simulation.metaData.properties.index > 0 ? model.simulation.metaData.properties.index-- : model.simulation.metaData.properties.index = model.simulation.metaData.properties.frames - 1
+        that.paintSzenarios(model, model.simulation.metaData.properties.index)
+        break
+      case 'play':
+        that.control(model, 'next')
+        $timeout(() => that.control(model, 'play'), 500)
+        break
+      default:
+        console.log(command)
+    }
   }
 
   this.paintSzenarios = function (model, index) {
-    that.paintCars(model, 0)
-    $timeout(() => that.paintStorms(model, 0), 10)
+    that.paintCars(model, index)
+    $timeout(() => that.paintStorms(model, index), 10)
   }
 
   this.paintCars = function (model, index) {
-    console.log('paintCars')
+    model.map.markers = []
     model.simulation.data.cars[index].geometry.coordinates.map(coord => {
       model.map.markers.push({
         lat: coord[1],
@@ -50,7 +72,7 @@ mario.service('simulationService', ['$http', '$timeout', function ($http, $timeo
   }
 
   this.paintStorms = function (model, index) {
-    console.log('paintStorms')
+    model.map.paths = {}
     model.simulation.data.storms[index].geometry.coordinates.map(coord => {
       model.map.paths[coord[0] + coord[1]] = {
         type: 'circle',
@@ -66,9 +88,5 @@ mario.service('simulationService', ['$http', '$timeout', function ($http, $timeo
         }
       }
     })
-  }
-
-  this.control = function (model, command) {
-    console.log(model.map.paths)
   }
 }])
