@@ -83,23 +83,28 @@ mario.service('modifyMap', ['$timeout', 'leafletData', 'reverseGeocode', functio
       })
   }
 
-  this.centerOnRoute = function (model) {
+  this.centerOnRoute = function (model, bBox) {
     let latlngs = []
-
-    for (let marker of model.map.markers) {
-      let coord = [marker.lng, marker.lat]
-      latlngs.push(L.GeoJSON.coordsToLatLng(coord))
-    }
-    for (let j in model.map.paths) {
-      let coord = [model.map.paths[j].latlngs.lng, model.map.paths[j].latlngs.lat]
-      latlngs.push(L.GeoJSON.coordsToLatLng(coord))
-    }
-    if (model.map.geojson.data) {
-      for (let feature of model.map.geojson.data.features) {
-        for (let coordinate of feature.geometry.coordinates) {
-          let coord = [coordinate[0], coordinate[1]]
-          latlngs.push(L.GeoJSON.coordsToLatLng(coord))
+    if (!bBox) {
+      for (let marker of model.map.markers) {
+        let coord = [marker.lng, marker.lat]
+        latlngs.push(L.GeoJSON.coordsToLatLng(coord))
+      }
+      for (let j in model.map.paths) {
+        let coord = [model.map.paths[j].latlngs.lng, model.map.paths[j].latlngs.lat]
+        latlngs.push(L.GeoJSON.coordsToLatLng(coord))
+      }
+      if (model.map.geojson.data) {
+        for (let feature of model.map.geojson.data.features) {
+          for (let coordinate of feature.geometry.coordinates) {
+            let coord = [coordinate[0], coordinate[1]]
+            latlngs.push(L.GeoJSON.coordsToLatLng(coord))
+          }
         }
+      }
+    } else {
+      for (let coord of bBox) {
+        latlngs.push(L.GeoJSON.coordsToLatLng(coord))
       }
     }
     leafletData.getMap()
