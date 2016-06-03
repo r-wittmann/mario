@@ -2,9 +2,10 @@
 
 mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function ($http, $timeout, modifyMap) {
   let that = this
+  let timer
 
   this.fetchSimulation = function (model) {
-    $http.get('./mocks/simulations/sim3.json')
+    $http.get('./mocks/simulations/sim2.json')
       .then(response => that.handleSimulationResponse(model, response))
   }
 
@@ -27,31 +28,42 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
         model.simulation.data.storms.push(feature)
       }
     }
-    that.paintSzenarios(model, 0)
-    $timeout(() => modifyMap.centerOnRoute(false, model.simulation.metaData.geometry.coordinates), 100)
+    that.paintSzenario(model, 0)
+    modifyMap.centerOnRoute(false, model.simulation.metaData.geometry.coordinates)
   }
 
-  this.control = function (model, command, play) {
+  this.control = function (model, command) {
     switch (command) {
       case 'next':
-        model.simulation.metaData.properties.index = (model.simulation.metaData.properties.index + 1) % model.simulation.metaData.properties.frames
-        that.paintSzenarios(model, model.simulation.metaData.properties.index)
+        model.simulation.metaData.properties.index = Math.min(++model.simulation.metaData.properties.index, model.simulation.metaData.properties.frames - 1)
+        that.paintSzenario(model, model.simulation.metaData.properties.index)
+        break
+      case 'jumpforward':
+        model.simulation.metaData.properties.index = Math.min(model.simulation.metaData.properties.index + 250, model.simulation.metaData.properties.frames - 1)
+        that.paintSzenario(model, model.simulation.metaData.properties.index)
         break
       case 'back':
-        model.simulation.metaData.properties.index > 0 ? model.simulation.metaData.properties.index-- : model.simulation.metaData.properties.index = model.simulation.metaData.properties.frames - 1
-        that.paintSzenarios(model, model.simulation.metaData.properties.index)
+        model.simulation.metaData.properties.index = Math.max(--model.simulation.metaData.properties.index, 0)
+        that.paintSzenario(model, model.simulation.metaData.properties.index)
+        break
+      case 'jumpback':
+        model.simulation.metaData.properties.index = Math.max(model.simulation.metaData.properties.index - 250, 0)
+        that.paintSzenario(model, model.simulation.metaData.properties.index)
         break
       case 'play':
         that.control(model, 'next')
-        $timeout(() => that.control(model, 'play'), 500)
+        timer = $timeout(() => that.control(model, 'play'), 50)
+        break
+      case 'pause':
+        $timeout.cancel(timer)
         break
       default:
         console.log(command)
     }
   }
 
-  this.paintSzenarios = function (model, index) {
-    that.paintCars(model, index)
+  this.paintSzenario = function (model, index) {
+    $timeout(() => that.paintCars(model, index), 10)
     $timeout(() => that.paintStorms(model, index), 10)
   }
 
@@ -87,7 +99,6 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
           lng: coord[0]
         }
       })
-      if (model.map.paths.length > model.simulation.metaData.properties.stormCount) model.map.paths.shift()
     }
   }
 }])
