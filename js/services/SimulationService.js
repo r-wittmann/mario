@@ -52,7 +52,9 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
         break
       case 'play':
         that.control(model, 'next')
-        timer = $timeout(() => that.control(model, 'play'), 50)
+        model.simulation.metaData.properties.index !== model.simulation.metaData.properties.frames - 1
+        ? timer = $timeout(() => that.control(model, 'play'), 50)
+        : that.control(model, 'pause')
         break
       case 'pause':
         $timeout.cancel(timer)
