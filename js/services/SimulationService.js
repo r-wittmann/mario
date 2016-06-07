@@ -5,11 +5,14 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
   let timer
 
   this.fetchSimulation = function (model) {
-    $http.get('./mocks/simulations/sim2.json')
+    $http.get('./mocks/simulations/sim' + (Math.round(Math.random() * 3) + 1) + '.json')
       .then(response => that.handleSimulationResponse(model, response))
   }
 
   this.handleSimulationResponse = function (model, response) {
+    model.map.markers = []
+    model.map.paths = []
+    $timeout.cancel(timer)
     model.simulation['metaData'] = response.data.features.shift()
     model.simulation.metaData.properties['index'] = 0
     model.simulation.metaData.properties['frames'] = model.simulation.metaData.properties.totalSimTime / model.simulation.metaData.properties.timePerTick
