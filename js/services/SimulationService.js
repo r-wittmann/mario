@@ -67,6 +67,11 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
     }
   }
 
+  this.jumpTo = function (model, event) {
+    model.simulation.metaData.properties.index = Math.round((event.offsetX + 1) * model.simulation.metaData.properties.frames / 175)
+    that.paintSzenario(model, model.simulation.metaData.properties.index)
+  }
+
   this.paintSzenario = function (model, index) {
     $timeout(() => that.paintCars(model, index), 10)
     $timeout(() => that.paintStorms(model, index), 10)

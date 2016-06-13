@@ -62,6 +62,10 @@ mario.controller('Controller',
       simulationService.control($scope.model, command)
     }
 
+    $scope.simulationBarClick = function (event) {
+      simulationService.jumpTo($scope.model, event)
+    }
+
     $scope.removeElements = function () {
       modifyMap.removeMarker($scope.model)
       directRouteService.removeRoute($scope.model)
