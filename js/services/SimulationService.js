@@ -118,4 +118,8 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
       })
     }
   }
+
+  this.removeSimulation = function (model) {
+    model.simulation = {}
+  }
 }])

@@ -70,6 +70,7 @@ mario.controller('Controller',
       modifyMap.removeMarker($scope.model)
       directRouteService.removeRoute($scope.model)
       poiService.removePoi($scope.model)
+      simulationService.removeSimulation($scope.model)
       $scope.model.infoDrop = false
     }
 
