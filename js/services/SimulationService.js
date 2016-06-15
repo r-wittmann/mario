@@ -99,10 +99,10 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
       model.map.paths.push({
         type: 'circle',
         radius: model.simulation.data.storms[index].properties.radii[i] * 1000,
-        color: '#68c631',
+        color: '#0033ff',
         opacity: 1,
         weight: 1,
-        fillColor: '#68c631',
+        fillColor: '#0033ff',
         fillOpacity: 0.3,
         latlngs: {
           lat: coord[1],
