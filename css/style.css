@@ -161,13 +161,13 @@ html, body {
 }
 .layer-change {
 	position: absolute;
-	top: 80px;
+	top: 100px;
 	left: 10px;
 }
 .simulation-bar {
 	position: absolute;
-	top: 10px;
-	left: 50px;
+	top: -35px;
+	left: 10px;
 	font-size: 80%;
 }
 .leaflet-bar-horizontal {

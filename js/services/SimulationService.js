@@ -16,6 +16,7 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
     model.simulation['metaData'] = response.data.features.shift()
     model.simulation.metaData.properties['index'] = 0
     model.simulation.metaData.properties['frames'] = model.simulation.metaData.properties.totalSimTime / model.simulation.metaData.properties.timePerTick
+    model.simulation.metaData.properties['speed'] = 1
     model.simulation['data'] = {
       cars: [],
       storms: []
@@ -56,11 +57,17 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
       case 'play':
         that.control(model, 'next')
         model.simulation.metaData.properties.index !== model.simulation.metaData.properties.frames - 1
-        ? timer = $timeout(() => that.control(model, 'play'), 50)
+        ? timer = $timeout(() => that.control(model, 'play'), 50 / model.simulation.metaData.properties.speed)
         : that.control(model, 'pause')
         break
       case 'pause':
         $timeout.cancel(timer)
+        break
+      case 'slower':
+        model.simulation.metaData.properties.speed = Math.max(model.simulation.metaData.properties.speed /= 2, 0.25)
+        break
+      case 'faster':
+        model.simulation.metaData.properties.speed = Math.min(model.simulation.metaData.properties.speed *= 2, 4)
         break
       default:
         console.log(command)
