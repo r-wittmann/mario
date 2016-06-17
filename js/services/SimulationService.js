@@ -5,7 +5,7 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
   let timer
 
   this.fetchSimulation = function (model) {
-    $http.get('./mocks/simulations/sim' + (Math.round(Math.random() * 3) + 1) + '.json')
+    $http.get('./mocks/simulations/sim-berlin-' + (Math.round(Math.random() * 3) + 1) + '.json')
       .then(response => that.handleSimulationResponse(model, response))
   }
 
