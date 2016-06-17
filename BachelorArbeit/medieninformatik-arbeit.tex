@@ -1,0 +1,316 @@
+\documentclass[11pt,a4paper,twoside]{article}
+
+% LaTeX-Umsetzung der "Richtlinien für Projekt- und Diplomarbeiten"
+% der LFE Medieninformatik, LMU München. (Autor: Richard Atterer, 27.9.2006, 23.10.2007), Bug-Fixing Mark Kaczkowski (23.6.2008)
+
+\usepackage[T1]{fontenc} % sonst geht \hyphenation nicht mit Umlauten
+\usepackage[latin1]{inputenc} % man kann schreiben äöüß, statt "a"o"u"s
+%\usepackage[utf8]{inputenc} % wie oben, aber UTF-8 als Encoding statt ISO-8859-1 (latin1)
+\usepackage[ngerman,english]{babel} % deutsche Trennregeln, "Inhaltsverzeichnis" etc.
+%\usepackage{ngerman} % Alternative zum Babel-Paket oben
+\usepackage{mathptmx} % Times-Roman-Schrift (auch für mathematische Formeln)
+
+% Zum Setzen von URLs
+\usepackage{color}
+%\definecolor{black}{rgb}{0,0,0}
+\usepackage[plainpages=false,bookmarks=true,bookmarksopen=true,colorlinks=true,
+  linkcolor=black,citecolor=black,filecolor=black,
+  menucolor=black,urlcolor=black]{hyperref}
+
+% pdflatex: Bilder in den Formaten .jpeg, .png und .pdf
+% latex: Bilder im .eps-Format
+\usepackage{graphicx}
+
+\usepackage{fancyhdr} % Positionierung der Seitenzahlen
+\fancyhead[LE,RO,LO,RE]{}
+\fancyfoot[CE,CO,RE,LO]{}
+\fancyfoot[LE,RO]{\Roman{page}}
+\renewcommand{\headrulewidth}{0pt}
+\setlength{\headheight}{13.6pt} % behebt headheight Warning
+
+% Korrektes Format für Nummerierung von Abbildungen (figure) und
+% Tabellen (table): <Kapitelnummer>.<Abbildungsnummer>
+\makeatletter
+\@addtoreset{figure}{section}
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\@addtoreset{table}{section}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\makeatother
+
+\sloppy % Damit LaTeX nicht so viel über "overfull hbox" u.Ä. meckert
+
+% Ränder
+\addtolength{\topmargin}{-16mm}
+\setlength{\oddsidemargin}{25mm}
+\setlength{\evensidemargin}{35mm}
+\addtolength{\oddsidemargin}{-1in}
+\addtolength{\evensidemargin}{-1in}
+\setlength{\textwidth}{15cm}
+\addtolength{\textheight}{34mm}
+%______________________________________________________________________
+
+\begin{document}
+
+\pagestyle{empty} % Vorerst keine Seitenzahlen
+\pagenumbering{alph} % Unsichtbare alphabetische Nummerierung
+
+\begin{center}
+\textsc{Ludwig-Maximilians-Universität Munich}\\
+Department of Computer Science\\
+Database Systems Group\\
+Prof.\ Dr.\ Thomas Seidl
+
+\vspace{5cm}
+{\large\textbf{Bachelor's Thesis}}\vspace{.5cm}
+
+{\LARGE An even longer Title to see how it looks when using two lines in the document}\vspace{1cm}
+
+{\large Rainer Wittmann}\\
+Matriculation Number: 10954724\\
+\href{mailto:r-wittmann@outlook.de}{r-wittmann@outlook.de}
+
+\end{center}
+\vfill
+
+\begin{tabular}{ll}
+Supervised by: & Gregor Jossé\\
+%Externer Betreuer: & Manfred Manager\\
+& PD Dr. Matthias Schubert\\
+Submitted on: & \today
+\end{tabular}
+%______________________________________________________________________
+
+\selectlanguage{english}
+\clearpage
+\section*{Definition of Task}
+
+Definition of Task
+
+\vfill % Sorgt dafür, dass das Folgende an das Seitenende rutscht
+
+\noindent I confirm that I independently prepared the thesis and that I used only the references and auxiliary means indicated in the thesis.
+
+\bigskip\noindent Unterhaching, \today
+
+\vspace{4ex}\noindent\makebox[7cm]{\dotfill}
+
+%______________________________________________________________________
+
+\cleardoublepage
+\pagestyle{fancy}
+\pagenumbering{roman} % Römische Seitenzahlen
+\setcounter{page}{1}
+
+% Inhaltsverzeichnis erzeugen
+\tableofcontents
+
+%Abbildungsverzeichnis erzeugen - normalerweise nicht nötig
+%\cleardoublepage
+%\listoffigures
+\setlength\parskip{\baselineskip}
+
+%______________________________________________________________________
+
+\cleardoublepage
+
+% Arabische Seitenzahlen
+\pagenumbering{arabic}
+\setcounter{page}{1}
+% Geändertes Format für Seitenränder, arabische Seitenzahlen
+\fancyhead[LE,RO]{\rightmark}
+\fancyhead[LO,RE]{\leftmark}
+\fancyfoot[LE,RO]{\thepage}
+
+%______________________________________________________________________
+
+% Der Befehl \cleardoublepage erscheint nur vor \section, nicht vor
+% den "kleineren" Gliederungsbefehlen wie \subsection!
+%\cleardoublepage % Neue rechte Seite anfangen
+%\section{State of the Art}
+
+%\begin{figure}%[btph]
+  %% Datei ``beispielbild.eps'' oder ``beispielbild.png'', zentriert
+  %\begin{center}\includegraphics{beispielbild}\end{center}
+
+  %% Datei auf 8cm Breite verkleinert/vergrößert
+  %\includegraphics[width=8cm]{beispielbild}
+  %% Datei auf ganze Breite des Texts vergrößert
+  %\includegraphics[width=\columnwidth]{beispielbild}
+  %% Datei auf 60% der Textbreite verkleinert/vergrößert
+  %\includegraphics[width=.6\columnwidth]{beispielbild}
+  %% Weitere Optionen (Ausschnitt, drehen etc.) in der Doku zum graphicx-Paket
+
+ % \begin{center}\LARGE [BILD]\end{center}
+  %\caption{Bildunterschrift}
+  %\label{fig:beispielbild}
+%\end{figure}
+
+%\bigskip % Größerer Abstand zum vorherigen Absatz
+
+%\begin{description}
+%  \item[Medienwirkung:] Ein Spezialfach der Kommunikationswissenschaft. Für das erfolgreiche Studium des Anwendungsfachs Mediengestaltung ist eine künstlerische Begabung erforderlich.
+%  \item[Medienwirtschaft:] Ein Spezialfach der Betriebswirtschaftslehre
+%  \item[Mediengestaltung:] Ein Spezialfach der Kunstwissenschaft
+%\end{description}
+
+%\subsubsection{Was Sie schon immer wissen wollten, aber nie zu fragen
+%  wagten}
+
+%\paragraph{Überschrift}
+%Diese Überschrift erscheint fettgedruckt am Anfang des Absatzes.
+
+%\subsubsection{Was Sie nicht wissen wollten}
+
+%Text text textextext\footnote{Oder so ähnlich}.
+
+%\_____________________________________________________________________
+
+\section{Introduction}
+
+Introduction to the problem, motivation, approaches, goals
+
+The developed project can be viewed at https://r-wittmann.github.io/mario. Furthermore the code of the project can be cloned from my git repository at https://github.com/r-wittmann/mario for analysis and further development.
+
+%\_____________________________________________________________________
+
+\cleardoublepage 
+\section{State of the Art}
+
+Introduction to the State of the Art section
+
+\subsection{AngularJS}
+
+Introduction to AngularJS as a JavaScript framework. History, recent developments (Angular 2), open source community, testability.
+
+HTML is great for declaring static documents, but it falters when we try to use it for declaring dynamic views in web-applications. AngularJS lets you extend HTML vocabulary for your application. The resulting environment is extraordinarily expressive, readable, and quick to develop.
+
+\subsection{LeafletJS}
+
+Introduction to Leaflet including the angular leaflet directory.
+
+Leaflet is the leading open-source JavaScript library for mobile-friendly interactive maps. Weighing just about 33 KB of JS, it has all the mapping features most developers ever need.
+
+Leaflet is designed with simplicity, performance and usability in mind. It works efficiently across all major desktop and mobile platforms, can be extended with lots of plugins, has a beautiful, easy to use and well-documented API and a simple, readable source code that is a joy to contribute to.
+
+\subsection{GeoJson}
+
+GeoJson as a information standard, compare to different Json format for geospatial data.
+
+GeoJSON is a format for encoding data about geographic features using JavaScript Object Notation (JSON) [RFC7159]. Geographic features need not be physical things; any thing with properties that are bounded in space may be considered a feature. GeoJSON provides a means of representing both the properties and spatial extent of features.
+
+The GeoJSON format specification was published at http://geojson.org in 2008. GeoJSON today plays an important and growing role in many spatial databases, web APIs, and open data platforms. Consequently the implementers increasingly demand formal standardization, improvements in the specification, guidance on extensibility, and the means to utilize larger GeoJSON datasets.
+
+\subsection{HERE-API}
+
+Description of the HERE-API, problems, features, limitations. (Legal matters in 4.3)
+
+
+%\_____________________________________________________________________
+
+\cleardoublepage
+\section{Description of the Backend}
+
+Introduction to the Description of the Backend section, move from complete Java project to an only server application which can be contacted via Rest Services.
+
+\subsection{Backend Functionalities}
+
+Summarise the implemented functionalities and algorithms from various papers, provided by Gregor. 
+\paragraph{functionality/algorithm I} description of functionality/algorithm I
+\paragraph{functionality/algorithm II} description of functionality/algorithm II
+\paragraph{functionality/algorithm III} description of functionality/algorithm III
+\subsection{Rest API}
+Implemented Rest contact points, how to contact, performance
+
+%\_____________________________________________________________________
+
+\cleardoublepage
+\section{Development of the Frontend}
+
+Introduction to my working process, development etc.
+
+\subsection{Build Tools and Frameworks for Development}
+
+Software development nowadays depends on various frameworks, other projects and build tools. These will be explained and described in this subsection.
+
+\paragraph{git and GitHub-Pages}
+
+git as version control, comparison to other/older version control systems. GitHub-Pages to deliver the homepage even if its not the usual way of doing it.
+
+\paragraph{npm and bower}
+
+nodes npm as dependency manager for all development dependencies, bower for all dependencies needed for the front end to be displayed
+
+\paragraph{Agile Software Development}
+
+Agile in general, Scrum, my development process
+
+\subsection{Implemented Features}
+
+This subsection will contain all implemented features, describe them from a usability and technical standpoint and uncover shortcomings which will be an essential part of chapter six. 
+
+\subsubsection{Geocoding Addresses}
+
+For better understanding of route descriptions and set markers a reverse geocoding API was integrated into the project to translate latitude and longitude data into physical addresses. This paragraph will describe the usage of the HERE-API as reverse geocoding service, compare it to other geocoding services and will highlight key features and problems encountered in the development process. 
+
+\subsubsection{Points of Interest}
+
+A feature that was not originally intended to be implemented in the project which was derived from the use case of displaying open parking spots at a given location. Because their is no real data about parking spots available yet, this would have been implemented using simulation data from a different project at the DBS at LMU and would have included route calculations from point A to a parking spot near the destination point B.
+
+As the display of parking spaces on a map has common elements with the displaying of any points of interest at a given location, the Point of Interest search was implemented. The user is able to select from various categories like 'Eat \& Drink', 'Sights \& Museums', 'Shopping' and many more, which information he is interested in. The data is displayed as small dots on the map with an information bubble opened by clicking on them containing name, category and vicinity.
+
+Technical integration of this feature was achieved by using a different service of the HERE-API, the 'Places' search. One has to specify the desired information, the location and the search radius and as response receives up to one hundred points of interest.
+
+\subsubsection{Route Calculations}
+
+One of the two main features of the project which allows the user to calculate a route by specifying start and destination points, choosing between the on server side implemented algorithms and the cost the route should be optimised to. The user input is sent to the back end and a route in geoJson format and costs of the route are returned to the user. The calculated route is added to the map and the costs are displayed in the information panel.
+
+The main reason to let the user choose an algorithm is to allow comparison between them and to highlight newly implemented once, which is constantly done by the DBS.
+
+One additional feature would have been implemented for further analysis of the algorithms, if time would have allowed it. The displaying of visited nodes in the graph to better understand how the algorithms work will be described in chapter 6.
+
+\subsubsection{Intermodal Route Calculations}
+
+The second main feature is the calculation of intermodal routes using public transportation such as trains, busses and trams. This service is experimental and currently only available for the Berlin metro area.
+
+As for the user, the calculation of an intermodal route has only small differences to the normal route calculations described in 4.3.3. He can't choose algorithm or cost but has to specify the desired departure time and the range he is willing to go by car, bike or foot. He then receives a route displayed on the map and instructions which mode of transportation to use for which route segment. For easier understanding of the instructions a symbol of a walking man is added to all segments using car, bike or foot and a symbol of a train is displayed for public transportation.
+
+\subsubsection{Alternative Routes and Simulations}
+
+
+
+\subsection{Legal Basis and Copyright of Map Material}
+
+%\_____________________________________________________________________
+
+\cleardoublepage
+\section{Modularity}
+
+%\_____________________________________________________________________
+
+\cleardoublepage
+\section{Recapitulation and Future Work}
+
+%______________________________________________________________________
+
+\cleardoublepage
+\begin{thebibliography}{99}
+
+%\bibitem{Ivory01}
+
+%  M.\ Y.\ Ivory, M.\ Hearts:
+%  \href{http://www.ischool.washington.edu/myivory/thesis/thesis.pdf}{%
+%    An Empirical Foundation for Automated Web Interface Evaluation}.
+%  Ph.D. thesis, University of California at Berkeley, 2001
+
+
+\cleardoublepage
+\hspace{-\leftmargin}{\Large\bfseries Web-Referenzen} % Wüster Hack %-|
+
+%\bibitem{NielsenAlertbox}
+
+%  J.\ Nielsen: Alertbox: Current Issues in Web Usability
+%  \url{http://useit.com/alertbox/}, accessed April~24, 2005.
+
+\end{thebibliography}
+
+\end{document}

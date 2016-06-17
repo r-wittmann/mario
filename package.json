@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\"",
     "develop": "bower i && http-server . -o -c-1 -p 4000",
+    "tex": "open BachelorArbeit/medieninformatik-arbeit.tex",
     "build:css": "postcss --use autoprefixer -b 'last 2 versions' css/style.css --replace"
   },
   "repository": {
