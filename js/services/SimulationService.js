@@ -4,12 +4,12 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
   let that = this
   let timer
 
-  this.fetchSimulation = function (model) {
+  this.fetchSimulation = function (model, flag) {
     $http.get('./mocks/simulations/sim-berlin-' + (Math.round(Math.random() * 3) + 1) + '.json')
-      .then(response => that.handleSimulationResponse(model, response))
+      .then(response => that.handleSimulationResponse(model, response, flag))
   }
 
-  this.handleSimulationResponse = function (model, response) {
+  this.handleSimulationResponse = function (model, response, flag) {
     model.map.markers = []
     model.map.paths = []
     $timeout.cancel(timer)
@@ -34,6 +34,7 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
     }
     that.paintSzenario(model, 0)
     modifyMap.centerOnRoute(false, model.simulation.metaData.geometry.coordinates)
+    if (flag) that.control(model, 'play')
   }
 
   this.control = function (model, command) {
@@ -58,7 +59,7 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
         that.control(model, 'next')
         model.simulation.metaData.properties.index !== model.simulation.metaData.properties.frames - 1
         ? timer = $timeout(() => that.control(model, 'play'), 50 / model.simulation.metaData.properties.speed)
-        : that.control(model, 'pause')
+        : that.fetchSimulation(model, true)
         break
       case 'pause':
         $timeout.cancel(timer)
@@ -101,6 +102,7 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
   }
 
   this.paintStorms = function (model, index) {
+    model.map.paths = []
     for (let i = 0; i < model.simulation.metaData.properties.stormCount; i++) {
       let coord = model.simulation.data.storms[index].geometry.coordinates[i]
       model.map.paths.push({

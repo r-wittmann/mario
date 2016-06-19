@@ -3,9 +3,9 @@
 	<div class="leaflet-draw leaflet-control layer-change">
         <div class="leaflet-draw-section">
             <div class="leaflet-draw-toolbar leaflet-bar leaflet-draw-toolbar-top">
-                <a class="cursor-pointer" ng-click="changeBaselayer('map'); $event.stopPropagation();"><i class="fa fa-map-o"></i></a>
-                <a class="cursor-pointer" ng-click="changeBaselayer('satellite'); $event.stopPropagation();"><i class="fa fa-globe"></i></a>
-                <a class="cursor-pointer" ng-if="model.visitedNodes" ng-init="model.visitedNodes = false" ng-click="changeBaselayer('grey'); $event.stopPropagation();"><i class="fa fa-calculator"></i></a>
+                <a class="cursor-pointer" ng-click="changeBaselayer('map')"><i class="fa fa-map-o"></i></a>
+                <a class="cursor-pointer" ng-click="changeBaselayer('satellite')"><i class="fa fa-globe"></i></a>
+                <a class="cursor-pointer" ng-if="model.visitedNodes" ng-init="model.visitedNodes = false" ng-click="changeBaselayer('grey')"><i class="fa fa-calculator"></i></a>
             </div>
         </div>
     </div>
@@ -13,10 +13,10 @@
   <div class="leaflet-draw leaflet-control" ng-if="model.simulation.data.cars">
     <div class="leaflet-draw-section simulation-bar">
       <div class="leaflet-draw-toolbar leaflet-bar leaflet-draw-toolbar-top leaflet-bar-horizontal">
-        <a class="cursor-pointer" ng-click="simulationControl('jumpback'); $event.stopPropagation();"><i class="fa fa-fast-backward"></i></a>
-        <a class="cursor-pointer" ng-click="simulationControl('back'); $event.stopPropagation();"><i class="fa fa-step-backward"></i></a>
-        <a class="cursor-pointer" ng-click="simulationControl('pause'); $event.stopPropagation();"><i class="fa fa-pause"></i></a>
-        <a class="cursor-pointer" ng-click="simulationControl('play'); $event.stopPropagation();"><i class="fa fa-play"></i></a>
+        <a class="cursor-pointer" ng-click="simulationControl('jumpback')"><i class="fa fa-fast-backward"></i></a>
+        <a class="cursor-pointer" ng-click="simulationControl('back')"><i class="fa fa-step-backward"></i></a>
+        <a class="cursor-pointer" ng-click="simulationControl('pause')"><i class="fa fa-pause"></i></a>
+        <a class="cursor-pointer" ng-click="simulationControl('play')"><i class="fa fa-play"></i></a>
         <a ng-click="$event.stopPropagation();" style="width: 270px" class="cursor-pointer">
           <div style="display: flex; align-items: center; justify-content: space-around">
             <div style="width: 175px; height: 9px; border: 1px solid #68c631" ng-click="simulationBarClick($event)">
@@ -27,11 +27,11 @@
             <div style="width: 60px">{{ model.simulation.metaData.properties.index + 1 }} of {{ model.simulation.metaData.properties.frames }}</div>
           </div>
         </a>
-        <a class="cursor-pointer" ng-click="simulationControl('next'); $event.stopPropagation();"><i class="fa fa-step-forward"></i></a>
-        <a class="cursor-pointer" ng-click="simulationControl('jumpforward'); $event.stopPropagation();"><i class="fa fa-fast-forward"></i></a>
-        <a class="cursor-pointer" ng-click="simulationControl('slower'); $event.stopPropagation();"><i class="fa fa-minus"></i></a>
+        <a class="cursor-pointer" ng-click="simulationControl('next')"><i class="fa fa-step-forward"></i></a>
+        <a class="cursor-pointer" ng-click="simulationControl('jumpforward')"><i class="fa fa-fast-forward"></i></a>
+        <a class="cursor-pointer" ng-click="simulationControl('slower')"><i class="fa fa-minus"></i></a>
         <a class="cursor-pointer" ng-click="$event.stopPropagation();" style="width: 70px"><div>Speed: {{ model.simulation.metaData.properties.speed }}x</div></a>
-        <a class="cursor-pointer" ng-click="simulationControl('faster'); $event.stopPropagation();"><i class="fa fa-plus"></i></a>
+        <a class="cursor-pointer" ng-click="simulationControl('faster')"><i class="fa fa-plus"></i></a>
       </div>
     </div>
   </div>
