@@ -20,10 +20,15 @@
 		</li>
 		<li class="information-element route-elements-container" ng-show="model.map.geojson.data">
 			<div class="seperator"></div>
-			<div ng-repeat="feature in model.map.geojson.data.features" ng-mouseenter="hoverSegment($index, true)" ng-mouseleave="hoverSegment($index, false)" class="route-segment" ng-class="{'route-segment-active': model.selected.hover === $index}" style="display: flex; align-items: center">
+			<div ng-repeat="feature in model.map.geojson.data.features" ng-if="model.algorithmKind === 'single' || model.algorithmKind === 'charging'" ng-mouseenter="hoverSegment($index, true)" ng-mouseleave="hoverSegment($index, false)" class="route-segment" ng-class="{'route-segment-active': model.selected.hover === $index}" style="display: flex; align-items: center">
 				<img ng-src="{{feature.properties.mode === 'PUBLIC' ? './resources/train.png' : './resources/man.png'}}" style="margin-right: 10px" height="24" width="24">
 				<span>
 					{{ feature.properties.instructions[0] }} to <br/>{{ feature.properties.instructions[1] }}
+				</span>
+			</div>
+			<div ng-repeat="feature in model.map.geojson.data.features" ng-if="model.algorithmKind === 'multiple'" ng-mouseenter="hoverSegment($index, true)" ng-mouseleave="hoverSegment($index, false)" class="route-segment" ng-class="{'route-segment-active': model.selected.hover === $index}">
+				<span ng-repeat="(key, value) in feature.properties.costs" style="margin-left: 5px">
+					{{ key }}: {{ value }}<br/>
 				</span>
 			</div>
 		</li>

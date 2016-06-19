@@ -30,6 +30,7 @@ mario.service('interRouteService', [ '$http', 'modifyMap', 'reverseGeocode', fun
   }
 
   this.addInterRoute = function (model, geojson) {
+    model['algorithmKind'] = 'single'
     for (let i = 0; i < geojson.data.features.length; i++) {
       geojson.data.features[i].properties['index'] = i
     }

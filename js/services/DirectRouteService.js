@@ -27,15 +27,32 @@ mario.service('directRouteService', [ '$http', 'modifyMap', function ($http, mod
       'algo': model.selected.algorithm.algorithm
       /* 'cost': scope.selected.cost --- not implemented on server yet*/
     }
+    model['usedAlgorithm'] = model.selected.algorithm.algorithm
 
     $http.post(baseUrl, startTarget)
       .then(response => {
-        that.addDirect(model, response)
-        model['usedAlgorithm'] = model.selected.algorithm.algorithm
+        switch (model.usedAlgorithm) {
+          case 'Dijkstra':
+            that.singleRouteResponse(model, response)
+            break
+          case 'A_Star':
+            that.singleRouteResponse(model, response)
+            break
+          case 'A_Star_with_Charging':
+            that.chargingRouteResponse(model, response)
+            break
+          case 'Linear_Path_Skyline':
+            that.multipleRouteResponse(model, response)
+            break
+          case 'Path_Skyline':
+            that.multipleRouteResponse(model, response)
+            break
+        }
       })
   }
 
-  this.addDirect = function (model, geojson) {
+  this.singleRouteResponse = function (model, geojson) {
+    model['algorithmKind'] = 'single'
     geojson.data.features[0].properties['instructions'] = [model.map.markers[0].formattedAddress[0], model.map.markers[1].formattedAddress[0]]
     geojson.data.features[0].properties['index'] = 0
     model.map.geojson = geojson
@@ -43,8 +60,37 @@ mario.service('directRouteService', [ '$http', 'modifyMap', function ($http, mod
       opacity: 1
     }
 
-    model.map['routeInfo'] = geojson.data.features[0].properties['costs']
+    model.map['routeInfo'] = geojson.data.features[0].properties.costs
     modifyMap.centerOnRoute(model)
+  }
+
+  this.multipleRouteResponse = function (model, geojson) {
+    model['algorithmKind'] = 'multiple'
+    model.map.routeInfo = undefined
+    for (let i = 0; i < geojson.data.features.length; i++) {
+      geojson.data.features[i].properties['index'] = i
+    }
+    model.map.geojson = geojson
+    model.map.geojson['style'] = {
+      opacity: 1
+    }
+  }
+
+  this.chargingRouteResponse = function (model, geojson) {
+    model['algorithmKind'] = 'charging'
+    let chargingStation = geojson.data.features.shift()
+    model.map.markers.push({
+      lat: chargingStation.geometry.coordinates[1],
+      lng: chargingStation.geometry.coordinates[0],
+      draggable: false,
+      focus: true,
+      icon: {
+        iconUrl: 'resources/charging.png',
+        iconSize: [50, 50],
+        iconAnchor: [25, 25]
+      }
+    })
+    that.singleRouteResponse(model, geojson)
   }
 
   this.removeRoute = function (model) {
