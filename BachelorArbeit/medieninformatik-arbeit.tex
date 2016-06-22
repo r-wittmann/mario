@@ -74,7 +74,6 @@ Matriculation Number: 10954724\\
 
 \begin{tabular}{ll}
 Supervised by: & Gregor Jossé\\
-%Externer Betreuer: & Manfred Manager\\
 & PD Dr. Matthias Schubert\\
 Submitted on: & \today
 \end{tabular}
@@ -104,9 +103,6 @@ Definition of Task
 % Inhaltsverzeichnis erzeugen
 \tableofcontents
 
-%Abbildungsverzeichnis erzeugen - normalerweise nicht nötig
-%\cleardoublepage
-%\listoffigures
 \setlength\parskip{\baselineskip}
 
 %______________________________________________________________________
@@ -171,18 +167,28 @@ Introduction to the problem, motivation, approaches, goals
 
 The developed project can be viewed at https://r-wittmann.github.io/mario. Furthermore the code of the project can be cloned from my git repository at https://github.com/r-wittmann/mario for analysis and further development.
 
+One part of the theoretical work done by the Database Systems Group (DBS) regards graph data and algorithms that solve problems on graphs in particular search for shortest paths from one node to another. The algorithms which are solving this issue, like Dijkstra and A-Star, are constantly refined to perform faster, less error prune and more precise and also find use in other algorithms to solve more complicated tasks. 
+
 %\_____________________________________________________________________
 
 \cleardoublepage 
 \section{State of the Art}
 
-Introduction to the State of the Art section
+As the software developed in the course of this thesis depends on various frameworks, specifications and other projects, this section will illustrate and delimit the underlying technologies used.
+
+%\____ AngularJS
 
 \subsection{AngularJS}
 
-Introduction to AngularJS as a JavaScript framework. History, recent developments (Angular 2), open source community, testability.
+When one is implementing a web application, HTML, CSS and JavaScript are most commonly the technologies of choice. HTML is great for declaring static documents and CSS even better to style these templates, but both lack the ability to react to dynamic changes of values and views and are hence not up to the challenges of a modern web application. As HTML and CSS are rather old technologies various developers generated a multitude of ways to compensate said shortcomings and JavaScript was one of them. Developed in 1995 by Netscape employee Brendan Eich, JavaScript is now implemented in all modern Browsers without the need for plugins and almost all websites depend on it. But still there was room for improvement.
 
-HTML is great for declaring static documents, but it falters when we try to use it for declaring dynamic views in web-applications. AngularJS lets you extend HTML vocabulary for your application. The resulting environment is extraordinarily expressive, readable, and quick to develop.
+In the last few years with web 2.0 and the resulting higher user interaction with websites additional functionalities were needed and developed. But non of these frameworks addressed the basic problem with HTML, namely that it was not designed for dynamic views. AngularJS on the other hand extends the existing HTML vocabulary and allows for expressive, readable and quick to develop code. Based on HTML and JavaScript, AngularJS is a framework which allows developers to have full access to standard syntax and facilitate the dynamization of web applications.
+
+For this application AngularJS version 1.5.5 was used as Angular 2 was not at a stable relies at the beginning of the project. AngularJS is mainly maintained by Google and by a community of individuals and cooperations which contribute to the open source project. 
+
+AngularJS is based on the Model View Controller pattern (MVC) which allows for a strict separation of the underlying data structure, the View, which is displayed to the user and the controllers, implementing needed business logic. The so called scope is used as the model and as the scope is accessible from both view and controller, it binds both components together. Each AngularJS application has exactly one root scope which may have several child scopes as every directory creates its own scope. The child scopes inherit from their parent prototypically. 
+
+%\____ LeafletJS
 
 \subsection{LeafletJS}
 
@@ -192,17 +198,21 @@ Leaflet is the leading open-source JavaScript library for mobile-friendly intera
 
 Leaflet is designed with simplicity, performance and usability in mind. It works efficiently across all major desktop and mobile platforms, can be extended with lots of plugins, has a beautiful, easy to use and well-documented API and a simple, readable source code that is a joy to contribute to.
 
+%\____ GeoJson
+
 \subsection{GeoJson}
 
 GeoJson as a information standard, compare to different Json format for geospatial data.
 
 GeoJSON is a format for encoding data about geographic features using JavaScript Object Notation (JSON) [RFC7159]. Geographic features need not be physical things; any thing with properties that are bounded in space may be considered a feature. GeoJSON provides a means of representing both the properties and spatial extent of features.
 
-The GeoJSON format specification was published at http://geojson.org in 2008. GeoJSON today plays an important and growing role in many spatial databases, web APIs, and open data platforms. Consequently the implementers increasingly demand formal standardization, improvements in the specification, guidance on extensibility, and the means to utilize larger GeoJSON datasets.
+The GeoJSON format specification was published at http://geojson.org in 2008. GeoJSON today plays an important and growing role in many spatial databases, web APIs, and open data platforms. Consequently the implementers increasingly demand formal standardisation, improvements in the specification, guidance on extensibility, and the means to utilize larger GeoJSON datasets.
 
-\subsection{HERE-API}
+%\____ HERE API
 
-Description of the HERE-API, problems, features, limitations. (Legal matters in 4.3)
+\subsection{HERE API}
+
+Description of the HERE API, problems, features, limitations. (Legal matters in 4.3)
 
 
 %\_____________________________________________________________________
@@ -212,13 +222,20 @@ Description of the HERE-API, problems, features, limitations. (Legal matters in 
 
 Introduction to the Description of the Backend section, move from complete Java project to an only server application which can be contacted via Rest Services.
 
+%\____ Backend Functionalitys
+
 \subsection{Backend Functionalities}
 
 Summarise the implemented functionalities and algorithms from various papers, provided by Gregor. 
+
 \paragraph{functionality/algorithm I} description of functionality/algorithm I
 \paragraph{functionality/algorithm II} description of functionality/algorithm II
 \paragraph{functionality/algorithm III} description of functionality/algorithm III
+
+%\____ Rest API
+
 \subsection{Rest API}
+
 Implemented Rest contact points, how to contact, performance
 
 %\_____________________________________________________________________
@@ -228,55 +245,112 @@ Implemented Rest contact points, how to contact, performance
 
 Introduction to my working process, development etc.
 
+%\____ Build Tools and Frameworks for Development
+
 \subsection{Build Tools and Frameworks for Development}
 
 Software development nowadays depends on various frameworks, other projects and build tools. These will be explained and described in this subsection.
+
+%\____ git and GitHub-Pages
 
 \paragraph{git and GitHub-Pages}
 
 git as version control, comparison to other/older version control systems. GitHub-Pages to deliver the homepage even if its not the usual way of doing it.
 
+%\____ npm and bower
+
 \paragraph{npm and bower}
 
 nodes npm as dependency manager for all development dependencies, bower for all dependencies needed for the front end to be displayed
+
+%\____ Agile Software Development
 
 \paragraph{Agile Software Development}
 
 Agile in general, Scrum, my development process
 
+%\____ Implemented Features
+
 \subsection{Implemented Features}
 
-This subsection will contain all implemented features, describe them from a usability and technical standpoint and uncover shortcomings which will be an essential part of chapter six. 
+This subsection will contain all implemented features, describe them from a usability and technical standpoint and uncover shortcomings which will be an essential part of chapter six. The original features this thesis was constructed for will be explained in 4.2.2 and 4.2.3.
 
-\subsubsection{Geocoding Addresses}
-
-For better understanding of route descriptions and set markers a reverse geocoding API was integrated into the project to translate latitude and longitude data into physical addresses. This paragraph will describe the usage of the HERE-API as reverse geocoding service, compare it to other geocoding services and will highlight key features and problems encountered in the development process. 
+%\____ Points of Interest
 
 \subsubsection{Points of Interest}
 
-A feature that was not originally intended to be implemented in the project which was derived from the use case of displaying open parking spots at a given location. Because their is no real data about parking spots available yet, this would have been implemented using simulation data from a different project at the DBS at LMU and would have included route calculations from point A to a parking spot near the destination point B.
+A feature that was not originally intended to be implemented in the project, which was derived from the use case of displaying open parking spots at a given location, is the search for points of interest. Because there is no real data about parking spots available yet, this would have been implemented using simulation data from a different project at the DBS and would have included route calculations from origin point A to a parking spot near the destination point B. As the display of parking spaces on a map has common elements with the displaying of any points of interest at a given location, the Point of Interest search was implemented. This paragraph will describe the implementation of the feature and will identify technical difficulties and shortcomings.
 
-As the display of parking spaces on a map has common elements with the displaying of any points of interest at a given location, the Point of Interest search was implemented. The user is able to select from various categories like 'Eat \& Drink', 'Sights \& Museums', 'Shopping' and many more, which information he is interested in. The data is displayed as small dots on the map with an information bubble opened by clicking on them containing name, category and vicinity.
+To use this feature the user has to set one marker on the map to specify the location he is interested in. If two markers are set or a route is displayed both the route and the first marker are removed from the map. The user is able to select various categories like 'Eat \& Drink', 'Sights \& Museums', 'Shopping' and many more and even combining more than one category, to choose which information he is interested in. The data than is displayed as small dots on the map with a popup opened by clicking on them, containing name, category and vicinity.
 
-Technical integration of this feature was achieved by using a different service of the HERE-API, the 'Places' search. One has to specify the desired information, the location and the search radius and as response receives up to one hundred points of interest.
+The technical integration of this feature was achieved by using one of the services of the HERE-API, the 'Places' search. The request sent to the API has to include most importantly the location in latitude and longitude, the categories one is interested in, the search radius and a few other attributes mainly concerning the response type and format. If no category is selected by the user and consequently no selection is sent to the API, a list of points of interest in all categories is returned.
+
+Up to twenty points of interest are included in one response. When more than twenty points of interest are available in the surrounding of the location a link to twenty more points is provided. This pattern of responses allow for up to five responses and therefore a maximum of 100 points of interest for one request. Leaving all categories unselected about 90 percent of the responses are associated with the 'Eat \& Drink' category. Fortunately the response includes the corresponding category, the name of the point of interest and the physical address. Because of the included address this feature was for a short period of time evaluated for the in 4.2.4 introduced reverse geocoding API but was dismissed for the lack of sufficient data in rural areas.
+
+Similar to the above mentioned route calculations to a parking spot one could implement an algorithm which calculates a route traversing a given number of points of interest on the way. Both topics will be discussed in chapter 6. 
+
+%\____ Route Calculations
 
 \subsubsection{Route Calculations}
 
-One of the two main features of the project which allows the user to calculate a route by specifying start and destination points, choosing between the on server side implemented algorithms and the cost the route should be optimised to. The user input is sent to the back end and a route in geoJson format and costs of the route are returned to the user. The calculated route is added to the map and the costs are displayed in the information panel.
+The first of the two main features of this project is also the first feature to contact the in chapter three described server at DBS. It enables the user to request the calculation of a route between previously defined origin and destination from the server which is than displayed on the map with additional information available on the information panel. Via a dropdown the user can choose one of the in 3.1 defined algorithms and additionally allows the selection of the cost, which the route should be optimised to. 
+
+As new algorithms and new implementations are frequently introduced to the server by other projects, partly resulting from other students writing their theses at the DBS, a mechanism was implemented to retrieve the available algorithms and the costs the algorithm incorporates. 
 
 The main reason to let the user choose an algorithm is to allow comparison between them and to highlight newly implemented once, which is constantly done by the DBS.
 
 One additional feature would have been implemented for further analysis of the algorithms, if time would have allowed it. The displaying of visited nodes in the graph to better understand how the algorithms work will be described in chapter 6.
 
+%\____ Intermodal Route Calculations
+
 \subsubsection{Intermodal Route Calculations}
 
 The second main feature is the calculation of intermodal routes using public transportation such as trains, busses and trams. This service is experimental and currently only available for the Berlin metro area.
 
-As for the user, the calculation of an intermodal route has only small differences to the normal route calculations described in 4.3.3. He can't choose algorithm or cost but has to specify the desired departure time and the range he is willing to go by car, bike or foot. He then receives a route displayed on the map and instructions which mode of transportation to use for which route segment. For easier understanding of the instructions a symbol of a walking man is added to all segments using car, bike or foot and a symbol of a train is displayed for public transportation.
+As for the user, the calculation of an intermodal route has only small differences to the normal route calculations described in 4.2.2. He can't choose algorithm or cost but has to specify the desired departure time and the range he is willing to go by car, bike or foot. He then receives a route displayed on the map and instructions which mode of transportation to use for which route segment. For easier understanding of the instructions a symbol of a walking man is added to all segments using car, bike or foot and a symbol of a train is displayed for public transportation.
 
-\subsubsection{Alternative Routes and Simulations}
+%\____ Geocoding Addresses
 
+\subsubsection{Geocoding Addresses}
 
+For better understanding of route descriptions and set markers a reverse geocoding API was integrated into the project to translate latitude and longitude data into physical addresses. This paragraph will outline the implementation of this feature, describe the usage of the HERE-API as reverse geocoding service, compare it to other geocoding services and highlight key features and problems encountered in the development process. 
+
+When a marker is set on the map by clicking, two processes are set into motion. Firstly, the image of the marker is loaded and pinned to the location the user clicked on and secondly, the position of the click is saved to the scope in latitude and longitude. In the bootstrapping phase of the application, that is the loading of the core functionality of AngularJS into the HTML document, a watcher is defined to listen to changes in the marker directory of the scope. For every change in that directory the new or updated location of a marker is sent to the reverse geocoding API and the new address is sent back to the application, which is than saved to the scope for display. The two way data binding of AngularJS comes in really handy in this instance because otherwise a very complex and complicated process would have to be implemented to generate that functionality. 
+
+This feature increases its value in the in 4.2.3 introduced intermodal route calculations. As you know, the route is calculated to include public transportation which implies that the route is split into segments. Each segment has an origin and a destination and for every one of these points the physical address is requested from the reverse geocoding API and displayed as a from-to statement in the route information panel of the application.
+
+The basics of the HERE-API are described in Chapter 2.4 so only the specific properties of the reverse geocoding API will be illustrated in this section. As all other parts of the HERE conglomeration the geocoding API is only well documented to a certain extend, for the documentation is so bulky that one is better off just implementing and testing it. The error descriptions and actual data responses are far better to understand the workings of the API than just reading the documentation. For historic reasons and to satisfy a similar data structure in all HERE APIs the response data to a reverse geocoding request is strictly hierarchical and multilayered. Especially in this case alternatives to the HERE API such as Nominatim, maintained by the OpenStreetMap Cooperation and OpenCage Geocoder run by the OpenCage Data Ltd. would have been preferable but both couldn't be used because of the strict limitation to one request per second.
+
+Implementing the API one can define the mode of the request. For translating latitude and longitude intro physical addresses the modes 'retrieve addresses' and 'track position' are applicable, although the second one is a bit alienated for that purpose. 'Retrieve addresses' returns a by the developer specified number of addresses which are ordered by the distance to the requested location. For an inexplicable reason in some cases the state or city is returned as nearest address without any information about street or house number. Accordingly the results had to be filtered to satisfy the need for a correct address. 'Track position' usually returns the better results because it snaps to the nearest address it can find and returns just that. Unfortunately this mode is not reliable in more remote areas and returns no address at all in some cases. 
+
+For this project the more dependable mode 'retrieve addresses' was chosen and logic was implemented to select the best quality address from the five responses. Again, other geocoding APIs would have been preferable but couldn't be used because of rate limitations. Notable is the fast response time of the API which almost never exceeded 100 ms and was thus on average two times faster than Nominatim and almost four times faster than OpenCage Geocoder.
+
+%\begin{verbatim}
+%Response: {
+%  MetaInfo{...}
+%  View: [{
+%    0: {
+%      Result: [{
+%        0: {
+%          Distance: 16.1,
+%          Location: {
+%            Address: {
+%              Label: "Karlstraße 37, 80333 Munich, Germany",
+%              ...
+%            }
+%          }
+%        }
+%      }]
+%    }
+%  }]
+%}
+%\end{verbatim}
+
+%\____ Simulation
+
+\subsubsection{Simulation}
+
+%\____ Legal Basis and Copyright of Map Material
 
 \subsection{Legal Basis and Copyright of Map Material}
 
