@@ -103,7 +103,7 @@ Definition of Task
 % Inhaltsverzeichnis erzeugen
 \tableofcontents
 
-\setlength\parskip{\baselineskip}
+%\setlength\parskip{\baselineskip}
 
 %______________________________________________________________________
 
@@ -285,19 +285,23 @@ To use this feature the user has to set one marker on the map to specify the loc
 
 The technical integration of this feature was achieved by using one of the services of the HERE-API, the 'Places' search. The request sent to the API has to include most importantly the location in latitude and longitude, the categories one is interested in, the search radius and a few other attributes mainly concerning the response type and format. If no category is selected by the user and consequently no selection is sent to the API, a list of points of interest in all categories is returned.
 
-Up to twenty points of interest are included in one response. When more than twenty points of interest are available in the surrounding of the location a link to twenty more points is provided. This pattern of responses allow for up to five responses and therefore a maximum of 100 points of interest for one request. Leaving all categories unselected about 90 percent of the responses are associated with the 'Eat \& Drink' category. Fortunately the response includes the corresponding category, the name of the point of interest and the physical address. Because of the included address this feature was for a short period of time evaluated for the in 4.2.4 introduced reverse geocoding API but was dismissed for the lack of sufficient data in rural areas.
+Up to twenty points of interest are included in one response. When more than twenty points of interest are available in the surrounding of the location a link to twenty more points is provided. This pattern of responses allow for up to five responses and therefore a maximum of 100 points of interest for one request. Leaving all categories unselected about 90 percent of the responses are associated with the 'Eat \& Drink' category. Fortunately the response includes the corresponding category, the name of the point of interest and the physical address. Because of the included address this feature, for a short period of time, was evaluated for the in 4.2.4 introduced reverse geocoding API but was dismissed for the lack of sufficient data in rural areas.
 
 Similar to the above mentioned route calculations to a parking spot one could implement an algorithm which calculates a route traversing a given number of points of interest on the way. Both topics will be discussed in chapter 6. 
 
 %\____ Route Calculations
-
+\cleardoublepage
 \subsubsection{Route Calculations}
 
 The first of the two main features of this project is also the first feature to contact the in chapter three described server at DBS. It enables the user to request the calculation of a route between previously defined origin and destination from the server which is than displayed on the map with additional information available on the information panel. Via a dropdown the user can choose one of the in 3.1 defined algorithms and additionally allows the selection of the cost, which the route should be optimised to. 
 
-As new algorithms and new implementations are frequently introduced to the server by other projects, partly resulting from other students writing their theses at the DBS, a mechanism was implemented to retrieve the available algorithms and the costs the algorithm incorporates. 
+As new algorithms and new implementations are frequently introduced to the server by other projects, partly resulting from other students writing their theses at the DBS, a mechanism was needed to keep the information about algorithms up to date. For that reason an additional API call is triggered to the backend, requesting a file containing all implemented algorithms and their attributes. All new algorithms implemented on the server have to be included in that file for the front end to make them available for selection in the above mentioned dropdown.
 
-The main reason to let the user choose an algorithm is to allow comparison between them and to highlight newly implemented once, which is constantly done by the DBS.
+Once the user has set two markers for origin and destination on the map and selected algorithm and costs, a request containing all information is send to the server for the calculation of the optimal route. The route is than sent back to the front end in GeoJson format and added to the map. Right after the route is added to the map a popup is bound to it containing the addresses of origin and destination. The route can be highlighted on hover over the route itself or the route description in the information panel. Both features are especially helpful for intermodal route calculations introduced in 4.2.3.
+
+At this moment, there are two cases receiving different treatment than described above. On of them is the algorithm called a-star-with-charging which was implemented for electrical vehicles, as described in 3.1. The response to a request with this algorithm selected contains a route with a charging station on the way and a point, where the station is located. The route is added as above and the charging station is added as a special marker to the map.
+
+The second case comprises all algorithms from the skyline family. As delineated in 3.1 the skyline algorithms are able to optimise route calculations to more than one cost
 
 One additional feature would have been implemented for further analysis of the algorithms, if time would have allowed it. The displaying of visited nodes in the graph to better understand how the algorithms work will be described in chapter 6.
 
@@ -363,6 +367,9 @@ For this project the more dependable mode 'retrieve addresses' was chosen and lo
 
 \cleardoublepage
 \section{Recapitulation and Future Work}
+
+- parking spots and route to points of interest\\
+- display of visited nodes
 
 %______________________________________________________________________
 
