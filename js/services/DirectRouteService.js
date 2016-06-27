@@ -86,8 +86,8 @@ mario.service('directRouteService', [ '$http', 'modifyMap', function ($http, mod
       focus: true,
       icon: {
         iconUrl: 'resources/charging.png',
-        iconSize: [50, 50],
-        iconAnchor: [25, 25]
+        iconSize: [30, 50],
+        iconAnchor: [15, 50]
       }
     })
     that.singleRouteResponse(model, geojson)
