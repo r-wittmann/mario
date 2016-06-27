@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper,twoside]{article}
+\documentclass[12pt,a4paper,twoside]{article}
 
 % LaTeX-Umsetzung der "Richtlinien für Projekt- und Diplomarbeiten"
 % der LFE Medieninformatik, LMU München. (Autor: Richard Atterer, 27.9.2006, 23.10.2007), Bug-Fixing Mark Kaczkowski (23.6.2008)
@@ -26,7 +26,7 @@
 \fancyfoot[CE,CO,RE,LO]{}
 \fancyfoot[LE,RO]{\Roman{page}}
 \renewcommand{\headrulewidth}{0pt}
-\setlength{\headheight}{13.6pt} % behebt headheight Warning
+\setlength{\headheight}{14.5pt} % behebt headheight Warning
 
 % Korrektes Format für Nummerierung von Abbildungen (figure) und
 % Tabellen (table): <Kapitelnummer>.<Abbildungsnummer>
@@ -103,7 +103,7 @@ Definition of Task
 % Inhaltsverzeichnis erzeugen
 \tableofcontents
 
-%\setlength\parskip{\baselineskip}
+\setlength\parskip{\baselineskip}
 
 %______________________________________________________________________
 
@@ -290,10 +290,10 @@ Up to twenty points of interest are included in one response. When more than twe
 Similar to the above mentioned route calculations to a parking spot one could implement an algorithm which calculates a route traversing a given number of points of interest on the way. Both topics will be discussed in chapter 6. 
 
 %\____ Route Calculations
-\cleardoublepage
+
 \subsubsection{Route Calculations}
 
-The first of the two main features of this project is also the first feature to contact the in chapter three described server at DBS. It enables the user to request the calculation of a route between previously defined origin and destination from the server which is than displayed on the map with additional information available on the information panel. Via a dropdown the user can choose one of the in 3.1 defined algorithms and additionally allows the selection of the cost, which the route should be optimised to. 
+The first of the two main features of this project is also the first feature to contact the in chapter three described server at DBS. It enables the user to request the calculation of a route between previously defined origin and destination from the server which is than displayed on the map with additional information available on the information panel. Via a dropdown the user can choose one of the in 3.1 defined algorithms and additionally allows the selection of the costs, which the route should be optimised to. 
 
 As new algorithms and new implementations are frequently introduced to the server by other projects, partly resulting from other students writing their theses at the DBS, a mechanism was needed to keep the information about algorithms up to date. For that reason an additional API call is triggered to the backend, requesting a file containing all implemented algorithms and their attributes. All new algorithms implemented on the server have to be included in that file for the front end to make them available for selection in the above mentioned dropdown.
 
@@ -301,7 +301,7 @@ Once the user has set two markers for origin and destination on the map and sele
 
 At this moment, there are two cases receiving different treatment than described above. On of them is the algorithm called a-star-with-charging which was implemented for electrical vehicles, as described in 3.1. The response to a request with this algorithm selected contains a route with a charging station on the way and a point, where the station is located. The route is added as above and the charging station is added as a special marker to the map.
 
-The second case comprises all algorithms from the skyline family. As delineated in 3.1 the skyline algorithms are able to optimise route calculations to more than one cost
+The second case comprises all algorithms from the skyline family. As delineated in 3.1 the skyline algorithms are able to optimise route calculations to more than one cost. That's why the user is able to select more than one or even all of the available costs in the direct route dropdown. The server returns a collection of routes in geojson format with the associated costs attached to the features. Adding the costs to the information panel of the front end instead of the addresses of the origin and destination allows the user to compare different routes in regard to their efficiency. The above mentioned route highlighting helps to differentiate between the displayed routes.
 
 One additional feature would have been implemented for further analysis of the algorithms, if time would have allowed it. The displaying of visited nodes in the graph to better understand how the algorithms work will be described in chapter 6.
 
@@ -309,7 +309,7 @@ One additional feature would have been implemented for further analysis of the a
 
 \subsubsection{Intermodal Route Calculations}
 
-The second main feature is the calculation of intermodal routes using public transportation such as trains, busses and trams. This service is experimental and currently only available for the Berlin metro area.
+The second main feature is the calculation of intermodal routes using public transportation such as trains and busses. This service is experimental and currently only available for the Berlin metro area.
 
 As for the user, the calculation of an intermodal route has only small differences to the normal route calculations described in 4.2.2. He can't choose algorithm or cost but has to specify the desired departure time and the range he is willing to go by car, bike or foot. He then receives a route displayed on the map and instructions which mode of transportation to use for which route segment. For easier understanding of the instructions a symbol of a walking man is added to all segments using car, bike or foot and a symbol of a train is displayed for public transportation.
 
