@@ -180,13 +180,17 @@ As the software developed in the course of this thesis depends on various framew
 
 \subsection{AngularJS}
 
-When one is implementing a web application, HTML, CSS and JavaScript are most commonly the technologies of choice. HTML is great for declaring static documents and CSS even better to style these templates, but both lack the ability to react to dynamic changes of values and views and are hence not up to the challenges of a modern web application. As HTML and CSS are rather old technologies various developers generated a multitude of ways to compensate said shortcomings and JavaScript was one of them. Developed in 1995 by Netscape employee Brendan Eich, JavaScript is now implemented in all modern Browsers without the need for plugins and almost all websites depend on it. But still there was room for improvement.
+When one is implementing a web application, HTML, CSS and JavaScript are most commonly the technologies of choice. HTML is great for declaring static documents and CSS even better to style these templates, but both lack the ability to react to dynamic changes of values and views and are hence not up to the challenges of a modern web application. As HTML and CSS are rather old technologies various developers generated a multitude of ways to compensate said shortcomings and JavaScript was one of them. Developed in 1995 by Netscape employee Brendan Eich, JavaScript has been in a continuos development process, is now implemented in all modern web browsers without the need for plugins and almost all websites depend on it. JavaScript is standardised by Ecma International in the latest \href{http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf}{ECMA-262}\footnote{http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf} language specification. 
 
-In the last few years with web 2.0 and the resulting higher user interaction with websites additional functionalities were needed and developed. But non of these frameworks addressed the basic problem with HTML, namely that it was not designed for dynamic views. AngularJS on the other hand extends the existing HTML vocabulary and allows for expressive, readable and quick to develop code. Based on HTML and JavaScript, AngularJS is a framework which allows developers to have full access to standard syntax and facilitate the dynamization of web applications.
+But still there was room for improvement. In the past few years with web 2.0, excessive use of mobile browsers and the resulting higher user interaction with websites, additional functionalities were needed and developed. But non of these frameworks addressed the basic problem with HTML, namely that it was not designed for dynamic views. AngularJS on the other hand extends the existing HTML vocabulary and allows for expressive, readable and quick to develop code. Based on HTML and JavaScript, AngularJS is a framework which allows developers to have full access to standard syntax and facilitates the dynamization of web applications.
+
+Normally when a user visits a website, the HTML template is requested from the server and loaded into the web browser, including CSS for styling and all JavaScript files needed for the utilisation of the website. AngularJS applications differ from that process. In the bootstrapping phase, which is started right after the HTML markup is loaded, the core AngularJS functionalities are merged with the template to provide basic features. After the AngularJS code is available in the web browser, the module referenced from the HTML template is generated and all dependencies are injected into and made available to this module. Also the scope is introduced to the application allowing the initially generated static view to be replaced by AngularJS's dynamic view.
+
+AngularJS is based on the Model View Controller pattern (MVC) which allows for a strict separation of the underlying data structure, the View, which is displayed to the user and the controllers, implementing needed business logic. The so called scope is used as the model and as the scope is accessible from both view and controller, it binds both components together. Each AngularJS application has exactly one root scope which may have several child scopes as every directory creates its own scope. The child scopes inherit from their parent prototypically. Controllers can use services, factories and providers for additional functionalities which are part of the above mentioned dependencies injected into the controller.
+
+The ability to bind view elements to variables and functions on the scope and vice versa is called two way data binding and is one of the main reasons AngularJS is favoured over many other frameworks. All changes to the view, for example via input fields, are immediately reflected to the scope and all changes to variables on the scope are propagated to the view keeping them both up to date. All functions stored on the scope are accessible from the view elements allowing for easy and fast implementation of click listeners and other business logic.
 
 For this application AngularJS version 1.5.5 was used as Angular 2 was not at a stable relies at the beginning of the project. AngularJS is mainly maintained by Google and by a community of individuals and cooperations which contribute to the open source project. 
-
-AngularJS is based on the Model View Controller pattern (MVC) which allows for a strict separation of the underlying data structure, the View, which is displayed to the user and the controllers, implementing needed business logic. The so called scope is used as the model and as the scope is accessible from both view and controller, it binds both components together. Each AngularJS application has exactly one root scope which may have several child scopes as every directory creates its own scope. The child scopes inherit from their parent prototypically. 
 
 %\____ LeafletJS
 
@@ -271,15 +275,36 @@ Agile in general, Scrum, my development process
 
 %\____ Implemented Features
 
+\subsection{Implemented Application}
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.95\columnwidth]{resources/classdiagram.png}
+  \end{center}
+  \caption{Class diagram of the application}
+  \label{fig:appclassdiagram}
+\end{figure}
+
+figure ~\ref{fig:appclassdiagram}
+
 \subsection{Implemented Features}
 
-This subsection will contain all implemented features, describe them from a usability and technical standpoint and uncover shortcomings which will be an essential part of chapter six. The original features this thesis was constructed for will be explained in 4.2.2 and 4.2.3.
+This subsection will contain all implemented features, describe them from a usability and technical standpoint and uncover shortcomings which will be an essential part of chapter six. The original features this thesis was constructed for, namely the calculation of routes using various algorithms and the calculation of intermodal routes will be explained in ~\ref{subsubsec:RouteCalculations} and ~\ref{subsubsec:Intermodal}. The remaining features are the points of interest search (see ~\ref{subsubsec:POI}), geocoding addresses (see ~\ref{subsubsec:Geocoding}) and the animated display of simulations of cars and thunderstorms which are the result of another students bachelors thesis (see ~\ref{subsubsec:Simulation}) (zitieren).
 
 %\____ Points of Interest
 
 \subsubsection{Points of Interest}
+\label{subsubsec:POI}
 
-A feature that was not originally intended to be implemented in the project, which was derived from the use case of displaying open parking spots at a given location, is the search for points of interest. Because there is no real data about parking spots available yet, this would have been implemented using simulation data from a different project at the DBS and would have included route calculations from origin point A to a parking spot near the destination point B. As the display of parking spaces on a map has common elements with the displaying of any points of interest at a given location, the Point of Interest search was implemented. This paragraph will describe the implementation of the feature and will identify technical difficulties and shortcomings.
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.95\columnwidth]{resources/DropdownPOI}
+  \end{center}
+  \caption{front end with points of interest and open dropdown}
+  \label{fig:DropdownPOI}
+\end{figure}
+
+A feature that was not originally intended to be implemented in the project, which was derived from the use case of displaying open parking spots at a given location, is the search for points of interest. Because there is no real data about parking spots available yet, this would have been implemented using simulation data from a different project at the DBS and would have included route calculations from origin point A to a parking spot near the destination point B. As the display of parking spaces on a map has common elements with the displaying of any points of interest at a given location, the Point of Interest search was implemented (see figure ~\ref{fig:DropdownPOI}). This paragraph will describe the implementation of the feature and will identify technical difficulties and shortcomings.
 
 To use this feature the user has to set one marker on the map to specify the location he is interested in. If two markers are set or a route is displayed both the route and the first marker are removed from the map. The user is able to select various categories like 'Eat \& Drink', 'Sights \& Museums', 'Shopping' and many more and even combining more than one category, to choose which information he is interested in. The data than is displayed as small dots on the map with a popup opened by clicking on them, containing name, category and vicinity.
 
@@ -292,8 +317,17 @@ Similar to the above mentioned route calculations to a parking spot one could im
 %\____ Route Calculations
 
 \subsubsection{Route Calculations}
+\label{subsubsec:RouteCalculations}
 
-The first of the two main features of this project is also the first feature to contact the in chapter three described server at DBS. It enables the user to request the calculation of a route between previously defined origin and destination from the server which is than displayed on the map with additional information available on the information panel. Via a dropdown the user can choose one of the in 3.1 defined algorithms and additionally allows the selection of the costs, which the route should be optimised to. 
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.95\columnwidth]{resources/DropdownAlgorithm}
+  \end{center}
+  \caption{front end with calculated route and open dropdown}
+  \label{fig:DropdownAlgorithm}
+\end{figure}
+
+The first of the two main features of this project is also the first feature to contact the in chapter three described server at DBS. It enables the user to request the calculation of a route between previously defined origin and destination from the server which is than displayed on the map with additional information available on the information panel. Via a dropdown the user can choose one of the in 3.1 defined algorithms and additionally allows the selection of the costs, which the route should be optimised to (see figure ~\ref{fig:DropdownAlgorithm}). 
 
 As new algorithms and new implementations are frequently introduced to the server by other projects, partly resulting from other students writing their theses at the DBS, a mechanism was needed to keep the information about algorithms up to date. For that reason an additional API call is triggered to the backend, requesting a file containing all implemented algorithms and their attributes. All new algorithms implemented on the server have to be included in that file for the front end to make them available for selection in the above mentioned dropdown.
 
@@ -301,23 +335,49 @@ Once the user has set two markers for origin and destination on the map and sele
 
 At this moment, there are two cases receiving different treatment than described above. On of them is the algorithm called a-star-with-charging which was implemented for electrical vehicles, as described in 3.1. The response to a request with this algorithm selected contains a route with a charging station on the way and a point, where the station is located. The route is added as above and the charging station is added as a special marker to the map.
 
-The second case comprises all algorithms from the skyline family. As delineated in 3.1 the skyline algorithms are able to optimise route calculations to more than one cost. That's why the user is able to select more than one or even all of the available costs in the direct route dropdown. The server returns a collection of routes in geojson format with the associated costs attached to the features. Adding the costs to the information panel of the front end instead of the addresses of the origin and destination allows the user to compare different routes in regard to their efficiency. The above mentioned route highlighting helps to differentiate between the displayed routes.
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.95\columnwidth]{resources/HighlightingSkyline}
+  \end{center}
+  \caption{front end with highlighted route}
+  \label{fig:HighlightingSkyline}
+\end{figure}
+
+The second case comprises all algorithms from the skyline family. As delineated in 3.1 the skyline algorithms are able to optimise route calculations to more than one cost. That's why the user is able to select more than one or even all of the available costs in the direct route dropdown. The server returns a collection of routes in geojson format with the associated costs attached to the features. Adding the costs to the information panel of the front end instead of the addresses of the origin and destination allows the user to compare different routes in regard to their efficiency. The above mentioned route highlighting helps to differentiate between the displayed routes (see figure ~\ref{fig:HighlightingSkyline}).
 
 One additional feature would have been implemented for further analysis of the algorithms, if time would have allowed it. The displaying of visited nodes in the graph to better understand how the algorithms work will be described in chapter 6.
 
 %\____ Intermodal Route Calculations
 
 \subsubsection{Intermodal Route Calculations}
+\label{subsubsec:Intermodal}
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.95\columnwidth]{resources/DropdownIntermodal}
+  \end{center}
+  \caption{front end with intermodal route and open dropdown}
+  \label{fig:DropdownIntermodal}
+\end{figure}
 
 The second main feature is the calculation of intermodal routes using public transportation such as trains and busses. This service is experimental and currently only available for the Berlin metro area.
 
-As for the user, the calculation of an intermodal route has only small differences to the normal route calculations described in 4.2.2. He can't choose algorithm or cost but has to specify the desired departure time and the range he is willing to go by car, bike or foot. He then receives a route displayed on the map and instructions which mode of transportation to use for which route segment. For easier understanding of the instructions a symbol of a walking man is added to all segments using car, bike or foot and a symbol of a train is displayed for public transportation.
+As for the user, the calculation of an intermodal route has only small differences to the normal route calculations described in 4.2.2. He can't choose algorithm or cost but has to specify the desired departure time and the range he is willing to go by car, bike or foot. He then receives a route displayed on the map and instructions which mode of transportation to use for which route segment. For easier understanding of the instructions a symbol of a walking man is added to all segments using car, bike or foot and a symbol of a train is displayed for public transportation (see figure ~\ref{fig:DropdownIntermodal}).
 
 %\____ Geocoding Addresses
 
 \subsubsection{Geocoding Addresses}
+\label{subsubsec:Geocoding}
 
-For better understanding of route descriptions and set markers a reverse geocoding API was integrated into the project to translate latitude and longitude data into physical addresses. This paragraph will outline the implementation of this feature, describe the usage of the HERE-API as reverse geocoding service, compare it to other geocoding services and highlight key features and problems encountered in the development process. 
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.95\columnwidth]{resources/GeocodingAddress}
+  \end{center}
+  \caption{front end with marker and displayed address}
+  \label{fig:GeocodingAddress}
+\end{figure}
+
+For better understanding of route descriptions and set markers a reverse geocoding API was integrated into the project to translate latitude and longitude data into physical addresses (see figure ~\ref{fig:GeocodingAddress}). This paragraph will outline the implementation of this feature, describe the usage of the HERE-API as reverse geocoding service, compare it to other geocoding services and highlight key features and problems encountered in the development process. 
 
 When a marker is set on the map by clicking, two processes are set into motion. Firstly, the image of the marker is loaded and pinned to the location the user clicked on and secondly, the position of the click is saved to the scope in latitude and longitude. In the bootstrapping phase of the application, that is the loading of the core functionality of AngularJS into the HTML document, a watcher is defined to listen to changes in the marker directory of the scope. For every change in that directory the new or updated location of a marker is sent to the reverse geocoding API and the new address is sent back to the application, which is than saved to the scope for display. The two way data binding of AngularJS comes in really handy in this instance because otherwise a very complex and complicated process would have to be implemented to generate that functionality. 
 
@@ -325,9 +385,9 @@ This feature increases its value in the in 4.2.3 introduced intermodal route cal
 
 The basics of the HERE-API are described in Chapter 2.4 so only the specific properties of the reverse geocoding API will be illustrated in this section. As all other parts of the HERE conglomeration the geocoding API is only well documented to a certain extend, for the documentation is so bulky that one is better off just implementing and testing it. The error descriptions and actual data responses are far better to understand the workings of the API than just reading the documentation. For historic reasons and to satisfy a similar data structure in all HERE APIs the response data to a reverse geocoding request is strictly hierarchical and multilayered. Especially in this case alternatives to the HERE API such as Nominatim, maintained by the OpenStreetMap Cooperation and OpenCage Geocoder run by the OpenCage Data Ltd. would have been preferable but both couldn't be used because of the strict limitation to one request per second.
 
-Implementing the API one can define the mode of the request. For translating latitude and longitude intro physical addresses the modes 'retrieve addresses' and 'track position' are applicable, although the second one is a bit alienated for that purpose. 'Retrieve addresses' returns a by the developer specified number of addresses which are ordered by the distance to the requested location. For an inexplicable reason in some cases the state or city is returned as nearest address without any information about street or house number. Accordingly the results had to be filtered to satisfy the need for a correct address. 'Track position' usually returns the better results because it snaps to the nearest address it can find and returns just that. Unfortunately this mode is not reliable in more remote areas and returns no address at all in some cases. 
+Implementing the API one can define the mode of the request. For translating latitude and longitude intro physical addresses the modes 'retrieve addresses' and 'track position' are applicable, although the second one is a bit alienated for that purpose. 'Retrieve addresses' returns a by the developer specified number of addresses which are ordered by the distance to the requested location. For an inexplicable reason in some cases the state or city is returned as nearest address without any information about street or house number. Accordingly the results had to be filtered to satisfy the need for a correct address. 'Track position' is intended to be used for mobile navigation as it incorporates the direction in which the user is moving for the calculations usually returns the better results because it snaps to the nearest address it can find and returns just that. Unfortunately this mode is not reliable in more remote areas and returns no address at all in some cases. 
 
-For this project the more dependable mode 'retrieve addresses' was chosen and logic was implemented to select the best quality address from the five responses. Again, other geocoding APIs would have been preferable but couldn't be used because of rate limitations. Notable is the fast response time of the API which almost never exceeded 100 ms and was thus on average two times faster than Nominatim and almost four times faster than OpenCage Geocoder.
+For this project the more dependable mode 'retrieve addresses' was chosen and logic was implemented to select the best quality address from the five responses. The 'match-level' parameter associated with each address was helpful but not reliable because the above mentioned addresses only containing city or state sometimes also have the highest match level possible, what is probably a wrong implementation on the providers side. Again, other geocoding APIs would have been preferable but couldn't be used because of rate limitations. Notable is the fast response time of the API which almost never exceeded 100 ms and was thus on average two times faster than Nominatim and almost four times faster than OpenCage Geocoder.
 
 %\begin{verbatim}
 %Response: {
@@ -353,6 +413,15 @@ For this project the more dependable mode 'retrieve addresses' was chosen and lo
 %\____ Simulation
 
 \subsubsection{Simulation}
+\label{subsubsec:Simulation}
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.95\columnwidth]{resources/Simulation}
+  \end{center}
+  \caption{front end with running simulation of cars and weather}
+  \label{fig:Simulation}
+\end{figure}
 
 %\____ Legal Basis and Copyright of Map Material
 
