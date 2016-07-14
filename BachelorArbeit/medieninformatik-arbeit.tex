@@ -104,7 +104,7 @@ Definition of Task
 % Inhaltsverzeichnis erzeugen
 \tableofcontents
 
-\setlength\parskip{\baselineskip}
+%\setlength\parskip{\baselineskip}
 
 %______________________________________________________________________
 
@@ -165,11 +165,17 @@ Definition of Task
 \section{Introduction}
 \label{sec:Introduction}
 
-Introduction to the problem, motivation, approaches, goals
+%Introduction to the problem, motivation, approaches, goals
 
-The developed project can be viewed at https://r-wittmann.github.io/mario. Furthermore the code of the project can be cloned from my git repository at https://github.com/r-wittmann/mario for analysis and further development.
+%The developed project can be viewed at https://r-wittmann.github.io/mario. Furthermore the code of the project can be cloned from my git repository at https://github.com/r-wittmann/mario for analysis and further development.
 
-One part of the theoretical work done by the Database Systems Group (DBS) regards graph data and algorithms that solve problems on graphs in particular search for shortest paths from one node to another. The algorithms which are solving this issue, like Dijkstra and A-Star, are constantly refined to perform faster, less error prune and more precise and also find use in other algorithms to solve more complicated tasks. 
+One big part of the theoretical and practical work done by the Database Systems Group (DBS) regards graph data and algorithms that solve problems on graphs in particular search for shortest paths from one node to another. The algorithms which are solving this issue, like Dijkstra and A-Star for example, are constantly refined to perform faster, less error prune and more precise and also find use in other algorithms to solve more complicated tasks. In 2011 the Multi Attribute Routing in Open Street Map Project (MARiO)\footnote{http://www.dbs.ifi.lmu.de/Publikationen/Papers/SSTD11-MARiO.pdf}, was initiated to further enhance the development process, the implementation and the visualisation of new or updated algorithms and methodologies.
+
+'MARiO is an open source project combining functionalities for data integration and preprocessing, implementation of new algorithms and performance evaluation' (citation MARiO-Paper). It was developed in Java 1.6 and follows a plugin architecture, i.e. allows the implementation of new algorithms without the need to alter the original code base. What seemed to be a great technology at the time, MARiO is now outdated, takes extensive amounts of time to download, compile and start on a local machine and doesn't follow any kind of modern software design pattern. Further information about MARiO will be given in section \ref{sec:Description of the Backend}.\\
+
+The task of this bachelor's thesis was the development of a modern browser application constituting as a visualisation of the in parallel implemented back end server at the DBS. This type of architecture is called server-client architecture which separates the representation on client side from the processing and storing of large amounts of data and the implementation of algorithms on the server side. Implementing the back end was not part of this thesis.
+
+The front end, developed in AngularJS for large browser and platform compatibility, 
 
 %\_____________________________________________________________________
 
@@ -188,11 +194,11 @@ When one is implementing a web application, HTML, CSS and JavaScript are most co
 
 But still there was room for improvement. In the past few years with web 2.0, excessive use of mobile browsers and the resulting higher user interaction with websites, additional functionalities were needed and developed. But non of these frameworks addressed the basic problem with HTML, namely that it was not designed for dynamic views. AngularJS on the other hand extends the existing HTML vocabulary and allows for expressive, readable and quick to develop code. Based on HTML and JavaScript, AngularJS is a framework which allows developers to have full access to standard syntax and facilitates the dynamization of web applications.
 
-Normally when a user visits a website, the HTML template is requested from the server and loaded into the web browser, including CSS for styling and all JavaScript files needed for the utilisation of the website. AngularJS applications differ from that process. In the bootstrapping phase, which is started right after the HTML markup is loaded, the core AngularJS functionalities are merged with the template to provide basic features. After the AngularJS code is available in the web browser, the module referenced from the HTML template is generated and all dependencies are injected into and made available to this module. Also the scope is introduced to the application allowing the initially generated static view to be replaced by AngularJS's dynamic view.
+Normally when a user visits a website, the HTML template is requested from the server and loaded into the web browser, including CSS for styling and all JavaScript files needed for the utilisation of the website. AngularJS applications differ from that process. In the bootstrapping phase, which is started right after the HTML markup is loaded, the core AngularJS functionalities are merged with the template to provide basic features. After the AngularJS code is available in the web browser, the module referenced from the HTML template is generated and all dependencies are injected into and made available to this module. Also the scope is introduced to the application allowing the initially generated static view to be replaced by AngularJS's dynamic view.\\
 
 AngularJS is based on the Model View Controller pattern (MVC) which allows for a strict separation of the underlying data structure, the View, which is displayed to the user and the controllers, implementing needed business logic. As the so called scope, which is used as the model, is accessible from both view and controller, it binds both components together. Each AngularJS application has exactly one root scope which may have several child scopes as every directory creates its own scope. The child scopes inherit from their parent prototypically. Controllers can use services, factories and providers for additional functionalities which are part of the above mentioned dependencies injected into the controller.
 
-The ability to bind view elements to variables and functions on the scope and vice versa is called two way data binding and is one of the main reasons AngularJS is favoured over many other frameworks. All changes to the view, for example via input fields, are immediately reflected to the scope and all changes to variables on the scope are propagated to the view keeping them both up to date. All functions stored on the scope are accessible from the view elements allowing for easy and fast implementation of click listeners and other business logic.
+The ability to bind view elements to variables and functions on the scope and vice versa is called two way data binding and is one of the main reasons AngularJS is favoured over many other frameworks. All changes to the view, for example via input fields, are immediately reflected to the scope and all changes to variables on the scope are propagated to the view keeping them both up to date. All functions stored on the scope are accessible from the view elements allowing for easy and fast implementation of click listeners and other business logic.\\
 
 As JavaScript is an untyped language, which means that variables don't have to be declared as one particular type, the developer receives almost no errors while compiling the code and therefore often stand before the problem of finding errors himself. The developers at Google "built many features into Angular which make testing [...] easy"\footnote{https://docs.angularjs.org/guide/unit-testing}. Two basic concepts of testing, unit tests and end-to-end tests, will be explained in the following two paragraphs.
 
@@ -328,13 +334,13 @@ This subsection will contain all implemented features, describe them from a usab
   \label{fig:DropdownPOI}
 \end{figure}
 
-A feature that was not originally intended to be implemented in the project, which was derived from the use case of displaying open parking spots at a given location, is the search for points of interest. Because there is no real data about parking spots available yet, this would have been implemented using simulation data from a different project at the DBS and would have included route calculations from origin point A to a parking spot near the destination point B. As the display of parking spaces on a map has common elements with the displaying of any points of interest at a given location, the Point of Interest search was implemented (see figure \ref{fig:DropdownPOI}). This paragraph will describe the implementation of the feature and will identify technical difficulties and shortcomings.
+A feature that was not originally intended to be implemented in the project, which was derived from the use case of displaying open parking spots at a given location, is the search for points of interest. Because there is no real data about parking spots available yet, this would have been implemented using simulation data from a different project at the DBS and would have included route calculations from origin point A to a parking spot near the destination point B. As the display of parking spaces on a map has common elements with the displaying of any points of interest at a given location, the Point of Interest search was implemented (see figure \ref{fig:DropdownPOI}). This paragraph will describe the implementation of the feature and will identify technical difficulties and shortcomings.\\
 
 To use this feature the user has to set one marker on the map to specify the location he is interested in. If two markers are set or a route is displayed both the route and the first marker are removed from the map once the Go! button is pressed. The user is able to select various categories like 'Eat \& Drink', 'Sights \& Museums', 'Shopping' and many more and even combining more than one category, to choose which information he is interested in. The data than is displayed as small dots on the map with a popup opened by clicking on them, containing name, category and vicinity.
 
 The technical integration of this feature was achieved by using one of the services of the HERE-API, the 'Places' search. The request sent to the API has to include most importantly the location in latitude and longitude, the categories one is interested in, the search radius and a few other attributes mainly concerning the response type and format. If no category is selected by the user and consequently no selection is sent to the API, a list of points of interest in all categories is returned.
 
-Up to twenty points of interest are included in one response. When more than twenty points of interest are available in the surrounding of the location a link to twenty more points is provided. This pattern of responses allow for up to five responses and therefore a maximum of 100 points of interest for one request. Leaving all categories unselected about 90 percent of the responses are associated with the 'Eat \& Drink' category. Fortunately the response includes the corresponding category, the name of the point of interest and the physical address. Because of the included address this feature, for a short period of time, was evaluated for the in \ref{subsubsec:Geocoding Addresses} introduced reverse geocoding API but was dismissed for the lack of sufficient data in rural areas.
+Up to twenty points of interest are included in one response. When more than twenty points of interest are available in the surrounding of the location a link to twenty more points is provided. This pattern of responses allow for up to five responses and therefore a maximum of 100 points of interest for one request. Leaving all categories unselected about 90 percent of the responses are associated with the 'Eat \& Drink' category. Fortunately the response includes the corresponding category, the name of the point of interest and the physical address. Because of the included address this feature, for a short period of time, was evaluated for the in \ref{subsubsec:Geocoding Addresses} introduced reverse geocoding API but was dismissed for the lack of sufficient data in rural areas.\\
 
 The performance of the 'Places' endpoint was the most unreliable of the HERE services used in this project. In the majority of cases, the response time was around 300 ms for the first request to be answered and about 200 ms for additional points of interest via the above mentioned response pattern. In very few cases the performance was exceptional, receiving five responses in about one second and sometimes even less. On the other hand there were more exceptions leaving the user to wait for up to 15 seconds until all points of interest were rendered on the map.
 
@@ -353,13 +359,11 @@ Similar to the above mentioned route calculations to a parking spot one could im
   \label{fig:DropdownAlgorithm}
 \end{figure}
 
-The first of the two main features of this project is also the first feature to contact the in chapter \ref{sec:Description of the Backend} described server at DBS. It enables the user to request the calculation of a route between previously defined origin and destination from the server which is than displayed on the map with additional information available on the information panel. Via a dropdown the user can choose one of the in \ref{subsec:Backend Functionalities} defined algorithms and additionally allows the selection of the costs, which the route should be optimised to (see figure \ref{fig:DropdownAlgorithm}). 
+The first of the two main features of this project is also the first feature to contact the in chapter \ref{sec:Description of the Backend} described server at DBS. It enables the user to request the calculation of a route between previously defined origin and destination from the server which is than displayed on the map with additional information available on the information panel. Via a dropdown the user can choose one of the in \ref{subsec:Backend Functionalities} defined algorithms and additionally allows the selection of the costs, which the route should be optimised to (see figure \ref{fig:DropdownAlgorithm}).\\
 
 As new algorithms and new implementations are frequently introduced to the server by other projects, partly resulting from other students writing their theses at the DBS, a mechanism was needed to keep the information about algorithms up to date. For that reason an additional API call is triggered to the backend, requesting a file containing all implemented algorithms and their attributes. All new algorithms implemented on the server have to be included in that file for the front end to make them available for selection in the above mentioned dropdown.
 
-Once the user has set two markers for origin and destination on the map and selected algorithm and costs, a request containing all information is send to the server for the calculation of the optimal route. The route is than sent back to the front end in GeoJson format and added to the map. Right after the route is added to the map a popup is bound to it containing the addresses of origin and destination. The route can be highlighted on hover over the route itself or the route description in the information panel. Both features are especially helpful for intermodal route calculations introduced in \ref{subsubsec:Intermodal Route Calculations}.
-
-At this moment, there are two cases receiving different treatment than described above. On of them is the algorithm called a-star-with-charging which was implemented for electrical vehicles, as described in \ref{subsec:Backend Functionalities}. The response to a request with this algorithm selected contains a route with a charging station on the way and a point, where the station is located. The route is added as above and the charging station is added as a special marker to the map.
+Once the user has set two markers for origin and destination on the map and selected algorithm and costs, a request containing all information is send to the server for the calculation of the optimal route. The route is than sent back to the front end in GeoJson format and added to the map. Right after the route is added to the map a popup is bound to it containing the addresses of origin and destination. The route can be highlighted on hover over the route itself or the route description in the information panel. Both features are especially helpful for intermodal route calculations introduced in \ref{subsubsec:Intermodal Route Calculations}.\\
 
 \begin{figure}
   \begin{center}
@@ -368,6 +372,8 @@ At this moment, there are two cases receiving different treatment than described
   \caption{Front end with highlighted route}
   \label{fig:HighlightingSkyline}
 \end{figure}
+
+At this moment, there are two cases receiving different treatment than described above. On of them is the algorithm called a-star-with-charging which was implemented for electrical vehicles, as described in \ref{subsec:Backend Functionalities}. The response to a request with this algorithm selected contains a route with a charging station on the way and a point, where the station is located. The route is added as above and the charging station is added as a special marker to the map.
 
 The second case comprises all algorithms from the skyline family. As delineated in \ref{subsec:Backend Functionalities} the skyline algorithms are able to optimise route calculations to more than one cost. That's why the user is able to select more than one or even all of the available costs in the direct route dropdown. The server returns a collection of routes in geojson format with the associated costs attached to the features. Adding the costs to the information panel of the front end instead of the addresses of the origin and destination allows the user to compare different routes in regard to their efficiency. The above mentioned route highlighting helps to differentiate between the displayed routes (see figure \ref{fig:HighlightingSkyline}).
 
@@ -386,7 +392,7 @@ One additional feature would have been implemented for further analysis of the a
   \label{fig:DropdownIntermodal}
 \end{figure}
 
-The second main feature is the calculation of intermodal routes using public transportation such as trains and busses. This service is experimental and currently only available for the Berlin metro area. Similar to route calculations in \ref{subsubsec:Route Calculations} the user has to set two markers on the map for origin and destination. Because the intermodal route calculations are executed using Dijkstra(?) as an algorithm and are optimised to time as cost, the user is not able select neither algorithms nor costs. Additional to origin and destination the user has to specify the time of departure and the range in km he is willing to go by foot, bike or car.
+The second main feature is the calculation of intermodal routes using public transportation such as trains and busses. This service is experimental and currently only available for the Berlin metro area. Similar to route calculations in \ref{subsubsec:Route Calculations} the user has to set two markers on the map for origin and destination. Because the intermodal route calculations are executed using Dijkstra(?) as an algorithm and are optimised to time as cost, the user is not able select neither algorithms nor costs. Additional to origin and destination the user has to specify the time of departure and the range in km he is willing to go by foot, bike or car.\\
 
 The response is a single route divided into at least five segments including walk or drive segments, train or bus rides and the changes of the mode of transportation. Segments using public transportation are added in red and for easier identification of the mode of transportation and understanding of the instructions, meaningful icons are added to the respective segment on the information panel (see figure \ref{fig:DropdownIntermodal}). The user also receives the walking distance, departure and arrival time and the number of changes, which are also displayed on the information panel.
 
@@ -409,13 +415,13 @@ Paragraph about wrong instructions (too long public lines)
   \label{fig:GeocodingAddress}
 \end{figure}
 
-For better understanding of route descriptions and set markers a reverse geocoding API was integrated into the project to translate latitude and longitude data into physical addresses (see figure \ref{fig:GeocodingAddress}). This paragraph will outline the implementation of this feature, describe the usage of the HERE-API as reverse geocoding service, compare it to other geocoding services and highlight key features and problems encountered in the development process. 
+For better understanding of route descriptions and set markers a reverse geocoding API was integrated into the project to translate latitude and longitude data into physical addresses (see figure \ref{fig:GeocodingAddress}). This paragraph will outline the implementation of this feature, describe the usage of the HERE-API as reverse geocoding service, compare it to other geocoding services and highlight key features and problems encountered in the development process.\\
 
 When a marker is set on the map by clicking, two processes are set into motion. Firstly, the image of the marker is loaded and pinned to the location the user clicked on and secondly, the position of the click is saved to the scope in latitude and longitude. In the bootstrapping phase of the application, that is the loading of the core functionality of AngularJS into the HTML document, a watcher is defined to listen to changes in the marker directory of the scope. For every change in that directory the new or updated location of a marker is sent to the reverse geocoding API and the new address is sent back to the application, which is than saved to the scope for display. The two way data binding of AngularJS comes in really handy in this instance because otherwise a very complex and complicated process would have to be implemented to generate that functionality. 
 
-This feature increases its value in the in \ref{subsubsec:Intermodal Route Calculations} introduced intermodal route calculations. As you know, the route is calculated to include public transportation which implies that the route is split into segments. Each segment has an origin and a destination and for every one of these points the physical address is requested from the reverse geocoding API and displayed as a from-to statement in the route information panel of the application.
+This feature increases its value in the in \ref{subsubsec:Intermodal Route Calculations} introduced intermodal route calculations. As you know, the route is calculated to include public transportation which implies that the route is split into segments. Each segment has an origin and a destination and for every one of these points the physical address is requested from the reverse geocoding API and displayed as a from-to statement in the route information panel of the application.\\
 
-The basics of the HERE-API are described in Chapter \ref{subsec:HERE API} so only the specific properties of the reverse geocoding API will be illustrated in this section. As all other parts of the HERE conglomeration the geocoding API is only well documented to a certain extend, for the documentation is so bulky that one is better off just implementing and testing it. The error descriptions and actual data responses are far better to understand the workings of the API than just reading the documentation. For historic reasons and to satisfy a similar data structure in all HERE APIs the response data to a reverse geocoding request is strictly hierarchical and multilayered. Especially in this case alternatives to the HERE API such as Nominatim, maintained by the OpenStreetMap Foundation and OpenCage Geocoder run by the OpenCage Data Ltd. would have been preferable but both couldn't be used because of the strict limitation to one request per second.
+The basics of the HERE-API are described in Chapter \ref{subsec:HERE API} so only the specific properties of the reverse geocoding API will be illustrated in this section. As all other parts of the HERE conglomeration the geocoding API is only well documented to a certain extend, for the documentation is so bulky that one is better off just implementing and testing it. The error descriptions and actual data responses are far better to understand the workings of the API than just reading the documentation. For historic reasons and to satisfy a similar data structure in all HERE APIs the response data to a reverse geocoding request is strictly hierarchical and multilayered. Especially in this case alternatives to the HERE API such as Nominatim, maintained by the OpenStreetMap Foundation and OpenCage Geocoder run by the OpenCage Data Ltd. would have been preferable but both couldn't be used because of the strict limitation to one request per second.\\
 
 Implementing the API one can define the mode of the request. For translating latitude and longitude intro physical addresses the modes 'retrieve addresses' and 'track position' are applicable, although the second one is a bit alienated for that purpose. 'Retrieve addresses' returns a by the developer specified number of addresses which are ordered by the distance to the requested location. For an inexplicable reason in some cases the state or city is returned as nearest address without any information about street or house number. Accordingly the results had to be filtered to satisfy the need for a correct address. 'Track position' is intended to be used for mobile navigation as it incorporates the direction in which the user is moving for the calculations usually returns the better results because it snaps to the nearest address it can find and returns just that. Unfortunately this mode is not reliable in more remote areas and returns no address at all in some cases. 
 
@@ -455,9 +461,9 @@ For this project the more dependable mode 'retrieve addresses' was chosen and lo
   \label{fig:Simulation}
 \end{figure}
 
-Algorithms and methodologies developed at the DBS have the tendency to be abstract and hard to grasp. This is especially true for simulations with high data output like the one integrated in this project. Jenny Lauterbach develops and implements a system to simulate vehicles driving through a street network and how they are influenced by external factors, such as heavy weather simulated as circular storms moving across a simulation area. This is an ongoing project at DBS under the supervision of PD Dr. Matthias Schubert. The next few paragraphs will not describe the developed system but the implementation of simulation data into this project's front end.
+Algorithms and methodologies developed at the DBS have the tendency to be abstract and hard to grasp. This is especially true for simulations with high data output like the one integrated in this project. Jenny Lauterbach develops and implements a system to simulate vehicles driving through a street network and how they are influenced by external factors, such as heavy weather simulated as circular storms moving across a simulation area. This is an ongoing project at DBS under the supervision of PD Dr. Matthias Schubert. The next few paragraphs will not describe the developed system but the implementation of simulation data into this project's front end.\\
 
-As a simulation of this kind adds time as an additional dimension to this project, a control panel had to be implemented to navigate through the up to 3600 states that where generated by the above mentioned system. This panel (see bottom left corner of figure \ref{fig:Simulation}) includes play and pause buttons, step forward and backward and jumps forward and backward. Additionally the user is able to jump to a specific part of the simulation by clicking on the control bar. Later in the project the simulation speed control was introduced to specify the play-back speed between 1/4 and four times the normal speed.
+As a simulation of this kind adds time as an additional dimension to this project, a control panel had to be implemented to navigate through the up to 3600 states that where generated by the above mentioned system. This panel (see bottom left corner of figure \ref{fig:Simulation}) includes play and pause buttons, step forward and backward and jumps forward and backward. Additionally the user is able to jump to a specific part of the simulation by clicking on the control bar. Later in the project the simulation speed control was introduced to specify the play-back speed between 1/4 and four times the normal speed.\\
 
 Currently the user is not able to select an area for the simulation as there is no web service or API provided by Jenny Lauterbach's project. The temporary workaround is to generate simulation files, converting them to GeoJson, adding them manually to the project and later load them from the web server, the font end is hosted at. At this point this workaround is probably the only way to display simulation data produced by the system because generating the file and downloading it to the application would take more time than one would be willing to wait. Furthermore the output data is not in GeoJson format and has to be converted manually.
 
@@ -471,19 +477,19 @@ The animation of moving elements is essentially achieved by removing all vehicle
 
 %\_____________________________________________________________________
 
-\cleardoublepage
-\section{User Experience and Interface Design}
-\label{sec:User Experience}
+%\cleardoublepage
+%\section{User Experience and Interface Design}
+%\label{sec:User Experience}
 
 %\____ User Interface Design
 
-\subsection{User Interface Design}
-\label{User Interface Design}
+%\subsection{User Interface Design}
+%\label{User Interface Design}
 
 %\____ User Experience
 
-\subsection{User Experience}
-\label{User Experience}
+%\subsection{User Experience}
+%\label{User Experience}
 
 %\_____________________________________________________________________
 
@@ -513,8 +519,8 @@ The animation of moving elements is essentially achieved by removing all vehicle
 %  Ph.D. thesis, University of California at Berkeley, 2001
 
 
-%\cleardoublepage
-%\hspace{-\leftmargin}{\Large\bfseries Web-Referenzen} % Wüster Hack %-|
+\cleardoublepage
+\hspace{-\leftmargin}{\Large\bfseries Web-Referenzen} % Wüster Hack %-|
 
 %\bibitem{NielsenAlertbox}
 
