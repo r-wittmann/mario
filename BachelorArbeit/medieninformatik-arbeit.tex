@@ -219,9 +219,9 @@ The goal of this thesis was to enable users to request routes using various algo
 
 Other projects and products under consideration were, for example, MapBox and the Google Maps API. MapBox is a company offering lots of services such as designing and hosting of maps, geocoding, routing and many more. Unfortunately the terms of use are rather complex and restricting. 2013 MapBox and Leaflet joined forces and MapBox is now using Leaflet for their front end integrations \cite{MacWright13}. These were the main reasons MapBox was not chosen for this project. The Google Maps API is even more restrictive than MapBox. Only Goggle Maps imagery can be used with the API and it is not allowed to display third party information, such as the calculated routes from the server of this project, which rendered it unusable for this development.\bigskip
 
-This paragraph will summarise the history of Leaflet. After discovering the complexity and bulkiness of then industry standard for mapping, OpenLayers, in 2008, Vladimir Agafonkin decided to implement a simple, lightweight mapping library. Against resistance of his superiors at Cloud Made, his employer at the time, and criticism from the community of map developers, he succeeded in developing the now most commonly used framework for mapping applications \cite{Agafonkin15}. Since the initial release of Leaflet in May 2011 with limited functionalities and without the support for major open standards, such as the Web Map Service (WMS) \cite{WMS} and the Web Feature Service (WFS) \cite{WFS} the framework has matured considerably. As the second release candidate 1.0-rc2 is out of development, major version update 1.0 is soon to be deployed with even more features and improved mobile friendliness.
+This paragraph will shortly summarise the history of Leaflet. After discovering the complexity and bulkiness of then industry standard for mapping, OpenLayers, in 2008, Vladimir Agafonkin decided to implement a simple, lightweight mapping library. Against resistance of his superiors at Cloud Made, his employer at the time, and criticism from the community of map developers, he succeeded in developing the now most commonly used framework for mapping applications \cite{Agafonkin15}. Since the initial release of Leaflet in May 2011 with limited functionalities and without the support for major open standards, such as the Web Map Service (WMS) \cite{WMS} and the Web Feature Service (WFS) \cite{WFS} the framework has matured considerably. As the second release candidate 1.0-rc2 is out of development, major version update 1.0 is soon to be deployed with even more features and improved mobile friendliness.
 
-For the development of this project the most recent stable Leaflet version 0.7.7 (published October 26, 2015) was used. Leaflet is maintained by now MapBox employee and original Leaflet creator Vladimir Agafonkin who is heavily supported by a large base of contributors and benefits from vast amounts of developers implementing third party plugins.\bigskip
+For the development of this project the most recent stable Leaflet version 0.7.7 (published October 26, 2015) was used. Leaflet is maintained by now MapBox employee and original creator Vladimir Agafonkin who is heavily supported by a large base of contributors and benefits from vast amounts of developers implementing third party plugins.\bigskip
 
 To leverage the combination of the power of AngularJS and the simplicity of Leaflet the Angular-Leaflet-Directive (ALD), developed by David Rubert (tombatossals) was introduced to this project for easy integration of Leaflet and bi-directional binding between the map and AngularJS's scope. With the ALD it is possible to include a Leaflet map with just one line of HTML code.
 
@@ -234,7 +234,7 @@ ALD version 0.9.0 was used for this project. It is still maintained by the origi
 
 Developing a map application one needs to stipulate a common file format to transfer data between the involved parties. Even though there are many suitable and well documented file formats like KML or TopoJSON, the decision for GeoJSON was made because of the direct parseability of GeoJSON to map objects in Leaflet. Plugins are available to convert many other formats to GeoJSON, but because it has to be converted, the performance is not comparable to the native compatibility of GeoJSON to Leaflet. This section will introduce GeoJSON as a geospatial format and shortly summarise its use in this project.\bigskip
 
-Before GeoJSON can be explained, one first needs to understand, what the JavaScript Object Notation (JSON) is. The JSON Data Interchange Format, as standardised by Ecma International in ECMA-404 \cite{ECMA404} makes use of JavaScripts object literals, as specified in ECMA-262 \cite{ECMA262}, which was intended to and is now widely used for the interchange of data between all programming languages. In comparison to other file structures, such as XML or YAML, JSON is more lightweight, human readable and Javascript parseable than all other formats. 
+Before GeoJSON can be explained, one first needs to understand, what the JavaScript Object Notation (JSON) is. The JSON Data Interchange Format, as standardised by Ecma International in ECMA-404 \cite{ECMA404}, makes use of JavaScripts object literals, as specified in ECMA-262 \cite{ECMA262}, which was intended to and is now widely used for the interchange of data between all programming languages. In comparison to other file structures, such as XML or YAML, JSON is more lightweight, human readable and Javascript parseable than all other formats. 
 
 Wrapped in an object, which consists of key value pares, JSON values can be either objects, arrays, strings, integers, booleans or null. A simple example could look like this:
 \begin{samepage}
@@ -255,15 +255,20 @@ Wrapped in an object, which consists of key value pares, JSON values can be eith
 
 Using all the advantages of JSON, the GeoJSON format is intended and used for encoding, storing and transferring data about geographical structures \cite{GeoJSON}. Points, LineStrings and Polygons are the simplest geometries supported by GeoJSON which can be extended to MultiPoints, MultiLineStrings and MultiPolygons. In most cases one wants to attach certain information other then the geographical extend to objects. For this use case Features are introduced which consists of a geometry, i.e. one of the above mentioned objects like Points or MultiPolygons, and an additional properties object. The properties attached to a feature can be any kind of JSON object. "That said, given the fact that no other prominent geospatial standard supports nested values, usually the properties object consists of single-depth key -> value mappings" \cite{MacWright15}. The most commonly used object type is FeatureCollection, which is, as the name suggests, a collection of Features.\bigskip
 
-Requests for route calculations from the in the course of this thesis developed front end application to the back end server at DBS are encoded in JSON format, whereas the servers response is in GeoJSON format for easy and fast parseability to ensure a great user experience for the client. All responses are FeatureCollections containing at least one LineString with the properties object heavily used for route information.
+Requests for route calculations from the in the course of this thesis developed front end application to the back end server at DBS are encoded in JSON format, whereas the servers response is in GeoJSON format for easy and fast parseability to ensure a great user experience for the client. All responses are FeatureCollections containing at least one LineString with the properties object heavily used for route information. File sizes vary from 1KB for very short routes to about 1.5 MB for large simulations (see \ref{subsubsec:Simulation}).
 
 %\____ HERE API
 
 \subsection{HERE API x}
 \label{subsec:HERE API}
 
-Description of the HERE API, problems, features, limitations. (Legal matters in 4.3)
+As Leaflet offers just the wire frame application handling all user interaction and supplys a framework for mapping, a provider of map imagery, also called tiles, is needed to provide the actual map data. The standard implementation of Leaflet uses tiles from the OpenStreetMap Foundation (OSM) which is both convenient and sufficient for most mapping applications. Fortunately Leaflet offers the possibility to effortlessly switch to a different tiles provider. This section will summarise shortly the history of the HERE company, describe the HERE API, give reasons for the decision to use HERE and uncover various benefits and shortcomings of the technology.\bigskip
 
+The origins of HERE go back to 1985 founded company called Karlin \& Collins, Inc., later called Navigation Technologies Corporation and ultimately NAVTEQ. NAVTEQ was one of the first companies providing turn-by-turn navigation for the San Francisco metro area. Switching business model to licensing map materials to hardware providers instead of building the hardware itself accelerated the rise of the company which invested heavily in the development of mobile mapping technologies. In October, 2007 NAVTEQ was acquired by Nokia \cite{Nokia07} merging it with its own mapping technology. To streamline map services Nokia started the brand HERE in October, 2011, which was sold to a consortium of German car manufacturers in August, 2015. Now HERE offers smartphone and web map applications including routing, points of interest, real time traffic information and geocoding.
+
+Resulting from the in section \ref{subsubsec:Points of Interest} described wish for a points of interest search (POI) and the subsequentiell decision to use HERE as POI API, the legal terms determined that HEREs POIs can only be used with and displayed on HERE map tiles. Fortunately HERE offers a large variety of differently styled map imagery including satellite images and a dark, unlabelled version which would be important for the in \ref{sec:recap} described future work of displaying visited nodes.
+
+Actually HERE offers not only map tiles and point of interest search, but also a geocoding API to translate location data into physical addresses (see section \ref{subsubsec:Geocoding Addresses}) which concludes the use of HERE APIs in this project. The ultimate decision to stay with HERE and use tiles, points of interest and geocoding from their offering was that everything would be managed within one account which eases the maintaining of the project. Not using HERE would have resulted in creating three separate accounts with different API providers adding unnecessary inconveniences.\bigskip
 
 %\_____________________________________________________________________
 
@@ -273,7 +278,7 @@ Description of the HERE API, problems, features, limitations. (Legal matters in 
 
 Introduction to the Description of the Backend section, move from complete Java project to an only server application which can be contacted via Rest Services.
 
-%\____ Backend Functionalites
+%\____ Backend Functionalities
 
 \subsection{Backend Functionalities x}
 \label{subsec:Backend Functionalities}
@@ -498,7 +503,7 @@ Algorithms and methodologies developed at the DBS have the tendency to be abstra
 
 As a simulation of this kind adds time as an additional dimension to this project, a control panel had to be implemented to navigate through the up to 3600 states that where generated by the above mentioned system. This panel (see bottom left corner of figure \ref{fig:Simulation}) includes play and pause buttons, step forward and backward and jumps forward and backward. Additionally the user is able to jump to a specific part of the simulation by clicking on the control bar. Later in the project the simulation speed control was introduced to specify the play-back speed between 1/4 and four times the normal speed.\bigskip
 
-Currently the user is not able to select an area for the simulation as there is no web service or API provided by Jenny Lauterbach's project. The temporary workaround is to generate simulation files, converting them to GeoJson, adding them manually to the project and later load them from the web server, the font end is hosted at. At this point this workaround is probably the only way to display simulation data produced by the system because generating the file and downloading it to the application would take more time than one would be willing to wait. Furthermore the output data is not in GeoJson format and has to be converted manually.
+Currently the user is not able to select an area for the simulation as there is no web service or API provided by Jenny Lauterbach's project. The temporary workaround is to generate simulation files, converting them to GeoJson, adding them manually to the project and later load them from the web server, the front end is hosted at. At this point this workaround is probably the only way to display simulation data produced by the system because generating the file takes up to several minutes, depending on the number of cars and storms and the simulation duration. 
 
 The GeoJson file is structured into cars and storms which are grouped as GeoJson-Features according to their timestamp. Each vehicle has a position in latitude and longitude associated to it which makes it easy to add them as markers to the map. The icon of a car is used as marker image to clarify what they symbolise. Storms on the other hand have to be treated otherwise since they have a spatial component. These are added as so called circular paths with the radius provided in the file. On first load of the simulation data the first state of cars and storms, identified by the timestamp of 0, are added to the map.
 
@@ -616,6 +621,11 @@ The animation of moving elements is essentially achieved by removing all vehicle
   MacWright, T., 2015, March:
   \textit{More than you ever wanted to know about GeoJSON},
   \url{http://www.macwright.org/2015/03/23/geojson-second-bite.html}, accessed July 20, 2016
+  
+\bibitem{Nokia07}
+  Nokia Communication, 2007, October:
+  \textit{Nokia to acquire NAVTEQ},
+  \url{http://company.nokia.com/en/news/press-releases/2007/10/01/nokia-to-acquire-navteq}, accessed July 25, 2016
 
 \bibitem{WFS}
   OGC, 2014, July:
