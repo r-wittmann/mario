@@ -259,16 +259,20 @@ Requests for route calculations from the in the course of this thesis developed 
 
 %\____ HERE API
 
-\subsection{HERE API x}
+\subsection{HERE API}
 \label{subsec:HERE API}
 
 As Leaflet offers just the wire frame application handling all user interaction and supplys a framework for mapping, a provider of map imagery, also called tiles, is needed to provide the actual map data. The standard implementation of Leaflet uses tiles from the OpenStreetMap Foundation (OSM) which is both convenient and sufficient for most mapping applications. Fortunately Leaflet offers the possibility to effortlessly switch to a different tiles provider. This section will summarise shortly the history of the HERE company, describe the HERE API, give reasons for the decision to use HERE and uncover various benefits and shortcomings of the technology.\bigskip
 
 The origins of HERE go back to 1985 founded company called Karlin \& Collins, Inc., later called Navigation Technologies Corporation and ultimately NAVTEQ. NAVTEQ was one of the first companies providing turn-by-turn navigation for the San Francisco metro area. Switching business model to licensing map materials to hardware providers instead of building the hardware itself accelerated the rise of the company which invested heavily in the development of mobile mapping technologies. In October, 2007 NAVTEQ was acquired by Nokia \cite{Nokia07} merging it with its own mapping technology. To streamline map services Nokia started the brand HERE in October, 2011, which was sold to a consortium of German car manufacturers in August, 2015. Now HERE offers smartphone and web map applications including routing, points of interest, real time traffic information and geocoding.
 
-Resulting from the in section \ref{subsubsec:Points of Interest} described wish for a points of interest search (POI) and the subsequentiell decision to use HERE as POI API, the legal terms determined that HEREs POIs can only be used with and displayed on HERE map tiles. Fortunately HERE offers a large variety of differently styled map imagery including satellite images and a dark, unlabelled version which would be important for the in \ref{sec:recap} described future work of displaying visited nodes.
+Resulting from the in section \ref{subsubsec:Points of Interest} described wish for a points of interest search (POI) and the subsequentiell decision to use HERE as POI API, the legal terms determined that the so called Places service can only be used with and displayed on HERE map tiles. Fortunately HERE offers a large variety of differently styled map imagery including satellite images and a dark, unlabelled version which would be important for the in \ref{sec:recap} described future work of displaying visited nodes.
 
-Actually HERE offers not only map tiles and point of interest search, but also a geocoding API to translate location data into physical addresses (see section \ref{subsubsec:Geocoding Addresses}) which concludes the use of HERE APIs in this project. The ultimate decision to stay with HERE and use tiles, points of interest and geocoding from their offering was that everything would be managed within one account which eases the maintaining of the project. Not using HERE would have resulted in creating three separate accounts with different API providers adding unnecessary inconveniences.\bigskip
+Actually HERE offers not only map tiles and point of interest search, but also a geocoding API to translate location data into physical addresses (see section \ref{subsubsec:Geocoding Addresses}) which concludes the use of HERE APIs in this project. The ultimate decision to stay with HERE and use tiles, Places and geocoding from their offering was that everything would be managed within one account which eases the maintaining of the project. Not using HERE would have resulted in creating three separate accounts with different API providers adding unnecessary inconveniences.\bigskip
+
+The download and replacement of map imagery is completely handled by Leaflet resulting in only basic configuration of the map mode and providing the access credentials. For Places and geocoding the developer comes into close contact with the inner workings and structure of the APIs. To provide a similar response structure across all APIs HERE returns rather complex, deep nested compositions of either XML or JSON. Unfortunately GeoJSON is not supported by the HERE APIs but using JSON as response type was the obvious choice for the compatibility and parseability to JavaScript.
+
+This project is subscribed to the Basic Plan free of cost, which results in limitations both in transactions and features. It allows the application to cause up to 50.000 transactions per month and limits the features to map imagery, geocoding, the places service and car and pedestrian routing. Various other plans are available including a free 90 days trial of the entire platform. If this project should ever be considered as a public offering the rate limitation to 50.000 transactions per month will be reached quite quickly. Apparently there is a plan for universities and other non profit organisation available, which would have to be taken under consideration.
 
 %\_____________________________________________________________________
 
@@ -299,33 +303,36 @@ Implemented Rest contact points, how to contact, performance
 %\_____________________________________________________________________
 
 \cleardoublepage
-\section{Development of the Front End x}
+\section{Development of the Front End}
 \label{sec:Development of the Front End}
 
-Introduction to my working process, development etc.
+The goal of this bachelor's thesis was to develop a user facing browser application to allow route calculation requests and various other features (see \ref{subsec:Implemented Features}). The process of developing this software, an overview over the used tools and frameworks to support development, a description of the implemented application and a specification of the included features will be given in this section.
 
 %\____ Build Tools and Frameworks for Development
 
 \subsection{Build Tools and Frameworks for Development x}
 \label{subsec:Build Tools and Frameworks for Development}
 
-Software development nowadays depends on various frameworks, other projects and build tools. These will be explained and described in this subsection.
+To ease and support software development a multitude of tools were developed in recent years. This subsection will introduce git as a tool for version control and GitHub-Pages as deployment environment. Additionally JavaScript build and dependency management tools npm and bower are delineated and agile software development is defined.
 
-%\____ git and GitHub-Pages
+%\____ Version Control and Deployment
 
-\paragraph{git and GitHub-Pages}
+\subsubsection{Version Control and Deployment}
+\label{subsubsec:Version Control and Deployment}
 
 git as version control, comparison to other/older version control systems. GitHub-Pages to deliver the homepage even if its not the usual way of doing it.
 
-%\____ npm and bower
+%\____ Dependency Management
 
-\paragraph{npm and bower}
+\subsubsection{Dependency Management}
+\label{subsubsec:Dependency Management}
 
 nodes npm as dependency manager for all development dependencies, bower for all dependencies needed for the front end to be displayed
 
 %\____ Agile Software Development
 
-\paragraph{Agile Software Development}
+\subsubsection{Agile Software Development}
+\label{subsubsec:Agile Software Development}
 
 Agile in general, Scrum, my development process
 
