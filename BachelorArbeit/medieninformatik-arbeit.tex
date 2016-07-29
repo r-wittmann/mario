@@ -261,7 +261,7 @@ Requests for route calculations from the in the course of this thesis developed 
 As Leaflet offers just the wire frame application handling all user interaction and supplys a framework for mapping, a provider of map imagery, also called tiles, is needed to provide the actual map data. The standard implementation of Leaflet uses tiles from the OpenStreetMap Foundation (OSM) which is both convenient and sufficient for most mapping applications. Fortunately Leaflet offers the possibility to effortlessly switch to a different tiles provider. This section will summarise shortly the history of the HERE company, describe the HERE API, give reasons for the decision to use HERE and uncover various benefits and shortcomings of the technology.\bigskip \\
 The origins of HERE go back to 1985 founded company called Karlin \& Collins, Inc., later called Navigation Technologies Corporation and ultimately NAVTEQ. NAVTEQ was one of the first companies providing turn-by-turn navigation for the San Francisco metro area. Switching business model to licensing map materials to hardware providers instead of building the hardware itself accelerated the rise of the company which invested heavily in the development of mobile mapping technologies. In October, 2007 NAVTEQ was acquired by Nokia \cite{Nokia07} merging it with its own mapping technology. To streamline map services Nokia started the brand HERE in October, 2011, which was sold to a consortium of German car manufacturers in August, 2015. Now HERE offers smartphone and web map applications including routing, points of interest, real time traffic information and geocoding.
 
-Resulting from the in section \ref{subsubsec:Points of Interest} described wish for a points of interest search (POI) and the subsequentiell decision to use HERE as POI API, the legal terms determined that the so called Places service can only be used with and displayed on HERE map tiles. Fortunately HERE offers a large variety of differently styled map imagery including satellite images and a dark, unlabelled version which would be important for the in \ref{sec:recap} described future work of displaying visited nodes.
+Resulting from the in section \ref{subsubsec:Points of Interest} described wish for a points of interest search (POI) and the subsequentiell decision to use HERE as POI API, the legal terms determined that the so called Places service can only be used with and displayed on HERE map tiles. Fortunately HERE offers a large variety of differently styled map imagery including satellite images and a dark, unlabelled version which would be important for the in section \ref{sec:recap} described future work of displaying visited nodes.
 
 Actually HERE offers not only map tiles and point of interest search, but also a geocoding API to translate location data into physical addresses (see section \ref{subsubsec:Geocoding Addresses}) which concludes the use of HERE APIs in this project. The ultimate decision to stay with HERE and use tiles, Places and geocoding from their offering was that everything would be managed within one account which eases the maintaining of the project. Not using HERE would have resulted in creating three separate accounts with different API providers adding unnecessary inconveniences.\bigskip \\
 The download and replacement of map imagery is completely handled by Leaflet resulting in only basic configuration of the map mode and providing the access credentials. For Places and geocoding the developer comes into close contact with the inner workings and structure of the APIs. To provide a similar response structure across all APIs HERE returns rather complex, deep nested compositions of either XML or JSON. Unfortunately GeoJSON is not supported by the HERE APIs but using JSON as response type was the obvious choice for the compatibility and parseability to JavaScript.
@@ -322,12 +322,17 @@ To be accessible for the public, web applications have to be hosted on a web ser
 
 %\____ Dependency Management
 
-\subsubsection{Dependency Management x}
+\subsubsection{Dependency Management}
 \label{subsubsec:Dependency Management}
 
-"You can only get so far using the language features and core functions. That's why most programming platforms have a system in place that allows you to download, install, and manage third-party modules" \cite{Teixeira12}. Node.js's package manager npm has established itself as the go to technology for dependency management in server as well as front end application development. Node.js is a popular JavaScript framework for server implementations using non-blocking input/output streams facilitating efficient back end applications.
+"You can only get so far using the language features and core functions. That's why most programming platforms have a system in place that allows you to download, install, and manage third-party modules" \cite{Teixeira12}. Node.js's package manager npm has established itself as the go to technology for dependency management in server as well as front end JavaScript application development. Node.js is a popular JavaScript framework for server implementations using non-blocking input/output streams facilitating efficient back end applications.
 
-To ease the development process and reduce memory space of the Git repository it was decided to split dependencies in development and display dependencies. All third-party packages for the development process, like a local http-server and a css post-processor for vendor prefixes, are managed, by npm, whereas all dependencies needed for the actual display of the front end, like AngularJS and Leaflet, are installed by bower, another powerful JavaScript build tool. Running 'npm i' in a command line tool installs all packages including bower and running 'npm run develop' installs all bower dependencies, starts the application locally and opens the standard browser to the respective page.
+Npm allows developers to share their code and consume others as dependencies to their project. More than 300.000 packages are available from npm with a growth rate of about 500 per day \cite{DeBill16}.\bigskip\\
+To ease the development process and reduce memory space of the Git repository it was decided to split dependencies in development and display dependencies. All third-party packages for the development process, like a local http-server and a css post-processor for vendor prefixes, are managed by npm, whereas all dependencies needed for the actual display of the front end, like AngularJS and Leaflet, are installed by bower, another powerful JavaScript build tool.
+
+Several scripts are implemented to start various tasks concerning the development process. The following examples assume a command line tool is pointing at the right directory and has administrator permissions. Running 'npm install' installs all npm-packages the software is depending on, including for example bower and postcss-cli. This step can take a few seconds to up to a minute on the first run, depending on how many packages have to be downloaded and installed. After installing all dependencies running 'npm run develop' starts a development environment by installing all bower dependencies, starting the application on a local http-server and opening the standard browser to the configured localhost port to load the application. The command 'npm run build:css' was implemented to use autoprefixer to include all css vendor prefixes for the display in recent versions of all web browsers.
+
+
 
 %\____ Agile Software Development
 
@@ -606,6 +611,11 @@ The animation of moving elements is essentially achieved by removing all vehicle
   Butler, H., Daly, M., Doyle, A., Gillies, S., Schaub, T., Schmidt, C., 2008, June:
   \textit{The GeoJSON Format Specification},
   \url{http://geojson.org/geojson-spec.html}, accessed July 20, 2016
+
+\bibitem{DeBill16}
+  DeBill, E., 2016, July:
+  \textit{Module Counts},
+  \url{http://www.modulecounts.com/}, accessed July 29, 2016
 
 \bibitem{ECMA262}
   ECMA, 2016, June:
