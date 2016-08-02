@@ -198,7 +198,7 @@ When one is implementing a web application, HTML, CSS and JavaScript are most co
 But still there was room for improvement. In the past few years with web 2.0, excessive use of mobile browsers and the resulting higher user interaction with websites, additional functionalities were needed and developed. But non of these frameworks addressed the basic problem with HTML, namely that it was not designed for dynamic views. AngularJS on the other hand extends the existing HTML vocabulary and allows for expressive, readable and quick to develop code. Based on HTML and JavaScript, AngularJS is a framework which allows developers to have full access to standard syntax and facilitates the dynamization of web applications.
 
 Normally when a user visits a website, the HTML template is requested from the server and loaded into the web browser, including CSS for styling and all JavaScript files needed for the utilisation of the website. AngularJS applications differ from that process. In the bootstrapping phase, which is started right after the HTML markup is loaded, the core AngularJS functionalities are merged with the template to provide basic features. After the AngularJS code is available in the web browser, the module referenced from the HTML template is generated and all dependencies are injected into and made available to this module. Also the scope is introduced to the application allowing the initially generated static view to be replaced by AngularJS's dynamic view.\bigskip \\
-AngularJS is based on the Model View Controller pattern (MVC) which allows for a strict separation of the underlying data structure, the View, which is displayed to the user and the controllers, implementing needed business logic. As the so called scope, which is used as the model, is accessible from both view and controller, it binds both components together. Each AngularJS application has exactly one root scope which may have several child scopes as every directory creates its own scope. The child scopes inherit from their parent prototypically. Controllers can use services, factories and providers for additional functionalities which are part of the above mentioned dependencies injected into the controller.
+AngularJS is based on the model view controller pattern (MVC) which allows for a strict separation of the underlying data structure, the view, which is displayed to the user and the controllers, implementing needed business logic. As the so called scope, which is used as the model, is accessible from both view and controller, it binds both components together. Each AngularJS application has exactly one root scope which may have several child scopes as every directory creates its own scope. The child scopes inherit from their parent prototypically. Controllers can use services, factories and providers for additional functionalities which are part of the above mentioned dependencies injected into the controller.
 
 The ability to bind view elements to variables and functions on the scope and vice versa is called two way data binding and is one of the main reasons AngularJS is favoured over many other frameworks. All changes to the view, for example via input fields, are immediately reflected to the scope and all changes to variables on the scope are propagated to the view keeping them both up to date. All functions stored on the scope are accessible from the view elements allowing for easy and fast implementation of click listeners and other business logic.\bigskip \\
 As JavaScript is an untyped language, which means that variables don't have to be declared as one particular type, the developer receives almost no errors while compiling the code and therefore often stand before the problem of finding errors himself. AngularJS has built in features for testing to simplify the process. Two basic concepts of testing, unit tests and end-to-end tests, will be explained in the following two paragraphs.
@@ -336,7 +336,7 @@ Several scripts are implemented to start various tasks concerning the developmen
 
 %\____ Agile Software Development
 
-\subsubsection{Agile Software Development x}
+\subsubsection{Agile Software Development}
 \label{subsubsec:Agile Software Development}
 
 Software development in todays fast moving business environment is bound to be able to react to changes in specification quickly. Agile development methods are designed as an iterative process containing specification, development and delivery of software in short iterations. The next paragraphs will introduce Scrum as an agile development method and describe the method used in the development phase of this thesis.\bigskip\\
@@ -344,20 +344,31 @@ Introduced by Ken Schwaber and Jeff Sutherland at the OOPSLA conference in Austi
 
 The development process of the software for this thesis can be described as close to Scrum. Every two weeks the state of the project was demonstrated to the supervisor which in turn gave feedback on the software and the implemented features. A feature driven approach was maintained with the main goal of implementing one of the in section \ref{subsec:Implemented Features} described features per sprint. For big features, like the Route Calculations (subsection \ref{subsubsec:Route Calculations}) two sprints were scheduled to allow a thorough treatment.
 
-%\____ Implemented Features
+%\____ Implemented Application
 
 \subsection{Implemented Application x}
 \label{subsec:Implemented Application}
 
 \begin{figure}
   \begin{center}
-    \includegraphics[width=0.95\columnwidth]{resources/classdiagram.png}
+    \includegraphics[width=0.95\columnwidth]{resources/Overview.png}
   \end{center}
-  \caption{Class diagram of the application}
-  \label{fig:appclassdiagram}
+  \caption{Front end with calculated route and route informations}
+  \label{fig:overview}
 \end{figure}
 
-figure \ref{fig:appclassdiagram}
+As previously mentioned the goal of this thesis was to develop a browser application allowing a client to request routes in a street network using algorithms and methodologies implemented by the DBS. The following paragraphs will describe this application and the use of the in section \ref{sec:State of the Art} introduced technologies.\bigskip\\
+Much time and effort was put into the user interface design to ensure usability and a great user experience (see figure \ref{fig:overview}). A horizontal navigation bar was implemented in the top area of the application to maximise the space available for the map which covers about 85 to 98\% of the available screen size, depending on the device, compared to a screen coverage of about 80\% using a vertical navigation. The design is responsive and was tested on small mobile devices, through various tablet and laptop devices up to displays with 4K resolution (3840 x 2160 pixels).
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.95\columnwidth]{resources/classdiagram.png}
+  \end{center}
+  \caption{Diagram of the application structure}
+  \label{fig:appdiagram}
+\end{figure}
+
+Following the recommendations of AngularJS the application implements a strict MVC separation where AngularJS's scope is the model which binds the view to the controller. The view consists of several HTML files forming a hierarchical structure of components all included in the index.html file. The controller is implemented in the JavaScript file app.js which is dependant on several services. Each service handles all API calls and implements business logic concerning one of the in subsection \ref{subsec:Implemented Features} detailed features. The ModifyMapService handles everything concerning modifications of the map, e.g. the positioning of the marker and the switch of map imagery to satellite images. The controller itself can rather be seen as a façade delegating all user interactions to the appropriate service. The model receives its initial configuration containing mostly data to boot up Leaflet from the config.js file where it is stored in a JavaScript object literal (see \ref{subsec:GeoJson} for more information on JavaScript object literals). The file structure of the application can be seen in a diagram in figure \ref{fig:appdiagram} clearly showing the MVC separation.\bigskip\\
 
 \subsection{Implemented Features}
 \label{subsec:Implemented Features}
@@ -403,15 +414,14 @@ Similar to the above mentioned route calculations to a parking spot one could im
 The first of the two main features of this project is also the first feature to contact the in chapter \ref{sec:Description of the Backend} described server at DBS. It enables the user to request the calculation of a route between previously defined origin and destination from the server which is than displayed on the map with additional information available on the information panel. Via a dropdown the user can choose one of the in \ref{subsec:Backend Functionalities} defined algorithms and additionally allows the selection of the costs, which the route should be optimised to (see figure \ref{fig:DropdownAlgorithm}).\bigskip \\
 As new algorithms and new implementations are frequently introduced to the server by other projects, partly resulting from other students writing their theses at the DBS, a mechanism was needed to keep the information about algorithms up to date. For that reason an additional API call is triggered to the backend, requesting a file containing all implemented algorithms and their attributes. All new algorithms implemented on the server have to be included in that file for the front end to make them available for selection in the above mentioned dropdown.
 
-Once the user has set two markers for origin and destination on the map and selected algorithm and costs, a request containing all information is send to the server for the calculation of the optimal route. The route is than sent back to the front end in GeoJson format and added to the map. Right after the route is added to the map a popup is bound to it containing the addresses of origin and destination. The route can be highlighted on hover over the route itself or the route description in the information panel. Both features are especially helpful for intermodal route calculations introduced in \ref{subsubsec:Intermodal Route Calculations}.\bigskip \\
+Once the user has set two markers for origin and destination on the map and selected algorithm and costs, a request containing all information is send to the server for the calculation of the optimal route. The route is than sent back to the front end in GeoJson format and added to the map. Right after the route is added to the map a popup is bound to it containing the addresses of origin and destination. The route can be highlighted on hover over the route itself or the route description in the information panel. Both features are especially helpful for intermodal route calculations introduced in \ref{subsubsec:Intermodal Route Calculations}.
 \begin{figure}
   \begin{center}
     \includegraphics[width=0.95\columnwidth]{resources/HighlightingSkyline}
   \end{center}
   \caption{Front end with highlighted route}
   \label{fig:HighlightingSkyline}
-\end{figure}
-
+\end{figure}\bigskip \\
 At this moment, there are two cases receiving different treatment than described above. On of them is the algorithm called a-star-with-charging which was implemented for electrical vehicles, as described in \ref{subsec:Backend Functionalities}. The response to a request with this algorithm selected contains a route with a charging station on the way and a point, where the station is located. The route is added as above and the charging station is added as a special marker to the map.
 
 The second case comprises all algorithms from the skyline family. As delineated in \ref{subsec:Backend Functionalities} the skyline algorithms are able to optimise route calculations to more than one cost. That's why the user is able to select more than one or even all of the available costs in the direct route dropdown. The server returns a collection of routes in geojson format with the associated costs attached to the features. Adding the costs to the information panel of the front end instead of the addresses of the origin and destination allows the user to compare different routes in regard to their efficiency. The above mentioned route highlighting helps to differentiate between the displayed routes (see figure \ref{fig:HighlightingSkyline}).
@@ -516,6 +526,21 @@ The animation of moving elements is essentially achieved by removing all vehicle
 %\____ Legal Basis and Copyright of Map Material
 
 \subsection{Legal Basis and Copyright x}
+\label{Legal Basis and Copyright}
+
+Using third party code and projects brought a certain legal complexity into this project concerning licenses and rights to use. Several projects, including AngularJS and the bower, are published under MIT, others under more restrictive licences. The following section will introduce the for the software developed for this thesis relevant licences.
+
+\paragraph{MIT License}
+As of 2015 the most popular open source software licence used in GitHub projects is the MIT license authored and published by the Massachusetts Institute of Technology \cite{Balter15} that was also used to licence the software of this project. "The 'BSD-like' licenses such as the BSD, MIT, and Apache licenses are extremely permissive, requiring little more than attributing the original portions of the licensed code to the original developers in your own code and/or documentation" \cite{NewMediaRights}.
+
+\paragraph{GNU General Public License (GPL)}
+One of the first licenses granting the enduser the right to run, share and modify source code was the GNU General Public License (GPL), written by Richard Stallman in 1989 for the use in the GNU project. It originated from previously written licenses for specific parts of GNU that were not transferable to other projects. Stallman had the intention to write a general licence, which than would be applied to many projects without specification, allowing them to share code without a breach of licence agreements \cite{Stallman06}. GPL specifically allows the licensee to redistribute even derivative versions and is able to charge for his service. This allowance of commercial use separates the GPL from several other licences. Several sub dependencies of this project are published under GPL version 2 and version 3.
+
+\paragraph{Apache License (ASL)}
+Text
+
+\paragraph{Copyright}
+Text
 
 %\_____________________________________________________________________
 
@@ -592,11 +617,6 @@ The animation of moving elements is essentially achieved by removing all vehicle
   In \textit{International Symposium on Spatial and Temporal Databases} (pp. 514-519).
   Springer International Publishing.
 
-\bibitem{FDD}
-  Palmer, S.R. and Felsing, M., 2001:
-  \textit{A practical guide to feature-driven development}.
-  Pearson Education.
-
 \bibitem{Scrum}
   Schwaber, K., 1997:
   Scrum development process.
@@ -616,6 +636,11 @@ The animation of moving elements is essentially achieved by removing all vehicle
   Agafonkin, V., 2015:
   \textit{Leaflet story in 13 minutes}, 
   \url{https://youtu.be/NLbyHffKQuU}, accessed July 18, 2016
+
+\bibitem{Balter15}
+  Balter, B., 2015:
+  \textit{Open source license usage on GitHub.com}
+  \url{https://github.com/blog/1964-license-usage-on-github-com}, accessed August 2, 2016
 
 \bibitem{BusinessWire07}
   BusinessWire, 2007:
@@ -656,6 +681,11 @@ The animation of moving elements is essentially achieved by removing all vehicle
   Metz, C., 2015:
   \textit{How GitHub Conquered Google, Microsoft, and Everyone Else},
   \url{http://www.wired.com/2015/03/github-conquered-google-microsoft-everyone-else/}, accessed July 25, 2016
+
+\bibitem{NewMediaRights}
+  New Media Rights, 2008:
+  \textit{Open Source Licensing Guide}
+  \url{http://www.newmediarights.org/open_source/new_media_rights_open_source_licensing_guide}, accessed August 2, 2016
   
 \bibitem{Nokia07}
   Nokia Communication, 2007:
@@ -676,6 +706,11 @@ The animation of moving elements is essentially achieved by removing all vehicle
   OGC, 2006:
   \textit{OpenGIS Web Map Server Implementation Specification},
   \url{http://www.opengeospatial.org/standards/wms}, accessed July 18, 2016
+
+\bibitem{Stallman06}
+  Stallman, R., 2006
+  \textit{Richard Stallman at the 2nd international GPLv3 conference},
+  \url{http://fsfe.org/campaigns/gplv3/fisl-rms-transcript.en.html#before-gnu-gpl}, accessed August 2, 2016
 
 \end{thebibliography}
 
