@@ -79,20 +79,18 @@ Matriculation Number: 10954724\\
 \begin{tabular}{ll}
 Supervised by: & Gregor Jossé\\
 & PD Dr. Matthias Schubert\\
-Submitted on: & \today
+Submitted on: & August 19, 2016
 \end{tabular}
 %______________________________________________________________________
 
 \selectlanguage{english}
 \clearpage
-\section*{Definition of Task}
+\section*{}
 \label{Definition of Task}
-
-Definition of Task
 
 \vfill % Sorgt dafür, dass das Folgende an das Seitenende rutscht
 
-\noindent I confirm that I independently prepared the thesis and that I used only the references and auxiliary means indicated in the thesis.
+\noindent I confirm that I independently prepared the thesis and that I used only the references and auxiliary means indicated in this thesis.
 
 \bigskip\noindent Unterhaching, \today
 
@@ -276,7 +274,7 @@ Actually HERE offers not only map tiles and point of interest search, but also a
 \bigskip \\
 The download and replacement of map imagery is completely handled by Leaflet resulting in only basic configuration of the map mode and providing the access credentials. For Places and geocoding the developer comes into close contact with the inner workings and structure of the APIs. To provide a similar response structure across all APIs HERE returns rather complex, deep nested compositions of either XML or JSON. Unfortunately GeoJSON is not supported by the HERE APIs but using JSON as response type was the obvious choice for the compatibility and parseability to JavaScript.
 
-This project is subscribed to the Basic Plan free of cost, which results in limitations both in transactions and features. It allows the application to cause up to 50.000 transactions per month and limits the features to map imagery, geocoding, the places service and car and pedestrian routing. Various other plans are available including a free 90 days trial of the entire platform. If this project should ever be considered as a public offering the rate limitation to 50.000 transactions per month will be reached quite quickly. Apparently there is a plan for universities and other non profit organisation available, which would have to be taken under consideration.
+This project is subscribed to the Basic Plan free of cost, which results in limitations both in transactions and features. It allows the application to cause up to 50.000 transactions per month and limits the features to map imagery, geocoding, the places service and car and pedestrian routing. Various other plans are available including a free 90 days trial of the entire platform. If this project should ever be considered as a public offering the rate limitation to 50.000 transactions per month will be reached quite quickly. A plan for universities and other non profit organisation is available, which would have to be taken under consideration.
 
 %\_____________________________________________________________________
 
@@ -342,7 +340,7 @@ To be accessible for the public, web applications have to be hosted on a web ser
 Npm allows developers to share their code and consume others as dependencies to their project. More than 300.000 packages are available from npm with a growth rate of about 500 per day \cite{DeBill16}.
 \bigskip\\
 To ease the development process and reduce memory space of the Git repository it was decided to split dependencies in development and display dependencies. All third-party packages for the development process, like a local http-server and a css post-processor for vendor prefixes, are managed by npm, whereas all dependencies needed for the actual display of the front end, like AngularJS and Leaflet, are installed by bower, another powerful JavaScript build tool.
-
+\bigskip\\
 Several scripts are implemented to start various tasks concerning the development process. The following examples assume a command line tool is pointing at the right directory and has administrator permissions. Running 'npm install' installs all npm-packages the software is depending on, including for example bower and postcss-cli. This step can take a few seconds to up to a minute on the first run, depending on how many packages have to be downloaded and installed. After installing all dependencies running 'npm run develop' starts a development environment by installing all bower dependencies, starting the application on a local http-server and opening the standard browser to the configured localhost port to load the application. The command 'npm run build:css' was implemented to use autoprefixer to include all css vendor prefixes for the display in recent versions of all web browsers.
 
 
@@ -365,26 +363,40 @@ The development process of the MARiO front end can be described as close to Scru
 
 \begin{figure}
   \begin{center}
-    \includegraphics[width=0.95\columnwidth]{resources/Overview.png}
-  \end{center}
-  \caption{Front end with calculated route and route informations}
-  \label{fig:overview}
-\end{figure}
-
-As previously mentioned the goal of this thesis was to develop a browser application allowing a client to request routes in a street network using algorithms and methodologies implemented by the DBS. The following paragraphs will describe this application and the use of the in section \ref{sec:State of the Art} introduced technologies.
-\bigskip\\
-Much time and effort was put into the user interface design to ensure usability and a great user experience (see figure \ref{fig:overview}). A horizontal navigation bar was implemented in the top area of the application to maximise the space available for the map which covers about 85 to 98\% of the available screen size, depending on the device, compared to a screen coverage of about 80\% using a vertical navigation. The design is responsive and was tested on small mobile devices, through various tablet and laptop devices up to displays with 4K resolution (3840 x 2160 pixels).
-
-\begin{figure}
-  \begin{center}
     \includegraphics[width=0.95\columnwidth]{resources/classdiagram.png}
   \end{center}
   \caption{Diagram of the application structure}
   \label{fig:appdiagram}
 \end{figure}
 
-Following the recommendations of AngularJS the application implements a strict MVC separation where AngularJS's scope is the model which binds the view to the controller. The view consists of several HTML files forming a hierarchical structure of components all included in the index.html file. The controller is implemented in the JavaScript file app.js which is dependant on several services. Each service handles all API calls and implements business logic concerning one of the in subsection \ref{subsec:Implemented Features} detailed features. The ModifyMapService handles everything concerning modifications of the map, e.g. the positioning of the marker and the switch of map imagery to satellite images. The controller itself can rather be seen as a façade delegating all user interactions to the appropriate service. The model receives its initial configuration containing mostly data to boot up Leaflet from the config.js file where it is stored in a JavaScript object literal (see \ref{subsec:GeoJson} for more information on JavaScript object literals). The file structure of the application can be seen in a diagram in figure \ref{fig:appdiagram} clearly showing the MVC separation.
+As previously mentioned, the goal of this thesis was to develop a browser application allowing a client to request routes in a street network using algorithms and methodologies implemented by the DBS. The following paragraphs will characterise this application and the use of the in section \ref{sec:State of the Art} introduced technologies and describe the interface design process.
 \bigskip\\
+Following the recommendations of AngularJS, the application implements a strict MVC separation where AngularJS's scope is the model which binds the view to the controller. The view consists of several HTML files forming a hierarchical, tree like structure of components starting with index.html as root. The controller is implemented in the JavaScript file app.js which depends on several services. Each service handles all API calls and implements business logic concerning one of the in subsection \ref{subsec:Implemented Features} detailed features. The ModifyMapService handles everything concerning modifications of the map, e.g. the positioning of the marker and the switch of map imagery to satellite images. The controller itself can rather be seen as a façade delegating all user interactions to the appropriate service. 
+
+The model receives its initial configuration, containing mostly data to boot Leaflet, from the config.js file where it is stored in a JavaScript object literal (see \ref{subsec:GeoJson} for more information on JavaScript object literals). The file structure of the application can be seen in a diagram in figure \ref{fig:appdiagram} clearly showing the MVC separation.
+
+AngularJS allows the developer to create so called directories which than can be used like standard HTML syntax, many of which are published by their developers via GitHub or npm (both explained in subsections \ref{subsubsec:Version Control and Deployment} and \ref{subsubsec:Dependency Management}). One of these directories, the Angular-Leaflet-Directory was used to merge the AngularJS architecture with Leaflet. The <map>-tag, which renders the Leaflet map, expects attributes to bind image source, map centre, markers and paths to AngularJS's scope.
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.95\columnwidth]{resources/Overview.png}
+  \end{center}
+  \caption{Front end with calculated route and route informations}
+  \label{fig:overview}
+\end{figure}
+\bigskip\\
+Much time and effort was put into the user interface design to ensure usability and a great user experience (see figure \ref{fig:overview}). A horizontal navigation bar was implemented in the top area of the application to maximise the space available for the map which covers about 85 to 95\% of the available screen size, depending on the device, compared to a screen coverage of about 70 to 80\% using a vertical navigation. The design is responsive and was tested on small mobile devices, through various tablet and laptop devices up to displays with 4K resolution (3840 x 2160 pixels).
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.50\columnwidth]{resources/ColorPalette.png}
+  \end{center}
+  \caption{Color palette}
+  \label{fig:color}
+\end{figure}
+
+To not overexert the users eyes but still provide reasonably high contrast the background color used for the navigation bar and dropdown menus is not white, but slightly darkened to a hex code of \#FAFAFA and text color was slightly lightened from black to a hex code of \#262826. Out of four alternatives a light green (hex code \#68C631) was chosen as a primary color, used for example for several icons, the separators and the route highlighting (see subsection \ref{subsubsec:Route Calculations}). Colors can be seen in all screenshots included in this thesis and in the color palette in figure \ref{fig:color}.
+
+
+%\_____ Implemented Features
 
 \subsection{Implemented Features}
 \label{subsec:Implemented Features}
@@ -407,7 +419,7 @@ This subsection will contain all implemented features, describe them from a usab
 A feature that was not originally intended to be implemented in the project, which was derived from the use case of displaying open parking spots at a given location, is the search for points of interest. Because there is no real data about parking spots available yet, this would have been implemented using simulation data from a different project at the DBS and would have included route calculations from origin point A to a parking spot near the destination point B \cite{Josse13}. As the display of parking spaces on a map has common elements with the displaying of any points of interest at a given location, the Point of Interest search was implemented (see figure \ref{fig:DropdownPOI}). This paragraph will describe the implementation of the feature and will identify technical difficulties and shortcomings.
 \bigskip \\
 To use this feature the user has to set one marker on the map to specify the location he is interested in. If two markers are set or a route is displayed both the route and the first marker are removed from the map once the Go! button is pressed. The user is able to select various categories like "Eat \& Drink", "Sights \& Museums", "Shopping" and many more and even combining more than one category, to choose which information he is interested in. The data than is displayed as small dots on the map with a popup opened by clicking on them, containing name, category and vicinity.
-
+\bigskip\\
 The technical integration of this feature was achieved by using one of the services of the HERE-API, the "Places" search. The request sent to the API has to include most importantly the location in latitude and longitude, the categories one is interested in, the search radius and a few other attributes mainly concerning the response type and format. If no category is selected by the user and consequently no selection is sent to the API, a list of points of interest in all categories is returned.
 
 Up to twenty points of interest are included in one response. When more than twenty points of interest are available in the surrounding of the location a link to twenty more points is provided. This pattern of responses allow for up to five responses and therefore a maximum of 100 points of interest for one request. Leaving all categories unselected about 90 percent of the responses are associated with the "Eat \& Drink" category. Fortunately the response includes the corresponding category, the name of the point of interest and the physical address. Because of the included address this feature, for a short period of time, was evaluated for the in \ref{subsubsec:Geocoding Addresses} introduced reverse geocoding API but was dismissed for the lack of sufficient data in rural areas.
@@ -444,7 +456,7 @@ Once the user has set two markers for origin and destination on the map and sele
 At this moment, there are two cases receiving different treatment than described above. On of them is the algorithm called a-star-with-charging which was implemented for electrical vehicles, as described in \ref{subsec:Backend Functionalities}. The response to a request with this algorithm selected contains a route with a charging station on the way and a point, where the station is located. The route is added as above and the charging station is added as a special marker to the map.
 
 The second case comprises all algorithms from the skyline family. As delineated in \ref{subsec:Backend Functionalities} the skyline algorithms are able to optimise route calculations to more than one cost. That's why the user is able to select more than one or even all of the available costs in the direct route dropdown. The server returns a collection of routes in geojson format with the associated costs attached to the features. Adding the costs to the information panel of the front end instead of the addresses of the origin and destination allows the user to compare different routes in regard to their efficiency. The above mentioned route highlighting helps to differentiate between the displayed routes (see figure \ref{fig:HighlightingSkyline}).
-
+\bigskip\\
 One additional feature would have been implemented for further analysis of the algorithms, if time would have allowed it. The displaying of visited nodes in the graph to better understand how the algorithms work will be described in chapter \ref{sec:recap}.
 
 %\____ Intermodal Route Calculations
