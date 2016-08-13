@@ -624,20 +624,24 @@ Almost all software design patterns implement some kind of modularity. The MVC p
   \label{fig:Composite}
 \end{figure}
 
-As shown in the last paragraphs, separation of concerns or modularity is omnipresent in software development in an object oriented environment. And it's not a bad thing either. The developer is enabled to enhance small parts of his code without the need to alter the hole project. The partitioning of projects into smaller, independent parts facilitates software development in teams, even if they work remote. The communication between modules has to be agreed upon and it should be clear which functionality a module needs to add to a project, but other than that the developer is free to implement the module the way he wants to.
+As shown in the last paragraphs, separation of concerns or modularity is omnipresent in software development in an object oriented environment. And it's not a bad thing either. The developer is enabled to enhance small parts of his code without the need to alter the hole project. The partitioning of projects into smaller, independent parts also facilitates software development in teams, even if they work remote. The communication between modules has to be agreed upon and it should be clear which functionality a module needs to add to a project, but other than that the developer is free to implement the module the way he wants to.
 
 \subsection{Modularity in modern Web Development x}
 \label{subsec:Modularity in Web Development}
 
 Two types of modularity have to be considered in this section. One is modularity from a web design point of few, dividing a design into atomic elements and building web sites by combining these elements. This will be shortly introduced before considering the second point, modularity resulting from the in subsection \ref{subsubsec:Dependency Management} introduced package managers like npm and bower.
 \bigskip\\
-Web applications can be divided into elements, like navigation, forms, buttons, etc. Each of these elements can be further split down until you reach so called atomic elements. Taking these elements and combining them to components and combining components to pages and pages to web sites without loosing the independence of the atomic elements is called modularity in web design. The best implementation of this approach is the Block-Element-Modifier (BEM) methodology, where blocks are independent entities, simple or compound, elements are context-dependent parts of blocks performing a certain function and modifiers are properties to change style and behaviour of blocks or elements. BEM offers a framework for styling of small components to than add them to bigger ones without loosing the ability to style the elements independently. Bootstrap is a well known implementation of BEM offering predefined objects to use for web design. The advantage of this approach is the reusability of components.
+Web applications can be divided into elements, like navigation, forms, buttons, etc. Each of these elements can be further split down until you reach so called atomic elements. Taking these elements and combining them to components, combining components to pages and pages to web sites without loosing the independence of the atomic elements is called modularity in web design. The best implementation of this approach is the Block-Element-Modifier (BEM) methodology, where blocks are independent entities, simple or compound, elements are context-dependent parts of blocks performing a certain function and modifiers are properties to change style and behaviour of blocks or elements. BEM offers a framework for styling of small components to than add them to bigger ones without loosing the ability to style the elements independently. Bootstrap is a well known implementation of BEM offering predefined objects to use for web design. The advantage of this approach is the reusability of components.
 \bigskip\\
-Reusability is also one of the main reasons why package managers like npm and bower gained in popularity. NodeJS is a framework to use JavaScript in a back end environment. As JavaScript is primarily used in front end development, NodeJS is favoured by many front end developers over other technologies. NodeJS's package manager npm is a administrative tool for dependency management, which can also be used as a build tool in software development by implementing scripts to build and run software. Npm also gives access to the largest ecosystem of open source software in the world. 
+Reusability is also one of the main reasons why package managers like npm and bower gained in popularity. NodeJS is a framework to use JavaScript in a back end environment. As JavaScript is primarily used in front end development, NodeJS is favoured by many front end developers over other technologies. NodeJS's package manager npm is an administrative tool for dependency management, which can also be used as a build tool in software development by implementing scripts to build and run software. Npm also gives access to the largest ecosystem of open source software in the world. 
 
-npm and modularity (packages to drop into your project)
+Npm packages are mostly small components that developers can integrate into their projects without adding much complexity. Most open source frameworks, like AngularJS and Leaflet, offer a integration via npm or other package managers to ease the development process for developers using it. The result of this method is a highly modularised, tree like structure because this packages also have dependencies to other projects as well.
 
-leftPad fiasco 
+Taking on dependencies of third party code can be problematic as well. In March 2016, many of high profile npm packages like React, Node and Babel broke because one programmer wasn't happy how npm has handled a legal dispute between him and a company requesting the name of one of his packages. After npm granted the packages name to the requesting party he unpublished all of his packages from the npm registry including one called left-pad. Left-pad is a module consisting of 11 lines of code to left pad a string with a certain character. Thousands of projects had left-pad as an indirect dependancy which, after unpublished, wasn't available for download anymore \cite{Williams16}.
+\bigskip\\
+Having a look at the source code of MARiO 2.0 again, dependencies were kept to a minimum to avoid such problems. Other than MVC modularity can be seen in the structure of the HTML files as well as the controller-services structure (see figure \ref{fig: appdiagram}). The dropdown menus are all implemented in their one file to separate them from each other. The Alternative Route dropdown even has different files for each of the alternatives displayed.
+
+The advantage of this approach is the easy extensibility of the project. A new feature just needs a HTML file for the dropdown and a JavaScript service implementing the needed logic wired into the controller. As mentioned in subsection \ref{subsec:Points of Interest} about the point of interest search, open parking spots and route calculations to a parking spot near the destination point could be implemented in the future (see section \ref{sec:recap}). For the purpose of easy integration parking.html and ParkingService.js were created as examples for how to integrate a new feature into the project.
 
 %\_____________________________________________________________________
 
@@ -797,9 +801,14 @@ leftPad fiasco
   \url{http://www.brighthub.com/computing/windows-platform/articles/10177.aspx}, accessed August 9, 2016
 
 \bibitem{Stallman06}
-  Stallman, R., 2006
+  Stallman, R., 2006:
   \textit{Richard Stallman at the 2nd international GPLv3 conference},
   \url{http://fsfe.org/campaigns/gplv3/fisl-rms-transcript.en.html#before-gnu-gpl}, accessed August 2, 2016
+
+\bibitem{Williams16}
+  Williams, C., 2016:
+  \textit{How one developer just broke Node, Babel and thousands of projects in 11 lines of JavaScript},
+  \url{http://www.theregister.co.uk/2016/03/23/npm_left_pad_chaos/}, accessed August 13, 2016
 
 \end{thebibliography}
 
