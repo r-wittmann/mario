@@ -358,7 +358,7 @@ The development process of the MARiO front end can be described as close to Scru
 
 %\____ Implemented Application
 
-\subsection{Implemented Application x}
+\subsection{Implemented Application}
 \label{subsec:Implemented Application}
 
 \begin{figure}
@@ -599,28 +599,45 @@ Leaflet and HERE demand attribution of their use in any software project, which 
 %\_____________________________________________________________________
 
 \cleardoublepage
-\section{Modularity x}
+\section{Modularity}
 \label{sec:Modularity}
 
-The idea behind the architecture of the MARiO project, as described in section \ref{sec:Description of the Backend}, was a plug in system, which also can be described as a modular approach. To add new functionality a new module is developed and added to the code base without altering it. But what are modules and what is modularity in general? The next paragraphs will introduce modularity as an important software engineering principle and subsections \ref{subsec:Modularity in Web Development} and \ref{subsec:Modularity in MARiO 2.0} will take a closer look at modularity in web development and it's use in the MARiO 2.0 project.
-\bigskip\\
+The idea behind the architecture of the MARiO project, as described in section \ref{sec:Description of the Backend}, was a plug in system, which also can be described as a modular approach. To add new functionality a new module is developed and added to the code base without altering it. But what are modules and what is modularity in general? The next sections will introduce modularity as an important software engineering principle and subsection \ref{subsec:Modularity in Web Development} will take a closer look at modularity in modern web development and it's use in the MARiO 2.0 project.
+
+\subsection{Modularity in Software Development}
+\label{subsec:Modularity in Software Development}
+
 'Separation of concerns' is a much used key word in object oriented programming and incorporates a 'divide and conquer' (d\&c) approach, which is a basic technique for problem solving in computer engineering. The idea behind d\&c is to split a problem into smaller sub problems, solve the sub problems individually and combine the results to a solution for the original problem. Many algorithms for various problems have been implemented following that principle. Separation of concerns however is a more general principle allowing for more heterogenous problems.
 
-Modularity is a practical implementation of the separation of concerns as it allows to split a complex system into smaller and simpler modules. Imagine a standard coffee maker as an example. The coffee maker consists of various modules - pot, filter, water heater, etc. - each with its own responsibilities. Separating them makes it easier to think about the functionality of each module itself but only together they can produce drinkable coffee.
+Modularity is a practical implementation of the separation of concerns as it allows to split a complex system into smaller and simpler modules. Imagine a standard coffee maker as an example. The coffee maker consists of various modules - pot, filter, water heater, etc. - each with its own responsibilities. Separating them makes it easier to think about the functionality of each module and facilitates enhancements but only together they can work as intended and brew coffee.
 
-The same can be said about software development. The model view controller pattern described in section \ref{subsec:AngularJS} and \ref{subsec:Implemented Application} is an example for a high level separation of concerns. View, model and controller are strictly separated and only join forces at previously defined anchor points. But the separation can be driven much further, splitting the view in smaller components and detaching functionalities and features to form modules for example. 
+The same can be said about software development. The model view controller pattern described in section \ref{subsec:AngularJS} and \ref{subsec:Implemented Application} is an example for a high level separation of concerns. View, model and controller are strictly separated and only join forces at previously defined anchor points. But the separation can be driven much further, splitting the view in smaller components and detaching functionalities and features to form services for example. 
 
 "Modules are technically connected to one another. The measure of inter-module relation is known as coupling. Design goals require modules to have low-coupling and high cohesion. Cohesion is a measure of the inter-relatedness of elements (statements, procedures, declarations) within a module. A module is said to have high cohesion if all the elements in the module are strongly connected with one another. Tight coupling of modules makes analysis, understanding, modification and testing of modules difficult. Reuse of modules is also hindered." \cite{Poo08}.
+\bigskip\\
+Almost all software design patterns implement some kind of modularity. The MVC pattern, as previously mentioned, is the obvious example, but several others do it as well. The Decorator pattern for example permits to add functionality to classes without the need of subclasses, allowing isolation of core functionality inside. The Mediator Pattern specifically promotes lose coupling by offering a central place of communication between objects without the need of referencing each other directly. A pattern which perfectly implements modularity is the Composite pattern. Objects are composed into tree structures forming hole-part relationships, as seen in a class diagram in figure \ref{fig:Composite}, like the coffee maker example \cite{GoF}.
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.7\columnwidth]{resources/CompositePattern.png}
+  \end{center}
+  \caption{Class diagram of a Composite pattern}
+  \label{fig:Composite}
+\end{figure}
 
-\subsection{Modularity in Web Development x}
+As shown in the last paragraphs, separation of concerns or modularity is omnipresent in software development in an object oriented environment. And it's not a bad thing either. The developer is enabled to enhance small parts of his code without the need to alter the hole project. The partitioning of projects into smaller, independent parts facilitates software development in teams, even if they work remote. The communication between modules has to be agreed upon and it should be clear which functionality a module needs to add to a project, but other than that the developer is free to implement the module the way he wants to.
+
+\subsection{Modularity in modern Web Development x}
 \label{subsec:Modularity in Web Development}
 
-Two types of modularity have to be considered in this section. One is modularity from a web design point of few, dividing a design into atomic elements and building web sites by combining these elements. This will be shortly introduced before considering the second point, modularity in single page applications (SPA). SPAs are applications mostly running in the browser on client side, much like the application developed for MARiO 2.0. 
+Two types of modularity have to be considered in this section. One is modularity from a web design point of few, dividing a design into atomic elements and building web sites by combining these elements. This will be shortly introduced before considering the second point, modularity resulting from the in subsection \ref{subsubsec:Dependency Management} introduced package managers like npm and bower.
 \bigskip\\
-Web applications can be divided into elements, like navigation, forms, buttons, etc. Each of these elements can be further divided until you reach so called atomic elements. Taking these elements and combining them to components and combining components to pages and pages to web sites without loosing the modularity of the atomic elements  
+Web applications can be divided into elements, like navigation, forms, buttons, etc. Each of these elements can be further split down until you reach so called atomic elements. Taking these elements and combining them to components and combining components to pages and pages to web sites without loosing the independence of the atomic elements is called modularity in web design. The best implementation of this approach is the Block-Element-Modifier (BEM) methodology, where blocks are independent entities, simple or compound, elements are context-dependent parts of blocks performing a certain function and modifiers are properties to change style and behaviour of blocks or elements. BEM offers a framework for styling of small components to than add them to bigger ones without loosing the ability to style the elements independently. Bootstrap is a well known implementation of BEM offering predefined objects to use for web design. The advantage of this approach is the reusability of components.
+\bigskip\\
+Reusability is also one of the main reasons why package managers like npm and bower gained in popularity. NodeJS is a framework to use JavaScript in a back end environment. As JavaScript is primarily used in front end development, NodeJS is favoured by many front end developers over other technologies. NodeJS's package manager npm is a administrative tool for dependency management, which can also be used as a build tool in software development by implementing scripts to build and run software. Npm also gives access to the largest ecosystem of open source software in the world. 
 
-\subsection{Modularity in MARiO 2.0 x}
-\label{subsec:Modularity in MARiO 2.0}
+npm and modularity (packages to drop into your project)
+
+leftPad fiasco 
 
 %\_____________________________________________________________________
 
@@ -650,6 +667,11 @@ Web applications can be divided into elements, like navigation, forms, buttons, 
   Crickard III, P., 2014:
   \textit{Leaflet.js Essentials}.
   Packt Publishing Ltd.
+
+\bibitem{GoF}
+  Gamma, E., Helm, R., Johnson, R., Vlissides, J., 1994:
+  \textit{Design Patterns}.
+  Addison-Wesley.
   
 \bibitem{MARiO11}
   Graf, F., Kriegel, H.P., Renz, M. and Schubert, M., 2011:
@@ -671,7 +693,7 @@ Web applications can be divided into elements, like navigation, forms, buttons, 
 
 \bibitem{Laurent04}
   Laurent, A., 2004:
-  \textit{Understanding Open Source and Free Software Licensing},
+  \textit{Understanding Open Source and Free Software Licensing}.
   O'Reilly Media.
 
 \bibitem{Scrum}
@@ -682,7 +704,7 @@ Web applications can be divided into elements, like navigation, forms, buttons, 
 
 \bibitem{Teixeira12}
   Teixeira, P., 2012:
-  \textit{Professional Node.js: Building Javascript based scalable software},
+  \textit{Professional Node.js: Building Javascript based scalable software}.
   John Wiley \& Sons.
 
 
