@@ -169,15 +169,25 @@ Submitted on: & August 19, 2016
 
 %Introduction to the problem, motivation, approaches, goals
 
-%The developed project can be viewed at https://r-wittmann.github.io/mario. Furthermore the code of the project can be cloned from my git repository at https://github.com/r-wittmann/mario for analysis and further development.
+One big part of the theoretical and practical work done by the Database Systems Group (DBS) at the Ludwig-Maximilians-Universität in Munich (LMU) regards graph data and algorithms that solve problems on graphs in particular search for shortest paths from one node to another. The algorithms which are solving this issue, like Dijkstra and A-Star for example, are constantly refined to perform faster, less error prune and more precise and also find use in other algorithms to solve more complicated tasks. In 2011 the Multi Attribute Routing in Open Street Map Project (MARiO) \cite{MARiO11}, was initiated to further enhance the development process, the implementation and the visualisation of new or updated algorithms and methodologies.
 
-One big part of the theoretical and practical work done by the Database Systems Group (DBS) regards graph data and algorithms that solve problems on graphs in particular search for shortest paths from one node to another. The algorithms which are solving this issue, like Dijkstra and A-Star for example, are constantly refined to perform faster, less error prune and more precise and also find use in other algorithms to solve more complicated tasks. In 2011 the Multi Attribute Routing in Open Street Map Project (MARiO) \cite{MARiO11}, was initiated to further enhance the development process, the implementation and the visualisation of new or updated algorithms and methodologies.
+"MARiO is an open source project combining functionalities for data integration and preprocessing, implementation of new algorithms and performance evaluation" \cite{MARiO11}. It was developed in Java 1.6 and follows a plugin architecture, i.e. allows the implementation of new algorithms without the need to alter the original code base. What seemed to be a great technology at the time, MARiO is now outdated, takes extensive amounts of time to download, compile and start on a local machine and doesn't follow any kind of modern software design pattern. Further information about MARiO will be given in section \ref{sec:Description of the Back End}.
 
-"MARiO is an open source project combining functionalities for data integration and preprocessing, implementation of new algorithms and performance evaluation" \cite{MARiO11}. It was developed in Java 1.6 and follows a plugin architecture, i.e. allows the implementation of new algorithms without the need to alter the original code base. What seemed to be a great technology at the time, MARiO is now outdated, takes extensive amounts of time to download, compile and start on a local machine and doesn't follow any kind of modern software design pattern. Further information about MARiO will be given in section \ref{sec:Description of the Backend}.
-\bigskip \\
-The task of this bachelor's thesis was the development of a modern browser application constituting as a visualisation of the in parallel implemented back end server at the DBS. This project was called MARiO 2.0. This type of architecture is called server-client architecture which separates the representation on client side from the processing and storing of large amounts of data and the implementation of algorithms on the server side. Implementing the back end was not part of this thesis.
+MARiO really is an important, frequently used and extended framework. As recently as two weeks ago Markus Rohm added functionality to MARiO integrating stochastic cost criteria into road network graphs in his project thesis 'Hazard-Aware Routing'.
+\bigskip\\
+Task in more detail
 
-The front end, developed in AngularJS for large browser and platform compatibility, 
+The task of this bachelor's thesis was the development of a modern browser application constituting as a visualisation of the in parallel implemented back end server at the DBS. This type of architecture is called server-client architecture which separates the representation on client side from the processing and storing of large amounts of data and the implementation of algorithms on the server side. Implementing the back end was not part of this thesis.
+
+At the beginning of this thesis in section \ref{sec:State of the Art}, the reader will be introduced to underlying technologies, AngularJS and Leaflet, to geospatial encoding formate GeoJSON and to HERE, a company offering a large variety of map designs and mapping technologies. All frameworks and specifications will be considered from various standpoints, alternatives will shortly be mentioned and benefits and drawbacks discussed. 
+
+The front end, developed in AngularJS for large browser and platform compatibility, enables the user to request route calculations from the server and displays the response on a modern and easy to use mapping application with additional route information like travel time and energy consumption. Supplemental features were implemented to round out the application, which will be introduced in great detail in section \ref{sec:Development of the Front End}. Furthermore the development process an legal considerations will also be discussed there.
+\bigskip\\
+As mentioned above MARiO was constructed following a plugin architecture which also could be described as modular. Similar to this most modern design patterns in software development follow a principle called separation of concerns and follow design goals of low coupling and high cohesion. Section \ref{sec:Modularity} gives a introduction to modularity in software development and expand the idea to web development and its use in this thesis' developed application.
+
+To conclude this thesis a summary and recapitulation in will be given in section \ref{sec:recap} including interesting future work which is identified in some of the earlier sections.
+\bigskip\\
+The front end application can be accessed for testing or just to have a look it at https://r-wittmann.github.io/mario. Furthermore the code of the project can be cloned from my git repository at https://github.com/r-wittmann/mario for analysis and further development.
 
 %\_____________________________________________________________________
 
@@ -215,7 +225,7 @@ For this application AngularJS version 1.5.5 was used as Angular 2 was not at a 
 \subsection{Leaflet}
 \label{subsec:Leaflet}
 
-The goal of MARiO 2.0 was to enable users to request routes using various algorithms and methodologies implemented on the server at DBS and display the servers response on client side. For this purpose a mapping framework was needed to handle all issues regarding the download of map tile imagery, user interaction and overlay handling. The API for requesting map imagery will be described in \ref{subsec:HERE API}.
+The goal of this thesis was to enable users to request routes using various algorithms and methodologies implemented on the server at DBS and display the servers response on client side. For this purpose a mapping framework was needed to handle all issues regarding the download of map tile imagery, user interaction and overlay handling. The API for requesting map imagery will be described in \ref{subsec:HERE API}.
 
 "Web based mapping has evolved rapidly over the last two decades, from MapQuest and Google to real-time location information on our phones' mapping apps" \cite{Crickard14}. Consequently various alternatives are available for mapping applications. After evaluating the possibilities Leaflet stood out for its light weight of about 33 kB of JavaScript, the compatibility to almost all platforms, the vast amount of third party plugins and the simplicity, usability and performance of the API. 
 
@@ -225,7 +235,7 @@ This paragraph will shortly summarise the history of Leaflet. After discovering 
 
 For the development of this project the most recent stable Leaflet version 0.7.7 (published October 26, 2015) was used. Leaflet is maintained by now MapBox employee and original creator Vladimir Agafonkin who is heavily supported by a large base of contributors and benefits from vast amounts of developers implementing third party plugins.
 \bigskip \\
-To leverage the combination of the power of AngularJS and the simplicity of Leaflet the Angular-Leaflet-Directive (ALD), developed by David Rubert (tombatossals) was introduced to this project for easy integration of Leaflet and bi-directional binding between the map and AngularJS's scope. With the ALD it is possible to include a Leaflet map with just one line of HTML code.
+To leverage the combination of the power of AngularJS and the simplicity of Leaflet the Angular-Leaflet-Directive (ALD), developed by David Rubert (GitHub name: tombatossals) was introduced to this project for easy integration of Leaflet and bi-directional binding between the map and AngularJS's scope. With the ALD it is possible to include a Leaflet map with just one line of HTML code.
 
 ALD version 0.9.0 was used for this project. It is still maintained by the original creator David Rubert with major help from the AngularUI project.
 
@@ -256,17 +266,17 @@ Wrapped in an object, which consists of key value pares, JSON values can be eith
 "[JSON] does not attempt to impose ECMAScript's internal data representations on other programming languages. Instead, it shares a small subset of ECMAScript's textual representations with all other programming languages." \cite{ECMA404}. JSON is supported by virtually all modern programming languages.
 
 Using all the advantages of JSON, the GeoJSON format is intended and used for encoding, storing and transferring data about geographical structures \cite{GeoJSON}. Points, LineStrings and Polygons are the simplest geometries supported by GeoJSON which can be extended to MultiPoints, MultiLineStrings and MultiPolygons. In most cases one wants to attach certain information other then the geographical extend to objects. For this use case Features are introduced which consists of a geometry, i.e. one of the above mentioned objects like Points or MultiPolygons, and an additional properties object. The properties attached to a feature can be any kind of JSON object. "That said, given the fact that no other prominent geospatial standard supports nested values, usually the properties object consists of single-depth key -> value mappings" \cite{MacWright15}. The most commonly used object type is FeatureCollection, which is, as the name suggests, a collection of Features.
-\bigskip \\
-Requests for route calculations from the MARiO 2.0 front end application to the back end server at DBS are encoded in JSON format, whereas the servers response is in GeoJSON format for easy and fast parseability to ensure a great user experience for the client. All responses are FeatureCollections containing at least one LineString with the properties object heavily used for route information. File sizes vary from 1KB for very short routes to about 1.5 MB for large simulations (see \ref{subsubsec:Simulation}).
+\bigskip\\
+Requests for route calculations from the developed front end application to the back end server at DBS are encoded in JSON format, whereas the servers response is in GeoJSON format for easy and fast parseability to ensure a great user experience for the client. All responses are FeatureCollections containing at least one LineString with the properties object heavily used for route information. File sizes vary from 1KB for very short routes to about 1.5 MB for large simulations (see \ref{subsubsec:Simulation}).
 
 %\____ HERE API
 
 \subsection{HERE API}
 \label{subsec:HERE API}
 
-As Leaflet offers just the wire frame application handling all user interaction and supplys a framework for mapping, a provider of map imagery, also called tiles, is needed to provide the actual map data. The standard implementation of Leaflet uses tiles from the OpenStreetMap Foundation (OSM) which is both convenient and sufficient for most mapping applications. Fortunately Leaflet offers the possibility to effortlessly switch to a different tiles provider. This section will summarise shortly the history of the HERE company, describe the HERE API, give reasons for the decision to use HERE and uncover various benefits and shortcomings of the technology.
+As Leaflet offers just the wire frame application handling all user interaction and supplys a framework for mapping, a provider of map imagery, also called tiles, is needed to provide the actual map data. The standard implementation of Leaflet uses tiles from the OpenStreetMap Foundation (OSM) which is both convenient and sufficient for most mapping applications. Fortunately Leaflet offers the possibility to effortlessly switch to a different tiles provider. This section will shortly summarise the history of the HERE company, describe the HERE API, give reasons for the decision to use HERE and uncover various benefits and shortcomings of the technology.
 \bigskip \\
-The origins of HERE go back to 1985 founded company called Karlin \& Collins, Inc., later called Navigation Technologies Corporation and ultimately NAVTEQ. NAVTEQ was one of the first companies providing turn-by-turn navigation for the San Francisco metro area. Switching business model to licensing map materials to hardware providers instead of building the hardware itself accelerated the rise of the company which invested heavily in the development of mobile mapping technologies. In October, 2007 NAVTEQ was acquired by Nokia \cite{Nokia07} merging it with its own mapping technology. To streamline map services Nokia started the brand HERE in October, 2011, which was sold to a consortium of German car manufacturers in August, 2015. Now HERE offers smartphone and web map applications including routing, points of interest, real time traffic information and geocoding.
+The origins of HERE go back to a company called Karlin \& Collins, Inc. founded in 1985, later called Navigation Technologies Corporation and ultimately NAVTEQ. NAVTEQ was one of the first companies providing turn-by-turn navigation for the San Francisco metro area. Switching business model to licensing map materials to hardware providers instead of building the hardware itself, accelerated the rise of the company which invested heavily in the development of mobile mapping technologies. In October, 2007 NAVTEQ was acquired by Nokia \cite{Nokia07} to merge it with its own mapping technology. To streamline map services Nokia started the brand HERE in October, 2011, which was sold to a consortium of German car manufacturers in August, 2015. Now HERE offers smartphone and web map applications including routing, points of interest, real time traffic information and geocoding.
 
 Resulting from the in section \ref{subsubsec:Points of Interest} described wish for a points of interest search (POI) and the subsequentiell decision to use HERE as POI API, the legal terms determined that the so called Places service can only be used with and displayed on HERE map tiles. Fortunately HERE offers a large variety of differently styled map imagery including satellite images and a dark, unlabelled version which would be important for the in section \ref{sec:recap} described future work of displaying visited nodes.
 
@@ -279,28 +289,63 @@ This project is subscribed to the Basic Plan free of cost, which results in limi
 %\_____________________________________________________________________
 
 \cleardoublepage
-\section{Description of the Backend x}
-\label{sec:Description of the Backend}
+\section{Description of the Back End}
+\label{sec:Description of the Back End}
 
-Introduction to the Description of the Backend section, move from complete Java project to an only server application which can be contacted via Rest Services.
+The MARiO project is an important research tool for the DBS as it allows the implementation and testing of new algorithms and methodologies on graph data. Additionally the performance of the calculations can be measured with regards to speed, accuracy and susceptibility to errors. This section introduces the MARiO project in three parts. Subsection \ref{subsec:Back End Functionalities} will point out functionalities and features of MARiO, \ref{subsec:Modernisation of the Back End} will deal with the modernisation of the project and finally, subsection \ref{subsec:Rest API} will describe the newly implemented API contact points.
 
-%\____ Backend Functionalities
+%\____ Back End Functionalities
 
-\subsection{Backend Functionalities x}
-\label{subsec:Backend Functionalities}
+\subsection{Back End Functionalities x}
+\label{subsec:Back End Functionalities}
 
-Summarise the implemented functionalities and algorithms from various papers, provided by Gregor. 
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.95\columnwidth]{resources/oldMario/oldMarioI.png}
+  \end{center}
+  \caption{Screenshot of the graphical user interface of the MARiO project with calculated routes}
+  \label{fig:oldMarioI}
+\end{figure}
 
-\paragraph{functionality/algorithm I} description of functionality/algorithm I
-\paragraph{functionality/algorithm II} description of functionality/algorithm II
-\paragraph{functionality/algorithm III} description of functionality/algorithm III
+Summarise the implemented functionalities and algorithms from various papers, provided by Gregor. figure \ref{fig:oldMarioI}
 
-%\____ Rest API
+- Import map material from OSM data, reduce file size by leaving out irrelevant information, adding information from other sources like topology and signals.
 
-\subsection{Rest API x}
+- Dijkstra and A*, EasyEV as related work. route to charging?
+
+- Skyline and linear skyline
+
+- clustering of results of skyline
+
+- Intermodal route calculations
+
+%\____ Modernisation of the Back End
+
+\subsection{Modernisation of the Back End x}
+\label{subsec:Modernisation of the Back End}
+
+As mentioned in the previous subsection, MARiO was developed as a Java project following a plugin architecture \cite{MARiO11} enabling developers and researchers to add new functionality without much effort. As the project grew over the last few years, MARiO lost its MVC separation and became a bulky, hard to handle project. This fact is also due to the multitude of contributors to the project, letting it grow without much of a quality control system like, for example, in modern open source projects. This subsection is about the process of the consolidation of features and the elimination of the graphical interface.
+\bigskip\\
+The modernisation started with a bachelors thesis about shared fleets of electrical vehicles written by Ludwig Zellner at the DBS in 2015 \cite{JosseZellner15}. In collaboration with Gregor Jossé, Zellner proposes a management tool for shared e-fleets providing features for both the user of the vehicles and the operator of the fleet. Quite similar to this thesis, the user was enabled to request route calculations from his position to arbitrary locations with the possibility to include a charging point in the route. As the driver used a mobile application for this service it was both infeasible and impossible to install the hole MARiO project on the device.
+
+By consolidating the needed functionality of route calculations and implementing them on a stand alone server which was accessible via a single API contact point the user was able to request route calculations by providing start and end point and some additional information via a http request. This was the first step of the separation of the visualisation from the implemented functionalities which would be further evolved during the development phase of this thesis.
+
+paragraph about REST
+
+REST service as façade (reference modularity and design patterns)
+
+%\____ Back End API
+
+\subsection{Back End API x}
 \label{subsec:Rest API}
 
-Implemented Rest contact points, how to contact, performance
+Introduction to subsection
+
+available contact points
+
+performance of the api
+
+further improvement (available algorithms are not coming from the backend yet)
 
 %\_____________________________________________________________________
 
@@ -322,7 +367,7 @@ To ease and support software development a multitude of tools were developed in 
 \subsubsection{Version Control and Deployment}
 \label{subsubsec:Version Control and Deployment}
 
-Everyone developing software knows that sometimes one is at an impasse, some error sneaked into ones code or what one implemented is simply wrong or not needed. In such cases version control systems allow the developer to go back in time to a previously saved condition, revert changes to the software and compare modifications to the source code. Version control, e.g. a logical way to organise and control revisions and changes, has existed much longer than software development and dates back to a time before the computerisation but became much more complicated and important since than. Especially in collaborative development processes but also for smaller projects, like MARiO 2.0, "[v]ersion management is essential to software development and is considered the most critical component of any development environment" \cite{BusinessWire07}.
+Everyone developing software knows that sometimes one is at an impasse, some error sneaked into ones code or what one implemented is simply wrong or not needed. In such cases version control systems allow the developer to go back in time to a previously saved condition, revert changes to the software and compare modifications to the source code. Version control, e.g. a logical way to organise and control revisions and changes, has existed much longer than software development and dates back to a time before the computerisation but became much more complicated and important since than. Especially in collaborative development processes but also for smaller projects, like this one, "[v]ersion management is essential to software development and is considered the most critical component of any development environment" \cite{BusinessWire07}.
 \bigskip\\
 Like many other technologies, version control systems matured considerably in the last twenty years from locking files, so only one developer or writer can make changes, like RCS and SCCS to rather complex, distributed tools allowing simultaneous changes to files and merging the changes afterwards, like Mercurial and Git. Recently Git seems to be the tool of choice for most modern projects in software development.
 
@@ -441,9 +486,9 @@ Similar to the above mentioned route calculations to a parking spot one could im
   \label{fig:DropdownAlgorithm}
 \end{figure}
 
-The first of the two main features of this project is also the first feature to contact the in chapter \ref{sec:Description of the Backend} described server at DBS. It enables the user to request the calculation of a route between previously defined origin and destination from the server which is than displayed on the map with additional information available on the information panel. Via a dropdown the user can choose one of the in \ref{subsec:Backend Functionalities} defined algorithms and additionally allows the selection of the costs, which the route should be optimised to (see figure \ref{fig:DropdownAlgorithm}).
+The first of the two main features of this project is also the first feature to contact the in chapter \ref{sec:Description of the Back End} described server at DBS. It enables the user to request the calculation of a route between previously defined origin and destination from the server which is than displayed on the map with additional information available on the information panel. Via a dropdown the user can choose one of the in \ref{subsec:Back End Functionalities} defined algorithms and additionally allows the selection of the costs, which the route should be optimised to (see figure \ref{fig:DropdownAlgorithm}).
 \bigskip \\
-As new algorithms and new implementations are frequently introduced to the server by other projects, partly resulting from other students writing their theses at the DBS, a mechanism was needed to keep the information about algorithms up to date. For that reason an additional API call is triggered to the backend, requesting a file containing all implemented algorithms and their attributes. All new algorithms implemented on the server have to be included in that file for the front end to make them available for selection in the above mentioned dropdown.
+As new algorithms and new implementations are frequently introduced to the server by other projects, partly resulting from other students writing their theses at the DBS, a mechanism was needed to keep the information about algorithms up to date. For that reason an additional API call is triggered to the back end, requesting a file containing all implemented algorithms and their attributes. All new algorithms implemented on the server have to be included in that file for the front end to make them available for selection in the above mentioned dropdown.
 
 Once the user has set two markers for origin and destination on the map and selected algorithm and costs, a request containing all information is send to the server for the calculation of the optimal route. The route is than sent back to the front end in GeoJson format and added to the map. Right after the route is added to the map a popup is bound to it containing the addresses of origin and destination. The route can be highlighted on hover over the route itself or the route description in the information panel. Both features are especially helpful for intermodal route calculations introduced in \ref{subsubsec:Intermodal Route Calculations}.
 \begin{figure}
@@ -453,9 +498,9 @@ Once the user has set two markers for origin and destination on the map and sele
   \caption{Front end with highlighted route}
   \label{fig:HighlightingSkyline}
 \end{figure}\bigskip \\
-At this moment, there are two cases receiving different treatment than described above. On of them is the algorithm called a-star-with-charging which was implemented for electrical vehicles, as described in \ref{subsec:Backend Functionalities}. The response to a request with this algorithm selected contains a route with a charging station on the way and a point, where the station is located. The route is added as above and the charging station is added as a special marker to the map.
+At this moment, there are two cases receiving different treatment than described above. On of them is the algorithm called a-star-with-charging which was implemented for electrical vehicles, as described in \ref{subsec:Back End Functionalities}. The response to a request with this algorithm selected contains a route with a charging station on the way and a point, where the station is located. The route is added as above and the charging station is added as a special marker to the map.
 
-The second case comprises all algorithms from the skyline family. As delineated in \ref{subsec:Backend Functionalities} the skyline algorithms are able to optimise route calculations to more than one cost. That's why the user is able to select more than one or even all of the available costs in the direct route dropdown. The server returns a collection of routes in geojson format with the associated costs attached to the features. Adding the costs to the information panel of the front end instead of the addresses of the origin and destination allows the user to compare different routes in regard to their efficiency. The above mentioned route highlighting helps to differentiate between the displayed routes (see figure \ref{fig:HighlightingSkyline}).
+The second case comprises all algorithms from the skyline family. As delineated in \ref{subsec:Back End Functionalities} the skyline algorithms are able to optimise route calculations to more than one cost. That's why the user is able to select more than one or even all of the available costs in the direct route dropdown. The server returns a collection of routes in geojson format with the associated costs attached to the features. Adding the costs to the information panel of the front end instead of the addresses of the origin and destination allows the user to compare different routes in regard to their efficiency. The above mentioned route highlighting helps to differentiate between the displayed routes (see figure \ref{fig:HighlightingSkyline}).
 \bigskip\\
 One additional feature would have been implemented for further analysis of the algorithms, if time would have allowed it. The displaying of visited nodes in the graph to better understand how the algorithms work will be described in chapter \ref{sec:recap}.
 
@@ -567,7 +612,7 @@ The animation of moving elements is essentially achieved by removing all vehicle
 
 Using third party code and projects brought a certain legal complexity into this project concerning licenses and rights to use. Several projects, including AngularJS and bower, are published under MIT, others under more restrictive licences. The following section will introduce the for the software developed for this thesis relevant licences and summarise legal considerations in general.
 \bigskip\\
-Copyright law dates back to the early 18th century and grants the creator of an original work the exclusive right for use and distribution. This exclusive right is granted for limited time (70 years after the creators death or 120 years after creation for not identifiable creators) and only protects the product itself and not the general idea behind it. In software development copyright law is highly relevant "[b]ecause commercial software is made, as a general matter, by large teams of people and requires the substantial expenditure of capital, the resulting work is 'work for hire'" \cite[p. 4]{Laurent04} and the copyrights belong therefore to the cooperation commissioning and founding the development process. Since the beginning of the open source movement in the early 90th, developers needed and subsequently wrote open source licenses. The three most important and most widely used licences will be introduced in the next paragraphs.
+Copyright law dates back to the early 18th century and grants the creator of an original work the exclusive right for use and distribution. This exclusive right is granted for limited time (70 years after the creators death or 120 years after creation for not identifiable creators) and only protects the product itself and not the general idea behind it. In software development copyright law is highly relevant "[b]ecause commercial software is made, as a general matter, by large teams of people and requires the substantial expenditure of capital, the resulting work is 'work for hire'" \cite{Laurent04} and the copyrights belong therefore to the cooperation commissioning and founding the development process. Since the beginning of the open source movement in the early 90th, developers needed and subsequently wrote open source licenses. The three most important and most widely used licences will be introduced in the next paragraphs.
 \bigskip\\
 As of 2015 the most popular open source software licence used in GitHub projects is the MIT license authored and published by the Massachusetts Institute of Technology \cite{Balter15} which was also used to licence the software of this project. According to the Black Duck Software Inc. MIT is also the most used licence for open source software in general, followed by GNU GPL and Apache License \cite{BlackDuck} which will be explained in the next paragraphs. "The 'BSD-like' licenses such as the BSD, MIT, and Apache licenses are extremely permissive, requiring little more than attributing the original portions of the licensed code to the original developers in your own code and/or documentation" \cite{NewMediaRights}.
 
@@ -602,7 +647,7 @@ Leaflet and HERE demand attribution of their use in any software project, which 
 \section{Modularity}
 \label{sec:Modularity}
 
-The idea behind the architecture of the MARiO project, as described in section \ref{sec:Description of the Backend}, was a plug in system, which also can be described as a modular approach. To add new functionality a new module is developed and added to the code base without altering it. But what are modules and what is modularity in general? The next sections will introduce modularity as an important software engineering principle and subsection \ref{subsec:Modularity in Web Development} will take a closer look at modularity in modern web development and it's use in the MARiO 2.0 project.
+The idea behind the architecture of the MARiO project, as described in section \ref{sec:Description of the Back End}, was a plug in system, which also can be described as a modular approach. To add new functionality a new module is developed and added to the code base without altering it. But what are modules and what is modularity in general? The next sections will introduce modularity as an important software engineering principle and subsection \ref{subsec:Modularity in Web Development} will take a closer look at modularity in modern web development and it's use in this project.
 
 \subsection{Modularity in Software Development}
 \label{subsec:Modularity in Software Development}
@@ -626,7 +671,7 @@ Almost all software design patterns implement some kind of modularity. The MVC p
 
 As shown in the last paragraphs, separation of concerns or modularity is omnipresent in software development in an object oriented environment. And it's not a bad thing either. The developer is enabled to enhance small parts of his code without the need to alter the hole project. The partitioning of projects into smaller, independent parts also facilitates software development in teams, even if they work remote. The communication between modules has to be agreed upon and it should be clear which functionality a module needs to add to a project, but other than that the developer is free to implement the module the way he wants to.
 
-\subsection{Modularity in modern Web Development x}
+\subsection{Modularity in modern Web Development}
 \label{subsec:Modularity in Web Development}
 
 Two types of modularity have to be considered in this section. One is modularity from a web design point of few, dividing a design into atomic elements and building web sites by combining these elements. This will be shortly introduced before considering the second point, modularity resulting from the in subsection \ref{subsubsec:Dependency Management} introduced package managers like npm and bower.
@@ -639,9 +684,9 @@ Npm packages are mostly small components that developers can integrate into thei
 
 Taking on dependencies of third party code can be problematic as well. In March 2016, many of high profile npm packages like React, Node and Babel broke because one programmer wasn't happy how npm has handled a legal dispute between him and a company requesting the name of one of his packages. After npm granted the packages name to the requesting party he unpublished all of his packages from the npm registry including one called left-pad. Left-pad is a module consisting of 11 lines of code to left pad a string with a certain character. Thousands of projects had left-pad as an indirect dependancy which, after unpublished, wasn't available for download anymore \cite{Williams16}.
 \bigskip\\
-Having a look at the source code of MARiO 2.0 again, dependencies were kept to a minimum to avoid such problems. Other than MVC modularity can be seen in the structure of the HTML files as well as the controller-services structure (see figure \ref{fig: appdiagram}). The dropdown menus are all implemented in their one file to separate them from each other. The Alternative Route dropdown even has different files for each of the alternatives displayed.
+Having a look at the source code written in the course of this thesis again, dependencies were kept to a minimum to avoid such problems. Other than MVC modularity can be seen in the structure of the HTML files as well as the controller-services structure (see figure \ref{fig:appdiagram}). The dropdown menus are all implemented in their one file to separate them from each other. The Alternative Route dropdown even has different files for each of the alternatives displayed.
 
-The advantage of this approach is the easy extensibility of the project. A new feature just needs a HTML file for the dropdown and a JavaScript service implementing the needed logic wired into the controller. As mentioned in subsection \ref{subsec:Points of Interest} about the point of interest search, open parking spots and route calculations to a parking spot near the destination point could be implemented in the future (see section \ref{sec:recap}). For the purpose of easy integration parking.html and ParkingService.js were created as examples for how to integrate a new feature into the project.
+The advantage of this approach is the easy extensibility of the project. A new feature just needs a HTML file for the dropdown and a JavaScript service implementing the needed logic wired into the controller. As mentioned in subsection \ref{subsubsec:Points of Interest} about the point of interest search, open parking spots and route calculations to a parking spot near the destination point could be implemented in the future (see section \ref{sec:recap}). For the purpose of easy integration parking.html and ParkingService.js were created as examples for how to integrate a new feature into the project.
 
 %\_____________________________________________________________________
 
@@ -649,23 +694,34 @@ The advantage of this approach is the easy extensibility of the project. A new f
 \section{Recapitulation and Future Work x}
 \label{sec:recap}
 
-- parking spots and route to points of interest as proposed in \cite{Josse15}\bigskip
+This thesis introduced the reader to various components of the MARiO project operated by the DBS at LMU. MARiO is a open source mapping application written in Java which allows the scientists and researchers at the DBS to implement new algorithms and methodologies regarding graph data and street networks. As MARiO was implemented in 2011 and is thereby already outdated, MARiO was refined to a modern server client architecture where the back end server can be accessed via a REST API. In the course of the software development accompanying this thesis a browser mapping application was implemented enabling users to access this API to request route calculations with various algorithms. The server returns the calculated routes and additional route informations to the front end where it is displayed in a user friendly way.
 
-- display of visited nodes
+JavaScript framework AngularJS in combination with mapping library Leaflet were used as front end technologies, which ensure fluid usability and a great user experience through AngularJS' bidirectional data binding and Leaflets simplicity and performance. After giving a detailed description of AngularJS and a explicit introduction to Leaflet, GeoJSON was established as encoding for storage and transmission of geospatial data, for its nativity in JavaScript and, more important, its direct parseability to Leaflet objects. As an external data source the HERE API plays an important role in this project by providing map imagery and permitting the superinduction of additional features. 
+\bigskip\\
+- Route calculations and intermodal route as features
+
+A point of interest search was implemented allowing the user to search for interesting places around a set marker. Various categories like 'Foot \& Drink' and 'Transportation' are available to narrow the search. Points of interest are added to the map as circular markers with name, category and address of the venue, available in a popup overlay. For more intelligible route instructions and better user experience, latitude-longitude positions returned by the back end as well as created by clicks on the map, are geocoded to physical addresses. Both features were implemented using HERE APIs.
+
+- Display of simulations as feature
+
+- recap of modularity
+\bigskip\\
+Future Work: 
+
+- parking spots and route to points of interest as proposed in \cite{Josse15}. Parking spots are kind of point of interests which can be displayed very similar to those. route to parking from josse15 paper.
+
+- display of visited nodes. To further enhance the ability to visualise algorithms visited nodes can be displayed. Explain what nodes are and why it is important. Grey, unlabelled map imagery already included in the project.
+
+- improve and broaden intermodal search functionality. At the moment only in Berlin and with lots of manual work.
+
+- address search as in \cite{MARiO11}. Why address search, describe the functionality, proposal for implementation (not that much work)
+
+- update to Angular 2 and Leaflet 1.0. Front end is developed with 1.5.5, updating to Angular 2 would bring further improvement in maintainability and performance. Updating to Leaflet 1.0 would improve mobile friendliness and performance.
 
 %______________________________________________________________________
 
 \cleardoublepage
-\begin{thebibliography}{99}
-
-%Citations in Harvard Style
-
-%\bibitem{Ivory01}
-
-%  M.\ Y.\ Ivory, M.\ Hearts:
-%  \href{http://www.ischool.washington.edu/myivory/thesis/thesis.pdf}{%
-%    An Empirical Foundation for Automated Web Interface Evaluation}.
-%  Ph.D. thesis, University of California at Berkeley, 2001
+\begin{thebibliography}{9}
 
 \bibitem{Crickard14}
   Crickard III, P., 2014:
@@ -683,16 +739,22 @@ The advantage of this approach is the easy extensibility of the project. A new f
   In \textit{International Symposium on Spatial and Temporal Databases} (pp. 486-490).
   Springer Berlin Heidelberg.
 
+\bibitem{Josse15}
+  Jossé, G., Schmid, K.A., Züfle, A., Skoumas, G., Schubert, M. and Pfoser, D., 2015:
+  Tourismo: A User-Preference Tourist Trip Search Engine. 
+  In \textit{International Symposium on Spatial and Temporal Databases} (pp. 514-519).
+  Springer International Publishing.
+
 \bibitem{Josse13}
   Jossé, G., Schubert, M. and Kriegel, H.P., 2013: 
   Probabilistic parking queries using aging functions. 
   In \textit{Proceedings of the 21st ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems} (pp. 452-455).
   ACM.
 
-\bibitem{Josse15}
-  Jossé, G., Schmid, K.A., Züfle, A., Skoumas, G., Schubert, M. and Pfoser, D., 2015:
-  Tourismo: A User-Preference Tourist Trip Search Engine. 
-  In \textit{International Symposium on Spatial and Temporal Databases} (pp. 514-519).
+\bibitem{JosseZellner15}
+  Jossé, G., Schubert, M. and Zellner, L., 2015: 
+  EasyEV: Monitoring and Querying System for Electric Vehicle Fleets Using Smart Car Data.
+  In \textit{International Symposium on Spatial and Temporal Databases} (pp. 497-502). 
   Springer International Publishing.
 
 \bibitem{Laurent04}
