@@ -67,7 +67,8 @@ Prof.\ Dr.\ Thomas Seidl
 \vspace{5cm}
 {\large\textbf{Bachelor's Thesis}}\vspace{.5cm}
 
-{\LARGE An even longer Title to see how it looks when using two lines in the document}\vspace{1cm}
+{\LARGE Designing and Developing a Modular, Web-Based User Interface for Query Processing and Simulation in Road Networks for the MARiO Framework\par}
+\vspace{1cm}
 
 {\large Rainer Wittmann}\\
 Matriculation Number: 10954724\\
@@ -84,7 +85,7 @@ Submitted on: & August 19, 2016
 %______________________________________________________________________
 
 \selectlanguage{english}
-\clearpage
+\cleardoublepage
 \section*{}
 \label{Definition of Task}
 
@@ -105,6 +106,10 @@ Submitted on: & August 19, 2016
 
 % Inhaltsverzeichnis erzeugen
 \tableofcontents
+\clearpage
+\listoffigures
+\vspace{5cm}
+\listoftables
 
 %\setlength\parskip{\baselineskip}
 
@@ -175,17 +180,17 @@ One big part of the theoretical and practical work done by the Database Systems 
 
 MARiO really is an important, frequently used and extended framework. As recently as two weeks ago Markus Rohm added functionality to MARiO integrating stochastic cost criteria into road network graphs in his project thesis 'Hazard-Aware Routing'.
 \bigskip\\
-Task in more detail
+The task of this bachelor's thesis was to design and develop a modular, web-based user interface for query processing and simulation in road networks for the MARiO framework which constitutes as a visualisation of the in parallel implemented back end server at the DBS. This type of architecture is called server-client architecture which separates the representation on client side from the processing and storing of large amounts of data and the implementation of algorithms on the server side. Implementing the back end was not part of this thesis.
 
-The task of this bachelor's thesis was the development of a modern browser application constituting as a visualisation of the in parallel implemented back end server at the DBS. This type of architecture is called server-client architecture which separates the representation on client side from the processing and storing of large amounts of data and the implementation of algorithms on the server side. Implementing the back end was not part of this thesis.
-
+The task started out as a interface for querying and visualising route calculations with algorithms implemented on the back end. Over time it evolved to a full blown mapping application with route calculations, point of interests, and many more.
+\bigskip\\
 At the beginning of this thesis in section \ref{sec:State of the Art}, the reader will be introduced to underlying technologies, AngularJS and Leaflet, to geospatial encoding formate GeoJSON and to HERE, a company offering a large variety of map designs and mapping technologies. All frameworks and specifications will be considered from various standpoints, alternatives will shortly be mentioned and benefits and drawbacks discussed. 
 
-The front end, developed in AngularJS for large browser and platform compatibility, enables the user to request route calculations from the server and displays the response on a modern and easy to use mapping application with additional route information like travel time and energy consumption. Supplemental features were implemented to round out the application, which will be introduced in great detail in section \ref{sec:Development of the Front End}. Furthermore the development process an legal considerations will also be discussed there.
+The front end, developed in AngularJS for large browser and platform compatibility, enables the user to request route calculations from the server and displays the response on a modern and easy to use mapping application with additional route information like travel time and energy consumption. Supplemental features were implemented to round out the application, which will be introduced in great detail in section \ref{sec:Development of the Front End}. Furthermore the development process, the front end performance and legal considerations will also be discussed there.
 \bigskip\\
 As mentioned above MARiO was constructed following a plugin architecture which also could be described as modular. Similar to this most modern design patterns in software development follow a principle called separation of concerns and follow design goals of low coupling and high cohesion. Section \ref{sec:Modularity} gives a introduction to modularity in software development and expand the idea to web development and its use in this thesis' developed application.
 
-To conclude this thesis a summary and recapitulation in will be given in section \ref{sec:recap} including interesting future work which is identified in some of the earlier sections.
+To conclude this thesis a summary and recapitulation will be given in section \ref{sec:recap}. This section also includes interesting future work which is identified throughout the earlier sections.
 \bigskip\\
 The front end application can be accessed for testing or just to have a look it at https://r-wittmann.github.io/mario. Furthermore the code of the project can be cloned from my git repository at https://github.com/r-wittmann/mario for analysis and further development.
 
@@ -303,7 +308,7 @@ The MARiO project is an important research tool for the DBS as it allows the imp
   \begin{center}
     \includegraphics[width=0.95\columnwidth]{resources/oldMario/oldMarioI.png}
   \end{center}
-  \caption{Screenshot of the graphical user interface of the MARiO project with calculated routes}
+  \caption{Screenshot of the graphical user interface of the MARiO project}
   \label{fig:oldMarioI}
 \end{figure}
 
@@ -344,6 +349,7 @@ Introduction to subsection
 available contact points
 
 performance of the api
+average roundtrip to server: 34.806 ms
 
 further improvement (available algorithms are not coming from the backend yet)
 
@@ -353,7 +359,7 @@ further improvement (available algorithms are not coming from the backend yet)
 \section{Development of the Front End}
 \label{sec:Development of the Front End}
 
-The goal of this bachelor's thesis was to develop a user facing browser application to allow route calculation requests and various other features (see \ref{subsec:Implemented Features}). The process of developing this software, an overview over the used tools and frameworks to support development, a description of the implemented application and a specification of the included features will be given in this section.
+The goal of this bachelor's thesis was to develop a user facing browser application to allow route calculation requests and various other features (see \ref{subsec:Implemented Features}). The process of developing this software, an overview over the used tools and frameworks to support development, a description of the implemented application and its performance and a specification of the included features will be given in this section. 
 
 %\____ Build Tools and Frameworks
 
@@ -440,6 +446,69 @@ Much time and effort was put into the user interface design to ensure usability 
 
 To not overexert the users eyes but still provide reasonably high contrast the background color used for the navigation bar and dropdown menus is not white, but slightly darkened to a hex code of \#FAFAFA and text color was slightly lightened from black to a hex code of \#262826. Out of four alternatives a light green (hex code \#68C631) was chosen as a primary color, used for example for several icons, the separators and the route highlighting (see subsection \ref{subsubsec:Route Calculations}). Colors can be seen in all screenshots included in this thesis and in the color palette in figure \ref{fig:color}.
 
+%\_____ Performance
+
+\subsection{Performance}
+\label{subsec:Performance}
+
+Performance played a big role in the development of the front end application to ensure great usability. That is why file sizes where kept to a minimum, html files are only loaded, once they are needed and AngularJS and Leaflet were chosen as technologies. This subsection will compare the newly developed front end to established mapping applications, like Google Maps and OpenStreetMap in various dimensions.
+\begin{table}[tbp]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+URL & First Byte & \multicolumn{1}{l|}{Start Render} & DOM Elements \\ \hline
+r-wittmann.github.io/mario & 0.164 s & 1.491 s & 216 \\ \hline
+maps.google.de & 0.453 s & 1.500 s & 514 \\ \hline
+www.openstreetmap.org & 0.470 s & 3.206 s & 383 \\ \hline
+wego.here.com & 0.773 s & 0.995 s & 352 \\ \hline
+\end{tabular}
+\caption{Basic Performance of front end compared to other applications}
+\label{tab:basic}
+\end{table}
+\bigskip\\
+The first measurement, as seen in table \ref{tab:basic}, is mostly about how fast an application starts to load. The time to first byte however, is not related to the application itself, but to the deployment environment. It is a measure for how fast the server response starts to arrive at the clients browser after requesting a page load. The GitHub-Pages server is quite quick in that perspective, being three to four times faster than the other servers. 
+
+The next column displays the time, until the application starts to render the first elements. With 1.491 seconds the MARiO front end is in second place only beaten by HERE, which starts after a little less than a second. Noticeable is the very short time span of 0.222 seconds between first byte and start render for the HERE application. Optimising the render process of the MARiO front end would certainly reduce the time between first byte and start render significantly. 
+
+The last column of table \ref{tab:basic} is the amount of Document Object Model (DOM) elements the website composed of, once it is fully loaded and rendered. The low number of 216 DOM elements are mostly the consequence of file and structure optimisation and has also impact on loading and rendering times.
+\begin{table}[tbp]
+\centering
+\begin{tabular}{c|c|c|c|}
+\cline{2-4}
+\multicolumn{1}{l|}{} & \multicolumn{3}{c|}{Document Complete} \\ \hline
+\multicolumn{1}{|c|}{URL} & Time & Request & Bytes In \\ \hline
+\multicolumn{1}{|c|}{r-wittmann.github.io/mario} & 0.904 s & 23 & 183 KB \\ \hline
+\multicolumn{1}{|c|}{maps.google.de} & 6.265 s & 105 & 494 KB \\ \hline
+\multicolumn{1}{|c|}{www.openstreetmap.org} & 3.621 s & 28 & 995 KB \\ \hline
+\multicolumn{1}{|c|}{wego.here.com} & 5.783 s & 24 & 1298 KB \\ \hline
+\end{tabular}
+\caption{Performance of front end in regard to completed document load}
+\label{tab:document complete}
+\end{table}
+\bigskip\\
+After the first byte arrived in the browser and the application started rendering, at some point, the hole content originally requested from the server is available to the browser. Table \ref{tab:document complete} shows the comparison between the MARiO front end and the same mapping applications as before in regards to the complete document download. 
+
+The time until the document is downloaded completely is mostly dependent on the speed of the internet connection, in particular the upload speed of the server and the download speed to the client. As the tests were performed with the same internet connection and to different times of day, the download speed to the client can be disregarded. Similar to this, we can assume that Google and the other providers have pretty fast internet connection, too, as their business model depends on it.
+
+The MARiO front end is loaded in 0.904 seconds and thereby three to seven times faster than the other applications. As we excluded the internet connection on both client and server side as a high influence to loading times, the difference originates mostly from the small amount of data which has to be transferred to the client's browser. With 183 KB the MARiO application is far smaller than the competitors.
+\begin{table}[tbp]
+\centering
+\begin{tabular}{c|c|c|c|}
+\cline{2-4}
+\multicolumn{1}{l|}{} & \multicolumn{3}{c|}{Fully Loaded} \\ \hline
+\multicolumn{1}{|c|}{URL} & Time & Requests & Bytes In \\ \hline
+\multicolumn{1}{|c|}{r-wittmann.github.io/mario} & 2.176 s & 47 & 689 KB \\ \hline
+\multicolumn{1}{|c|}{maps.google.de} & 7.569 s & 122 & 1816 KB \\ \hline
+\multicolumn{1}{|c|}{www.openstreetmap.org} & 4.807 s & 34 & 1109 KB \\ \hline
+\multicolumn{1}{|c|}{wego.here.com} & 7.937 s & 50 & 2743 KB \\ \hline
+\end{tabular}
+\caption{Performance of front end until application is fully loaded}
+\label{tab:fully loaded}
+\end{table}
+\bigskip\\
+paragraph 3
+\bigskip\\
+All performance tests were conducted with WebPagetest\footnote{www.webpagetest.org}, a testing framework primarily developed and run by Google. It allows the user to test performance with real life conditions in various locations around the globe. The tables above are the result of 15 tests performed in one hour intervals on August 16, 2016.
 
 %\_____ Implemented Features
 
