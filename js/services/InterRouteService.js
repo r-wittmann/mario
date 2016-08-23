@@ -30,20 +30,24 @@ mario.service('interRouteService', [ '$http', 'modifyMap', 'reverseGeocode', fun
   }
 
   this.addInterRoute = function (model, geojson) {
-    model['algorithmKind'] = 'single'
-    for (let i = 0; i < geojson.data.features.length; i++) {
-      geojson.data.features[i].properties['index'] = i
-    }
-    geojson.data.features[0].properties.instructions[0] = model.map.markers[0].formattedAddress[0]
-    geojson.data.features[geojson.data.features.length - 2].properties.instructions[1] = model.map.markers[1].formattedAddress[0]
-    model.map.geojson = geojson
-    model.map.geojson['style'] = {
-      opacity: 1
-    }
+    let errorMessage = {Error: 'No intermodal connection found! Please try the service in Berlin or increasing the range.'}
 
-    model.map['routeInfo'] = geojson.data.features.pop().properties['routeInfo']
-    modifyMap.centerOnRoute(model)
-    reverseGeocode.reverseInstructions(model)
+    if (geojson.data.features[0]) {
+      model['algorithmKind'] = 'single'
+      for (let i = 0; i < geojson.data.features.length; i++) {
+        geojson.data.features[i].properties['index'] = i
+      }
+      geojson.data.features[0].properties.instructions[0] = model.map.markers[0].formattedAddress[0]
+      geojson.data.features[geojson.data.features.length - 2].properties.instructions[1] = model.map.markers[1].formattedAddress[0]
+      model.map.geojson = geojson
+      model.map.geojson['style'] = {
+        opacity: 1
+      }
+
+      model.map['routeInfo'] = geojson.data.features.pop().properties['routeInfo']
+      modifyMap.centerOnRoute(model)
+      reverseGeocode.reverseInstructions(model)
+    } else model.map['routeInfo'] = errorMessage
   }
 
   this.modelDate = function (model, newDate) {
