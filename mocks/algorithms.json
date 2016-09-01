@@ -21,7 +21,7 @@
 		"min_criteria": 1,
 		"max_criteria": 1
 	}, {
-		"algorithm": "A_Star_with_Charging",
+		"algorithm": "A_Star_Charging",
 		"criteria": [
 			"distance"
 		],

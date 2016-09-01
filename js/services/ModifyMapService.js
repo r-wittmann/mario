@@ -3,11 +3,13 @@
 mario.service('modifyMap', ['$timeout', 'leafletData', 'reverseGeocode', function ($timeout, leafletData, reverseGeocode) {
   let that = this
 
+  /* handels the changing of the map imagery */
   this.changeBaselayer = function (model, layer) {
     model.map.layers.baselayers = {}
     model.map.layers.baselayers[layer] = model.map.baselayers[layer]
   }
 
+  /* adds marker to the map and safes it to the marker directory, reverse geocoding is triggered */
   this.addMarker = function (model, event, args, update) {
     let markers = model.map.markers
 
@@ -27,10 +29,12 @@ mario.service('modifyMap', ['$timeout', 'leafletData', 'reverseGeocode', functio
     }
   }
 
+  /* remove markers from the map */
   this.removeMarker = function (model) {
     model.map.markers = []
   }
 
+  /* binds a pupup to a route segment, handles route highlighting when user hovers over geoJson */
   this.handleMousOverGeoJson = function (model, event, args) {
     let index = args.leafletEvent.target.feature.properties.index
     if (model.algorithmKind === 'single') {
@@ -47,11 +51,13 @@ mario.service('modifyMap', ['$timeout', 'leafletData', 'reverseGeocode', functio
     model.selected.hover = index
   }
 
+  /* handles the mouseout event on the geoJSON-Layer */
   this.handleMousOutGeoJson = function (model, event, args) {
     that.colorifyRoute()
     model.selected.hover = -1
   }
 
+  /* handles the route highlighting when user hovers over route instructions */
   this.highlightSegment = function (model, index, inFlag) {
     leafletData.getMap()
       .then(map => {
@@ -71,6 +77,7 @@ mario.service('modifyMap', ['$timeout', 'leafletData', 'reverseGeocode', functio
       })
   }
 
+  /* coloring of the route on the map depending on the mode of transportation */
   this.colorifyRoute = function () {
     leafletData.getMap()
       .then(map => {
@@ -86,6 +93,7 @@ mario.service('modifyMap', ['$timeout', 'leafletData', 'reverseGeocode', functio
       })
   }
 
+  /* centers the map on the elements on the map */
   this.centerOnRoute = function (model, bBox) {
     let latlngs = []
     if (!bBox) {

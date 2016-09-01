@@ -3,11 +3,13 @@
 mario.service('poiService', [ '$http', 'modifyMap', function ($http, modifyMap) {
   let that = this
 
+  /* handles the selection of poi categories */
   this.selectPoi = function (model, category) {
     if (model.selected.poi.indexOf(category) === -1) model.selected.poi.push(category)
     else model.selected.poi.splice(model.selected.poi.indexOf(category), 1)
   }
 
+  /* build the request Json, request pois from HERE-API and handle response*/
   this.fetchPoi = function (model, url) {
     if (model.map.markers.length === 2) model.map.markers.shift()
     model.map.geojson = []
@@ -36,6 +38,7 @@ mario.service('poiService', [ '$http', 'modifyMap', function ($http, modifyMap) 
     }
   }
 
+  /* add POIs to the map */
   this.addPoi = function (model, items, next) {
     items.map(item => {
       model.map.paths.push({
@@ -57,6 +60,7 @@ mario.service('poiService', [ '$http', 'modifyMap', function ($http, modifyMap) 
     else if (!next) modifyMap.centerOnRoute(model)
   }
 
+  /* remove POIs from the map */
   this.removePoi = function (model) {
     model.map.paths = []
   }

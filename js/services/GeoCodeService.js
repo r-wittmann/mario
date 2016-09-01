@@ -7,6 +7,7 @@ mario.service('reverseGeocode', [ '$http', function ($http) {
   const auth = '&app_id=' + appId + '&app_code=' + appCode
   const features = '&mode=retrieveAddresses&gen=9&language=en&maxresults=5'
 
+  /* handles the reverse geocoding of markers and saves the physical address to the markers directory */
   this.reverseMarker = function (model, index) {
     let prox = 'prox=' + model.map.markers[index].lat + ',' + model.map.markers[index].lng + ',1000'
 
@@ -21,6 +22,7 @@ mario.service('reverseGeocode', [ '$http', function ($http) {
       })
   }
 
+  /* handles the revers geocoding of route instructions */
   this.reverseInstructions = function (model) {
     for (let feature of model.map.geojson.data.features) {
       for (let index in feature.properties.instructions) {

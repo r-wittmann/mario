@@ -4,15 +4,17 @@ mario.service('directRouteService', [ '$http', 'modifyMap', function ($http, mod
   let that = this
   const baseUrl = 'http://129.187.228.18:8080/restservices_path/webresources/easyev?'
 
+  /* mocks the requesting of algorithm data from the server and saves the response to the scope */
   this.getInitialInformation = function (model) {
     $http.get('mocks/algorithms.json')
       .then(response => {
         model['algorithms'] = response.data.Routing_Algorithms
-        model.selected['algorithm'] = model.algorithms[1]
+        model.selected['algorithm'] = model.algorithms[0]
         model.selected['costs'] = [model.selected.algorithm.criteria[0]]
       })
   }
 
+  /* fetchDirect builds the request JSON, sends it to the server and handles the response */
   this.fetchDirect = function (model) {
     let markers = model.map.markers
     let startTarget = {
@@ -24,8 +26,8 @@ mario.service('directRouteService', [ '$http', 'modifyMap', function ($http, mod
         'lat': markers[1].lat,
         'lon': markers[1].lng
       },
-      'algo': model.selected.algorithm.algorithm
-      /* 'cost': scope.selected.cost --- not implemented on server yet*/
+      'algo': model.selected.algorithm.algorithm/*,
+      'cost': model.selected.costs --- not implemented yet */
     }
     model['usedAlgorithm'] = model.selected.algorithm.algorithm
 
@@ -51,6 +53,7 @@ mario.service('directRouteService', [ '$http', 'modifyMap', function ($http, mod
       })
   }
 
+  /* add route to map of a single route algorithm and set route instructions to the scope */
   this.singleRouteResponse = function (model, geojson) {
     model['algorithmKind'] = 'single'
     geojson.data.features[0].properties['instructions'] = [model.map.markers[0].formattedAddress[0], model.map.markers[1].formattedAddress[0]]
@@ -64,6 +67,7 @@ mario.service('directRouteService', [ '$http', 'modifyMap', function ($http, mod
     modifyMap.centerOnRoute(model)
   }
 
+  /* add route to the map of a multiple route algorithm */
   this.multipleRouteResponse = function (model, geojson) {
     model['algorithmKind'] = 'multiple'
     model.map.routeInfo = undefined
@@ -76,6 +80,7 @@ mario.service('directRouteService', [ '$http', 'modifyMap', function ($http, mod
     }
   }
 
+  /* add charging route to the map with charging marker and delegate the rest to singleRouteResponse */
   this.chargingRouteResponse = function (model, geojson) {
     model['algorithmKind'] = 'charging'
     let chargingStation = geojson.data.features.shift()
@@ -93,17 +98,20 @@ mario.service('directRouteService', [ '$http', 'modifyMap', function ($http, mod
     that.singleRouteResponse(model, geojson)
   }
 
+  /* removes route from the map and deletes used algorithm and route info */
   this.removeRoute = function (model) {
     model.map.geojson = []
     model.usedAlgorithm = undefined
     model.map.routeInfo = undefined
   }
 
+  /* handles the selection of the algorithm */
   this.selectAlgo = function (model, algorithm) {
     model.selected.algorithm = algorithm
     model.selected.costs = [model.selected.algorithm.criteria[0]]
   }
 
+  /* handles the selection of the algorithms costs */
   this.selectCost = function (model, cost) {
     let selected = model.selected
     if (selected.algorithm.max_criteria === 1) selected.costs = [cost]

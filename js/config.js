@@ -37,6 +37,7 @@ mario.factory('config', function () {
       scheme: 'hybrid.day'
     }, common)
   }
+  /* dark grey map in preperation of visited node functionality */
   let grey = {
     name: 'Map',
     url: 'http://{s}.{base}.maps.api.here.com/maptile/2.1/{type}/{mapID}/{scheme}/{z}/{x}/{y}/{size}/{format}?app_id={app_id}&app_code={app_code}&lg={language}',

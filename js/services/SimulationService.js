@@ -4,11 +4,13 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
   let that = this
   let timer
 
+  /* fetch random simulation mock */
   this.fetchSimulation = function (model, flag) {
     $http.get('./mocks/simulations/sim-berlin-' + (Math.round(Math.random() * 3) + 1) + '.json')
       .then(response => that.handleSimulationResponse(model, response, flag))
   }
 
+  /* add simulation data to the map and set configurations for the simulation */
   this.handleSimulationResponse = function (model, response, flag) {
     model.map.markers = []
     model.map.paths = []
@@ -37,6 +39,7 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
     if (flag) that.control(model, 'play')
   }
 
+  /* handle the click on any of the control buttons */
   this.control = function (model, command) {
     switch (command) {
       case 'next':
@@ -75,16 +78,19 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
     }
   }
 
+  /* handles the click on the simulation control bar */
   this.jumpTo = function (model, event) {
     model.simulation.metaData.properties.index = Math.round((event.offsetX + 1) * model.simulation.metaData.properties.frames / 175)
     that.paintSzenario(model, model.simulation.metaData.properties.index)
   }
 
+  /* function is called for every new szenario of the simulation. $timeout to start a digest cycle manually */
   this.paintSzenario = function (model, index) {
     $timeout(() => that.paintCars(model, index), 10)
     $timeout(() => that.paintStorms(model, index), 10)
   }
 
+  /* paint cars on the map */
   this.paintCars = function (model, index) {
     model.simulation.data.cars[index].geometry.coordinates.map(coord => {
       model.map.markers.push({
@@ -101,6 +107,7 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
     })
   }
 
+  /* paint storms on the map */
   this.paintStorms = function (model, index) {
     model.map.paths = []
     for (let i = 0; i < model.simulation.metaData.properties.stormCount; i++) {
@@ -121,6 +128,7 @@ mario.service('simulationService', ['$http', '$timeout', 'modifyMap', function (
     }
   }
 
+  /* remove simulation data */
   this.removeSimulation = function (model) {
     model.simulation = {}
   }

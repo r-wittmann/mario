@@ -4,6 +4,7 @@ mario.service('interRouteService', [ '$http', 'modifyMap', 'reverseGeocode', fun
   let that = this
   const baseUrl = 'http://129.187.228.18:8080/restservices_inter/webresources/intermodal?'
 
+  /* builds the request JSON, requests the intermodal route from the server and handles the response */
   this.calculateIntermodal = function (model, range) {
     let markers = model.map.markers
     let d = model.date
@@ -29,6 +30,7 @@ mario.service('interRouteService', [ '$http', 'modifyMap', 'reverseGeocode', fun
       })
   }
 
+  /* add intermodal route to the map and save route instructions, reverse geocoding is triggered */
   this.addInterRoute = function (model, geojson) {
     let errorMessage = {Error: 'No intermodal connection found! Please try the service in Berlin or increasing the range.'}
 
@@ -50,6 +52,7 @@ mario.service('interRouteService', [ '$http', 'modifyMap', 'reverseGeocode', fun
     } else model.map['routeInfo'] = errorMessage
   }
 
+  /* neccessary for the date to be saved to the scope */
   this.modelDate = function (model, newDate) {
     if (!newDate) newDate = new Date()
     model.date = {
@@ -60,6 +63,7 @@ mario.service('interRouteService', [ '$http', 'modifyMap', 'reverseGeocode', fun
       years: newDate.getFullYear()}
   }
 
+  /* handles the modification of the date on the scope */
   this.changeDate = function (model, index, direction) {
     let oldDate = model.date
     let newDate = new Date(
